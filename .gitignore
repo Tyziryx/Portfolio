@@ -1,0 +1,32 @@
+# Node modules
+/node_modules
+
+# Production build
+/build
+
+# Testing
+/coverage
+
+# Miscellaneous files
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and editors specific files
+.vscode/
+.idea/
+
+# Optional files from package managers
+/pnp.js
+.pnp/
+
+# git configuration for ignoring sensitive files
+# (e.g., your secrets or API keys, etc.):
+.env
