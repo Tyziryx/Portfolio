@@ -1,24 +1,41 @@
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import Hero from './components/Hero/Hero';
+import About from './components/About/About';
+import Projects from './components/Projects/Projects';
+import Skills from './components/Skills/Skills';
+import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
+import { LanguageProvider } from './context/Context';
+
+// Importer AOS
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
+  // Initialiser AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: false,
+      mirror: false,
+      offset: 100
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <LanguageProvider>
+      <div className="portfolio">
+        <Header />
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Contact />
+        <Footer />
+      </div>
+    </LanguageProvider>
   );
 }
 

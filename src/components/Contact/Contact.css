@@ -1,0 +1,119 @@
+.contact {
+  min-height: 70vh;
+  padding-bottom: 6rem;
+}
+
+.contact-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  color: #dddddd;
+  text-align: center;
+  margin-bottom: 3rem;
+  line-height: 1.8;
+}
+
+.contact-methods {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.contact-method {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  min-width: 300px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-method:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+              0 0 15px rgba(66, 211, 255, 0.1);
+  border-color: rgba(66, 211, 255, 0.2);
+}
+
+.contact-icon {
+  font-size: 1.8rem;
+  color: #42d3ff;
+  margin-right: 1.5rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(66, 211, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-method-details h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.contact-method-details a, 
+.contact-method-details p {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.contact-method-details a:hover {
+  color: #42d3ff;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  color: #dddddd;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-5px);
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(66, 211, 255, 0.15), rgba(230, 92, 255, 0.15));
+  border-color: rgba(66, 211, 255, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2),
+              0 0 10px rgba(66, 211, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .contact-methods {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-method {
+    width: 100%;
+    max-width: 350px;
+  }
+}

@@ -1,0 +1,225 @@
+.skills-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skill-category {
+  flex: 1;
+  min-width: 250px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.skill-category h3 {
+  margin-bottom: 1.5rem;
+  color: #42d3ff;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.skills-list {
+  list-style-position: inside;
+  color: #dddddd;
+}
+
+.skills-list li {
+  margin: 0.8rem 0;
+  position: relative;
+  padding-left: 10px;
+}
+
+.skills-list li::before {
+  content: '▹';
+  position: absolute;
+  left: -15px;
+  color: #e65cff;
+}
+
+.skills {
+  padding: 5rem 2rem;
+}
+
+.skills-category-container {
+  margin-bottom: 3rem;
+}
+
+.skills-category-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #42d3ff;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
+}
+
+.skills-category-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, #42d3ff, transparent);
+  border-radius: 2px;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.skill-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3),
+              0 0 15px rgba(66, 211, 255, 0.1);
+}
+
+.skill-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #e65cff;
+  height: 60px;
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(230, 92, 255, 0.1);
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.skill-card h4 {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.skill-level-container {
+  width: 100%;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.skill-level {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1.5s ease-out;
+}
+
+.skill-level.beginner {
+  background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+}
+
+.skill-level.intermediate {
+  background: linear-gradient(90deg, #ffd166, #ffe066);
+}
+
+.skill-level.advanced {
+  background: linear-gradient(90deg, #06d6a0, #1de9b6);
+}
+
+.skill-level.expert {
+  background: linear-gradient(90deg, #42d3ff, #118ab2);
+}
+
+.certification-badge {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(66, 211, 255, 0.1) 0%, rgba(230, 92, 255, 0.1) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(66, 211, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem auto 3rem;
+  max-width: 600px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.certification-badge:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2), 
+              0 0 15px rgba(66, 211, 255, 0.2);
+}
+
+.certification-badge-icon {
+  font-size: 2.5rem;
+  color: #42d3ff;
+  margin-right: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.certification-badge-content h3 {
+  font-size: 1.4rem;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.certification-badge-content p {
+  color: #dddddd;
+  line-height: 1.5;
+}
+
+.certification-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.certification-badge:hover .certification-image {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .certification-badge {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .certification-badge-icon {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  .certification-image {
+    width: 50px;
+    height: 50px;
+  }
+}
