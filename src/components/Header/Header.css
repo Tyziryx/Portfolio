@@ -144,7 +144,7 @@
   box-shadow: 0 0 8px rgba(66, 211, 255, 0.5);
 }
 
-/* Animation pour mobile */
+/* Animation pour mobile - solution agrandie */
 @media (max-width: 768px) {
   .header {
     top: 15px;
@@ -164,32 +164,58 @@
   }
 
   .island-navigation ul {
-    padding: 10px 20px;
+    padding: 12px 18px; /* Augmenté de 8px 12px à 12px 18px */
     border-radius: 30px;
+    justify-content: center;
+    max-width: 95%;
   }
 
   .island-navigation li {
-    margin: 0 10px;
+    margin: 0 6px; /* Augmenté de 0 4px à 0 6px */
   }
 
   .island-navigation a {
-    font-size: 0.85rem;
-    padding: 6px 0;
+    font-size: 0.8rem; /* Augmenté de 0.65rem à 0.8rem */
+    padding: 5px 4px; /* Augmenté de 4px 1px à 5px 4px */
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .language-toggle {
+    width: 26px; /* Augmenté de 22px à 26px */
+    height: 26px; /* Augmenté de 22px à 26px */
+    font-size: 0.75rem; /* Augmenté de 0.65rem à 0.75rem */
+    padding: 0;
+  }
+
+  .language-selector {
+    margin-left: 6px; /* Augmenté de 4px à 6px */
   }
 }
 
-/* Pour les très petits écrans */
+/* Pour les très petits écrans, conservons des dimensions légèrement plus petites */
 @media (max-width: 380px) {
   .island-navigation ul {
-    padding: 8px 15px;
+    padding: 10px 15px; /* Augmenté mais reste plus petit que la taille moyenne */
   }
 
   .island-navigation li {
-    margin: 0 5px;
+    margin: 0 4px;
   }
 
   .island-navigation a {
-    font-size: 0.75rem;
+    font-size: 0.7rem; /* Augmenté de 0.6rem à 0.7rem */
+    padding: 4px 2px;
+    letter-spacing: 0;
+  }
+
+  /* Réduire spécifiquement le texte pour À propos en français */
+  html[lang="fr"] .island-navigation a[href="#about"] span {
+    display: none;
+  }
+
+  html[lang="fr"] .island-navigation a[href="#about"]::before {
+    content: 'À prop.';
   }
 }
 
@@ -224,12 +250,4 @@
 .language-toggle:focus {
   outline: none;
   box-shadow: 0 0 0 2px rgba(66, 211, 255, 0.5);
-}
-
-@media (max-width: 768px) {
-  .language-toggle {
-    width: 26px;
-    height: 26px;
-    font-size: 0.7rem;
-  }
 }

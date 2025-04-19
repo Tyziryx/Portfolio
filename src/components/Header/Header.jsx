@@ -76,7 +76,7 @@ function Header() {
               className={activeSection === 'about' ? 'active' : ''}
               onClick={(e) => handleNavClick(e, 'about')}
             >
-              {t('header.about')}
+              <span>{t('header.about')}</span>
             </a>
           </li>
           <li>
