@@ -20,6 +20,7 @@ export default {
     projects: {
       title: "My Projects",
       codeLink: "View code",
+      siteLink: "View site",
       project1: {
         title: "GéoDex - PHP/PostgreSQL Website",
         description: "Web application for stone collection with authentication, user profiles and admin back-office. Developed in native PHP with PostgreSQL database."

@@ -17,7 +17,9 @@ function Projects() {
       title: t('projects.project1.title'),
       description: t('projects.project1.description'),
       image: project1Image,
-      codeLink: "https://github.com/Tyziryx/WebsiteProg"
+      codeLink: "https://github.com/Tyziryx/WebsiteProg",
+      siteLink: "https://tyzi.fr/geodex" // Ajout du lien vers le site
+
     },
     {
       id: 2,
