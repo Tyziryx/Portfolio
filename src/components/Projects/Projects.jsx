@@ -4,8 +4,8 @@ import ProjectCard from './ProjectCard';
 import useTranslation from '../../hooks/Hooks';
 
 // Importez vos images
-import project1Image from '../../assets/images/dbl.jpg';
-import project2Image from '../../assets/images/dbl.jpg';
+import project1Image from '../../assets/images/geodex.jpg';
+import project2Image from '../../assets/images/java-bdd.png';
 import project3Image from '../../assets/images/dbl.jpg';
 
 function Projects() {

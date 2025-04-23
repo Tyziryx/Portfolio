@@ -1,6 +1,7 @@
 {
   "name": "mon-portfolio",
   "version": "0.1.0",
+  "homepage": "https://tyzi.fr",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
