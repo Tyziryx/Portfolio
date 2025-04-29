@@ -1,0 +1,61 @@
+body {
+  cursor: none;
+}
+
+/* Assurons-nous que tous les éléments interactifs n'affichent pas le curseur par défaut */
+a, button, .hover-effect, 
+.island-navigation a, 
+.language-toggle,
+.cta-button {
+  cursor: none !important;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(66, 211, 255, 0.2);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  z-index: 999;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 64px;
+  height: 64px;
+  border: 2px solid rgba(230, 92, 255, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 998;
+  mix-blend-mode: difference;
+}
+
+/* Ajoutons un style pour l'état "clic" du curseur */
+.cursor-dot.clicking {
+  transform: scale(0.8);
+  background-color: rgba(230, 92, 255, 0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.cursor-ring.clicking {
+  transform: scale(0.8);
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .cursor-dot, .cursor-ring {
+    display: none;
+  }
+  
+  body, a, button, .hover-effect, .island-navigation a, .language-toggle, .cta-button {
+    cursor: auto !important;
+  }
+}

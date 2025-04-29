@@ -51,6 +51,8 @@ function Header() {
   // Défilement doux vers les sections
   const handleNavClick = (e, sectionId) => {
     e.preventDefault();
+    e.stopPropagation(); // Ajoutez cette ligne pour empêcher la propagation
+
     const section = document.getElementById(sectionId);
     if (section) {
       const offsetTop = section.getBoundingClientRect().top + window.pageYOffset - 100;
@@ -62,7 +64,9 @@ function Header() {
     }
   };
 
-  const toggleLanguage = () => {
+  const toggleLanguage = (e) => {
+    e.preventDefault(); // Ajoutez cette ligne
+    e.stopPropagation(); // Et celle-ci
     changeLanguage(language === 'fr' ? 'en' : 'fr');
   };
 
