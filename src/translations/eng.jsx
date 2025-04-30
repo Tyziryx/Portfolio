@@ -10,13 +10,28 @@ export default {
       subtitle: "Computer Science Student (2nd Year)",
       description: "Passionate about programming, networks and new technologies. Turning my courses into real-world projects.",
       cta: "View my projects",
-      scrollDown: "Scroll Down" // Ajoutez cette ligne
+      scrollDown: "Scroll Down"
     },
     about: {
       title: "About Me",
       paragraph1: "I'm a second-year computer science student, passionate about various areas of programming and technology. My academic journey has allowed me to explore different languages such as C++, Python, Java, and JavaScript.",
       paragraph2: "Alongside my studies, I obtained a CCNA1 certification which provided me with a solid foundation in computer networking. I'm also interested in web development and enjoy creating projects that combine these different skills.",
-      paragraph3: "My goal is to continue developing my technical skills while exploring new technologies to find my path in the vast world of computer science."
+      paragraph3: "My goal is to continue developing my technical skills while exploring new technologies to find my path in the vast world of computer science.",
+      // Clés de contact supprimées
+      yearsStudying: "Years Studying",
+      certifications: "Certification",
+      projects: "Projects",
+      technologies: "Technologies",
+      interestsTitle: "Technical Interests",
+      interests: {
+        development: "Web Development",
+        developmentDesc: "I enjoy creating modern web applications using technologies I've already mastered (HTML, CSS, PHP) while exploring new frameworks like React and other modern tools.",
+        networking: "Networks and Infrastructure",
+        networkingDesc: "Configuring and securing networks, with a particular interest in concepts taught in CCNA certification.",
+        maintenance: "Computer Maintenance",
+        maintenanceDesc: "Computer repair, hardware troubleshooting, system upgrades, and general IT maintenance for both hardware and software components."
+      },
+      profileTitle: "My Profile",
     },
     projects: {
       title: "My Projects",
@@ -43,7 +58,7 @@ export default {
     },
     contact: {
       title: "Contact",
-      description: "Feel free to contact me to discuss academic projects, internship opportunities, or simply to chat about tech topics that interest you."
+      description: "Please feel free to contact me regarding professional projects, collaboration opportunities, or for information about my skills and background in computer science."
     },
     footer: {
       copyright: "© {year} - Alexi. Student Portfolio."

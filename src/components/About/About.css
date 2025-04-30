@@ -32,51 +32,111 @@
   box-shadow: var(--accent-glow);
 }
 
+/* Modification de la mise en page pour deux colonnes */
 .about-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-  width: 100%;
+  justify-content: space-between;
+  gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
 }
 
-.about-text {
-  max-width: 700px;
-  background: rgba(255, 255, 255, 0.02);
+.about-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 2.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.about-text p {
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(74, 113, 255, 0.1);
+}
+
+/* Style de titre uniforme pour les deux cartes */
+.about-card .card-title {
+  font-size: 1.5rem;
+  font-family: 'Space Grotesk', 'Poppins', sans-serif;
+  color: #ffffff !important;
   margin-bottom: 1.5rem;
-  font-size: 1.1rem;
-  color: #dddddd;
-  line-height: 1.8;
+  padding-bottom: 0.8rem;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
 }
 
-.about-text p:last-child {
+.card-title:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -1px;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #4a71ff, transparent);
+}
+
+/* Supprimer les styles spécifiques aux classes left-card et right-card */
+.about-card.left-card,
+.about-card.right-card {
+  /* Supprimer les styles spécifiques */
+}
+
+/* Supprimer les styles spécifiques au titre de la carte gauche */
+.about-card.left-card .card-title {
+  /* Supprimer les styles spécifiques */
+}
+
+/* Supprimer les modifications de l'effet after pour la carte gauche */
+.about-card.left-card .card-title:after {
+  /* Revenir aux styles par défaut */
+  display: block;
+}
+
+/* Uniformiser tous les paragraphes */
+.about-card p,
+.card-content p,
+.interest-content p {
+  margin-bottom: 1.2rem;
+  line-height: 1.7;
+  color: #dddddd !important;
+  font-size: 1.05rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card-content p:last-child {
   margin-bottom: 0;
 }
 
-.about-text p strong {
-  color: var(--text-primary);
-  font-weight: 600;
+.interests-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 0.5rem;
 }
 
-@media (max-width: 768px) {
+/* Uniformiser les intérêts */
+.interest-content h4 {
+  color: #ffffff !important;
+  font-family: 'Space Grotesk', 'Poppins', sans-serif;
+  margin-bottom: 0.4rem;
+}
+
+/* Pour mobile */
+@media (max-width: 992px) {
   .about-content {
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;
   }
   
-  .about-text {
-    padding: 1.5rem;
+  .about-card {
+    width: 100%;
   }
 }

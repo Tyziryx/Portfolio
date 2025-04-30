@@ -84,7 +84,7 @@ const CodeLines = ({ count = 8, radius = 2.5 }) => {
           itemSize={3}
         />
       </bufferGeometry>
-      <lineBasicMaterial color="#4a71ff" opacity={0.4} transparent /> // Bleu adapté
+      <lineBasicMaterial color="#4a71ff" opacity={0.4} transparent /> {/* Bleu adapté */}
     </lineSegments>
   );
 };
@@ -104,13 +104,14 @@ const TechSphere = ({ isMobile }) => {
     roughness: 0.1,
     metalness: 0.9,
     emissive: new THREE.Color("#4a71ff"), // Bleu moyen
-    emissiveIntensity: 0.5,
+    emissiveIntensity: 0.7,  // Augmenté de 0.5 à 0.7
     clearcoat: 2.0,
     clearcoatRoughness: 0.05,
     opacity: 1.0,
     transparent: true,
-    transmission: 0.15,
-    envMapIntensity: 1.6,
+    transmission: 0.18,  // Légèrement augmenté de 0.15 à 0.18
+    envMapIntensity: 2.0,  // Augmenté de 1.6 à 2.0
+    reflectivity: 0.6,  // Ajout de reflectivity pour les bords
   }), [hovered]); // Gardons la dépendance pour les autres effets de survol
 
   // Animation interactive
@@ -195,9 +196,10 @@ export function ThreeScene() {
       gl={{ 
         antialias: true, 
         alpha: true,
-        premultipliedAlpha: false, // Change de true à false pour éliminer les artefacts de bord
+        premultipliedAlpha: false,
         preserveDrawingBuffer: false,
         powerPreference: "high-performance"
+        // Suppression de autoClear et outputEncoding qui peuvent causer des problèmes
       }}
       style={{ 
         position: 'absolute',
@@ -205,7 +207,7 @@ export function ThreeScene() {
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'none', // Change 'transparent' à 'none'
+        background: 'none',
         outline: 'none',
         border: 'none',
         pointerEvents: 'auto',
@@ -214,41 +216,38 @@ export function ThreeScene() {
       shadows={false}
       dpr={[1, 2]}
       onCreated={({ gl }) => {
-        // Configuration DirectX pour éliminer les bordures noires
-        gl.setClearColor(0x000000, 0); // Alpha à 0 pour une transparence totale
-        gl.domElement.style.mixBlendMode = "normal"; // Mode de fusion normal pour éviter les artefacts de contraste
+        gl.setClearColor(0x000000, 0);
+        // Suppression de mixBlendMode qui peut causer des artefacts
         gl.domElement.style.background = 'none';
-        gl.domElement.style.borderRadius = '0';
         gl.domElement.style.border = 'none';
         gl.domElement.style.outline = 'none';
-        gl.domElement.style.position = 'absolute';
-        gl.domElement.style.width = 'calc(100% + 4px)'; // Légèrement plus large
-        gl.domElement.style.height = 'calc(100% + 4px)'; // Légèrement plus haut
-        gl.domElement.style.top = '-2px'; // Décalage pour compenser la taille supplémentaire
-        gl.domElement.style.left = '-2px'; // Décalage pour compenser la taille supplémentaire
-        gl.physicallyCorrectLights = true;
+        
+        // Suppression du fog et de l'environment qui peuvent causer des bordures noires
       }}
     >
-      {/* Éclairage optimisé pour ambiance tech/cyber */}
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} intensity={1.0} color="#ffffff" />
-      <pointLight position={[-10, -10, -10]} intensity={0.7} color="#0a1d56" /> // Bleu foncé
-      <pointLight position={[5, 0, -5]} intensity={0.7} color="#4a71ff" /> // Bleu moyen
+      {/* Éclairage simplifié mais toujours coloré */}
+      <ambientLight intensity={0.8} color="#ffffff" /> {/* Revenu au blanc pour l'éclairage ambiant principal */}
+      <pointLight position={[10, 10, 10]} intensity={1.3} color="#7a4aff" /> 
+      <pointLight position={[-10, -10, -10]} intensity={1.2} color="#4a71ff" />
+      <pointLight position={[5, 0, -5]} intensity={1.5} color="#4a71ff" />
       
-      {/* Environment custom au lieu de "city" */}
-      <Environment preset="night" />
+      {/* Environnement night sans modifications supplémentaires */}
+      <Environment preset="night" background={false} />
       
       {/* Modèle principal */}
       <TechSphere isMobile={isMobile} />
       
-      {/* Ombre digitale */}
+      {/* Ombre très légère ou à supprimer si encore problématique
+        - opacity réduit de 0.12 à 0.08
+        - blur augmenté de 3 à 5 pour réduire la netteté
+      */}
       <ContactShadows
         position={[0, -1.8, 0]}
-        opacity={0.12}
+        opacity={0.08}
         scale={10}
-        blur={3}
+        blur={5}
         far={3}
-        color="#0a1d56" // Bleu foncé
+        color="#0a1d56"
       />
     </Canvas>
   );

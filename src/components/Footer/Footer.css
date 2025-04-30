@@ -1,7 +1,7 @@
 .simple-footer {
   padding: 1.5rem 2rem;
   background: linear-gradient(180deg, transparent, rgba(10, 12, 31, 0.3));
-  margin-top: 0.5rem; /* Réduit de 2rem à 0.5rem pour diminuer l'espace */
+  margin-top: 2rem;
 }
 
 .footer-content {

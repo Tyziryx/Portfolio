@@ -7,6 +7,7 @@ import { useLanguage } from '../../context/Context';
 import { ThreeScene } from './ThreeScene';
 import StarryBackground from './StarryBackground';
 import './Hero.css';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 // Enregistrer le plugin TextPlugin pour les animations de texte
 gsap.registerPlugin(TextPlugin);
@@ -19,6 +20,7 @@ function Hero() {
   const descriptionRef = useRef(null);
   const socialsRef = useRef(null);
   const ctaRef = useRef(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   useEffect(() => {
     // Animation séquentielle
@@ -142,15 +144,27 @@ function Hero() {
           </div>
         </div>
 
-        {/* Section droite - Animation 3D avec meilleure intégration */}
-        <div className="hero-right">
-          <div className="three-container-wrapper">
-            <div className="three-container">
-              <ThreeScene />
-              <div className="three-container-mask"></div>
+        {/* Section droite - Animation 3D avec adaptation mobile */}
+        {!isMobile ? (
+          // Afficher l'animation 3D uniquement sur desktop
+          <div className="hero-right">
+            <div className="three-container-wrapper">
+              <div className="three-container">
+                <ThreeScene />
+                <div className="three-container-mask"></div>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          // Sur mobile, afficher un élément visuel alternatif plus léger
+          <div className="hero-right mobile">
+            <div className="mobile-graphic">
+              <div className="tech-circle">
+                <i className="fas fa-code"></i>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

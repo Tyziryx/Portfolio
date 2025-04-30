@@ -33,9 +33,27 @@ function App() {
       offset: 100
     });
 
-    // Simulation de chargement
-    const timer = setTimeout(() => setLoading(false), 2000);
-    return () => clearTimeout(timer);
+    // Chargement progressif au lieu de simulation fixe
+    const minLoadTime = 1000; // Temps minimum (1s)
+    const startTime = Date.now();
+    
+    // Fonction qui vérifie si les ressources sont prêtes
+    const checkReadiness = () => {
+      const elapsed = Date.now() - startTime;
+      
+      if (elapsed < minLoadTime) {
+        // Attendre au moins le temps minimum
+        setTimeout(checkReadiness, 100);
+      } else if (document.readyState === 'complete') {
+        // Page complètement chargée
+        setLoading(false);
+      } else {
+        // Vérifier à nouveau dans 100ms
+        setTimeout(checkReadiness, 100);
+      }
+    };
+    
+    checkReadiness();
   }, []);
 
   useEffect(() => {
@@ -56,15 +74,41 @@ function App() {
           <motion.div 
             key="loader"
             className="loader"
-            initial={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
           >
+            <div className="loader-particles">
+              {Array.from({ length: 40 }).map((_, index) => (
+                <div 
+                  key={index}
+                  className="loader-particle"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    opacity: Math.random() * 0.7,
+                    width: `${Math.random() * 3 + 1}px`,
+                    height: `${Math.random() * 3 + 1}px`,
+                    animationDelay: `${Math.random() * 2}s`,
+                    animationDuration: `${Math.random() * 3 + 2}s`
+                  }}
+                />
+              ))}
+            </div>
+
             <div className="loader-content">
-              <div className="loader-logo">A</div>
-              <div className="loader-bar">
-                <div className="loader-progress"></div>
+              <div className="loader-logo">
+                <div className="loader-logo-text">A</div>
+                <div className="loader-hexagons"></div>
               </div>
+
+              <div className="loader-progress-container">
+                <div className="loader-progress-bar"></div>
+                <div className="loader-progress-pulse"></div>
+              </div>
+
+              <div className="loader-text">Chargement du Portfolio</div>
             </div>
           </motion.div>
         ) : (

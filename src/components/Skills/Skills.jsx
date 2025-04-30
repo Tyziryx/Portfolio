@@ -18,6 +18,7 @@ function Skills() {
     { name: "CSS3", icon: "devicon-css3-plain colored", category: "web" },
     { name: "JavaScript", icon: "devicon-javascript-plain colored", category: "web" },
     { name: "React", icon: "devicon-react-original colored", category: "web" },
+    { name: "PHP", icon: "devicon-php-plain colored", category: "web" },
     
     // Réseaux et Systèmes
     { name: "PostgreSQL", icon: "devicon-postgresql-plain colored", category: "network" },

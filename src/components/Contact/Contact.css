@@ -1,6 +1,7 @@
+/* Réduire l'espace vertical de la section contact */
 .contact {
-  min-height: 70vh;
-  padding-bottom: 2rem; /* Réduit de 6rem à 2rem */
+  min-height: 60vh; /* Réduit de 70vh à 60vh */
+  padding-bottom: 0.5rem; /* Réduit de 2rem à 0.5rem */
 }
 
 .contact-container {

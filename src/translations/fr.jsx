@@ -16,7 +16,24 @@ export default {
     title: "À propos de moi",
     paragraph1: "Je suis un étudiant en deuxième année de licence informatique, passionné par divers domaines de la programmation et des technologies. Mon parcours académique m'a permis d'explorer différents langages comme C++, Python, Java et JavaScript.",
     paragraph2: "En parallèle de mes études, j'ai obtenu une certification CCNA1 qui m'a apporté des connaissances solides en réseaux informatiques. Je m'intéresse également au développement web et j'aime créer des projets qui combinent ces différentes compétences.",
-    paragraph3: "Mon objectif est de continuer à développer mes compétences techniques tout en explorant de nouvelles technologies pour trouver ma voie dans le vaste monde de l'informatique."
+    paragraph3: "Mon objectif est de continuer à développer mes compétences techniques tout en explorant de nouvelles technologies pour trouver ma voie dans le vaste monde de l'informatique.",
+    cvTitle: "Mon CV",
+    cvDescription: "Téléchargez mon CV pour découvrir mon parcours académique, mes compétences techniques et mes expériences.",
+    downloadBtn: "Télécharger",
+    yearsStudying: "Années d'études",
+    certifications: "Certification",
+    projects: "Projets",
+    technologies: "Technologies",
+    interestsTitle: "Centres d'intérêt techniques",
+    interests: {
+      development: "Développement Web",
+      developmentDesc: "J'aime créer des applications web modernes en utilisant des technologies que j'ai déjà maîtrisées (HTML, CSS, PHP) tout en explorant de nouveaux frameworks comme React et d'autres outils modernes.",
+      networking: "Réseaux et Infrastructure",
+      networkingDesc: "Configuration et sécurisation des réseaux, avec un intérêt particulier pour les concepts enseignés dans la certification CCNA.",
+      maintenance: "Maintenance Informatique",
+      maintenanceDesc: "Réparation d'ordinateurs, dépannage matériel, mise à niveau des systèmes et maintenance informatique générale pour les composants matériels et logiciels."
+    },
+    profileTitle: "Mon Profil",
   },
   projects: {
     title: "Mes Projets",
@@ -43,7 +60,7 @@ export default {
   },
   contact: {
     title: "Contact",
-    description: "N'hésitez pas à me contacter pour discuter de projets académiques, d'opportunités de stage ou simplement pour échanger sur des sujets technologiques qui vous passionnent."
+    description: "Vous pouvez me contacter pour discuter de projets professionnels, d'opportunités de collaboration ou pour des informations sur mes compétences et mon parcours en informatique."
   },
   footer: {
     copyright: "© {year} - Alexi. Portfolio étudiant."

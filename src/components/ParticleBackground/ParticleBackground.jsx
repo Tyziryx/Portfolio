@@ -63,18 +63,18 @@ const ParticleBackground = () => {
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1000, // Augmenté de 800 à 1000 pour moins de particules
             },
-            value: 40,
+            value: 28, // Réduit de 40 à 28
           },
           opacity: {
-            value: 0.4,
+            value: 0.3, // Réduit de 0.4 à 0.3
           },
           shape: {
             type: "circle",
           },
           size: {
-            value: { min: 1, max: 3 },
+            value: { min: 0.8, max: 2.5 }, // Ajusté pour une meilleure apparence
           },
         },
         detectRetina: true,
