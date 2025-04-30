@@ -44,6 +44,10 @@ export default {
       project2: {
         title: "My Grocery Store - Java Application",
         description: "Management application for grocery stores including supplier management, inventory, sales and dashboards. Developed in Java with PostgreSQL and Swing GUI."
+      },
+      project3: {
+        title: "AdminMonitoring System - Server Monitoring",
+        description: "System monitoring application developed in Python providing real-time monitoring of CPU, RAM and disk metrics. Flask web interface with graphical visualizations and configurable alert system."
       }
     },
     skills: {

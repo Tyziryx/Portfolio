@@ -14,24 +14,71 @@
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   border-radius: 8px;
   overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
 }
 
 .project-card:hover {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-10px) scale(1.02) rotateX(2deg);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
               0 0 15px rgba(66, 211, 255, 0.1);
 }
 
+/* Standardisation des images de projet pour une apparence uniforme */
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  height: 200px; /* Hauteur fixe pour toutes les images */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 -3px 6px rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2); /* Fond pour les images qui ne chargent pas correctement */
+}
+
 .project-image img {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover; /* Garantit que l'image remplit le conteneur tout en préservant le ratio */
+  transform: scale(1);
+  transition: transform 0.5s ease;
+  filter: brightness(1) contrast(1.05);
+  object-position: center 0; /* Force toutes les images à montrer la partie supérieure */
+}
+
+/* Style uniforme au survol */
+.project-card:hover .project-image img {
+  transform: scale(1.1);
+  filter: brightness(1.05) contrast(1.05);
+}
+
+/* Style uniforme pour l'overlay */
+.project-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, 
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.8) 100%);
+  opacity: 0.35;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Assombrir légèrement au survol pour mieux voir le bouton de loupe */
+.project-image:hover::before {
+  opacity: 0.45;
 }
 
 .project-card h3 {
-  padding: 1rem;
+  padding: 1.2rem 1rem;
   font-size: 1.3rem;
   color: #ffffff;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); /* Ajoute de la lisibilité si superposé à l'image */
 }
 
 .project-card p {
@@ -54,4 +101,113 @@
 
 .project-link:hover {
   color: #7a4aff; /* Remplacé #e65cff par violet plus cohérent avec notre palette */
+}
+
+/* Ajout du curseur pointeur pour indiquer que l'image est cliquable */
+.clickable-image {
+  cursor: pointer;
+}
+
+/* Bouton pour visualiser l'image en grand */
+.view-image-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(74, 113, 255, 0.3); /* Couleur bleue pour plus de contraste */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+}
+
+.view-image-btn:hover {
+  background: rgba(122, 74, 255, 0.5);
+}
+
+.project-image:hover .view-image-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Style pour la modal d'image */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  padding: 20px;
+  box-sizing: border-box; /* Important pour conserver les padding dans les dimensions */
+}
+
+/* Corriger les dimensions du conteneur */
+.modal-content {
+  position: relative;
+  max-width: 90%; /* Réduit de 1000px à 90% pour s'adapter aux petits écrans */
+  width: auto; /* Auto au lieu de 90% fixe */
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* Corriger les dimensions de l'image */
+.modal-content img {
+  max-width: 100%; /* Maximum 100% de la largeur du conteneur */
+  max-height: 80vh; /* Maximum 80% de la hauteur de la fenêtre */
+  width: auto; /* Laisser le navigateur calculer la largeur proportionnellement */
+  height: auto; /* Laisser le navigateur calculer la hauteur proportionnellement */
+  object-fit: contain; /* Maintenir le ratio d'aspect */
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style amélioré pour le bouton de fermeture */
+.close-modal {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 101;
+}
+
+/* Ajuster pour les appareils mobiles */
+@media (max-width: 768px) {
+  .project-image {
+    height: 180px;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+  
+  .modal-content img {
+    max-height: 70vh;
+  }
 }

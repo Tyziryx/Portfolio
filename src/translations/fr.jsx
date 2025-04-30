@@ -46,6 +46,10 @@ export default {
     project2: {
       title: "Ma Supérette du Net - Application Java",
       description: "Application de gestion pour supérette incluant gestion des fournisseurs, stocks, ventes et tableaux de bord. Développée en Java avec PostgreSQL et interface graphique Swing."
+    },
+    project3: {
+      title: "AdminMonitoring System - Surveillance Serveur",
+      description: "Application de surveillance système développée en Python offrant un monitoring en temps réel des métriques CPU, RAM et disque. Interface web Flask avec visualisations graphiques et système d'alertes configurables."
     }
   },
   skills: {

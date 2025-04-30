@@ -16,7 +16,7 @@
 .header.scrolled .island-navigation ul {
   background-color: rgba(15, 15, 18, 0.85);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4),
-              0 0 10px rgba(66, 211, 255, 0.1);
+              0 0 10px rgba(74, 113, 255, 0.1); /* Ombre bleue cohérente */
   transform: scale(0.92);
 }
 
@@ -50,7 +50,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #42d3ff, #e65cff);
+  background: linear-gradient(90deg, #4a71ff, #7a4aff); /* Nouvelles couleurs */
   transition: width 0.3s ease;
 }
 
@@ -67,6 +67,18 @@
   justify-content: center;
 }
 
+/* Animation d'apparition initiale */
+@keyframes navbarAppear {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
+}
+
 .island-navigation ul {
   display: flex;
   list-style: none;
@@ -78,11 +90,12 @@
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-radius: 50px;
-  padding: 12px 35px;
+  padding: 14px 38px; /* Légèrement agrandi: 12px 35px → 14px 38px */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
-              0 0 10px rgba(66, 211, 255, 0.05);
+              0 0 10px rgba(74, 113, 255, 0.05); /* Ombre bleue cohérente */
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: navbarAppear 0.8s ease forwards;
 }
 
 .island-navigation li {
@@ -93,9 +106,9 @@
 
 .island-navigation a {
   text-decoration: none;
-  color: #dddddd;
+  color: #dddddd; /* Augmenté: #cccccc → #dddddd */
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 1rem; /* Légèrement agrandi: 0.95rem → 1rem */
   letter-spacing: 0.5px;
   padding: 8px 5px;
   transition: all 0.3s ease;
@@ -110,7 +123,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #42d3ff, #e65cff);
+  background: linear-gradient(90deg, #4a71ff, #7a4aff); /* Nouvelles couleurs */
   transition: width 0.3s ease, opacity 0.3s ease;
   border-radius: 1px;
   opacity: 0;
@@ -133,15 +146,16 @@
 /* Style pour l'élément actif */
 .island-navigation a.active {
   color: #ffffff;
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.4); /* Plus prononcé */
+  font-weight: 600; /* Plus en gras */
 }
 
 .island-navigation a.active::after {
   width: 100%;
   opacity: 1;
-  height: 2.5px;
-  background: linear-gradient(90deg, #42d3ff, #e65cff);
-  box-shadow: 0 0 8px rgba(66, 211, 255, 0.5);
+  height: 3px; /* Plus épais: 2.5px → 3px */
+  background: linear-gradient(90deg, #4a71ff, #7a4aff); /* Nouvelles couleurs */
+  box-shadow: 0 0 10px rgba(74, 113, 255, 0.6); /* Plus lumineux */
 }
 
 /* Animation pour mobile - solution agrandie */
@@ -164,7 +178,7 @@
   }
 
   .island-navigation ul {
-    padding: 12px 18px; /* Augmenté de 8px 12px à 12px 18px */
+    padding: 13px 20px; /* Plus confortable sans prendre trop d'espace */
     border-radius: 30px;
     justify-content: center;
     max-width: 95%;
@@ -175,7 +189,7 @@
   }
 
   .island-navigation a {
-    font-size: 0.8rem; /* Augmenté de 0.65rem à 0.8rem */
+    font-size: 0.85rem; /* Plus lisible: 0.8rem → 0.85rem */
     padding: 5px 4px; /* Augmenté de 4px 1px à 5px 4px */
     letter-spacing: 0;
     white-space: nowrap;

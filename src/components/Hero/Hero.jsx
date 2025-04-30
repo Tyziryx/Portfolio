@@ -9,7 +9,7 @@ import StarryBackground from './StarryBackground';
 import './Hero.css';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 
-// Enregistrer le plugin TextPlugin pour les animations de texte
+// Enregistrer uniquement TextPlugin
 gsap.registerPlugin(TextPlugin);
 
 function Hero() {
@@ -34,12 +34,16 @@ function Hero() {
       0
     );
     
-    // Animer le titre
-    tl.fromTo(
-      titleRef.current,
-      { x: -50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1.2 }
-    );
+    // Animation du titre sans SplitText
+    if (titleRef.current) {
+      const title = titleRef.current.querySelector('.gradient-text');
+      // Animation alternative sans SplitText
+      gsap.fromTo(
+        title,
+        { y: 100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: "back.out(1.7)" }
+      );
+    }
     
     // Animer le sous-titre
     tl.fromTo(
