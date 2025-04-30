@@ -17,6 +17,8 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 // Import polices personnalisées via CSS
+import "devicon/devicon.min.css";
+
 import './fonts.css';
 
 function App() {
