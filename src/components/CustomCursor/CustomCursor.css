@@ -2,52 +2,76 @@ body {
   cursor: none;
 }
 
-/* Assurons-nous que tous les éléments interactifs n'affichent pas le curseur par défaut */
+/* Élements qui utilisent le curseur personnalisé */
 a, button, .hover-effect, 
 .island-navigation a, 
 .language-toggle,
-.cta-button {
+.cta-button,
+.three-container,
+.three-container canvas,
+canvas.three-canvas {
   cursor: none !important;
 }
 
+/* Dot cursor moderne */
 .cursor-dot {
   position: fixed;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  background-color: rgba(66, 211, 255, 0.2);
-  backdrop-filter: blur(4px);
+  background-color: rgba(74, 113, 255, 0.8); /* Plus opaque pour être plus visible */
   pointer-events: none;
-  z-index: 999;
-  mix-blend-mode: difference;
+  z-index: 99999;
+  transform-origin: center;
+  transition: transform 0.1s ease-out, background-color 0.2s ease;
+  box-shadow: 0 0 15px rgba(74, 113, 255, 0.6); /* Glow effect renforcé */
+  will-change: transform;
 }
 
+/* Ring cursor moderne */
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 64px;
-  height: 64px;
-  border: 2px solid rgba(230, 92, 255, 0.4);
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid rgba(74, 113, 255, 0.5); /* Bleu moyen */
   border-radius: 50%;
   pointer-events: none;
-  z-index: 998;
-  mix-blend-mode: difference;
+  z-index: 99998;
+  transition: width 0.3s ease-out, height 0.3s ease-out, border-color 0.3s ease, transform 0.2s ease-out;
+  will-change: transform, width, height;
 }
 
-/* Ajoutons un style pour l'état "clic" du curseur */
+/* Effet au survol d'éléments interactifs */
+.cursor-ring.hover {
+  width: 65px;
+  height: 65px;
+  border-color: rgba(74, 113, 255, 0.8); /* Bleu moyen */
+  background-color: rgba(74, 113, 255, 0.05); /* Bleu moyen */
+  backdrop-filter: blur(2px);
+}
+
+/* Effet au clic */
 .cursor-dot.clicking {
-  transform: scale(0.8);
-  background-color: rgba(230, 92, 255, 0.4);
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transform: scale(1.5);
+  background-color: rgba(122, 74, 255, 0.8); /* Violet */
 }
 
 .cursor-ring.clicking {
   transform: scale(0.8);
-  opacity: 0.7;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  border-color: rgba(122, 74, 255, 0.7); /* Violet */
+}
+
+/* Modifications spécifiques pour ThreeScene */
+.three-container .cursor-dot {
+  background-color: rgba(74, 113, 255, 0.7); /* Bleu moyen */
+}
+
+.three-container .cursor-ring {
+  border-color: rgba(74, 113, 255, 0.5); /* Bleu moyen */
 }
 
 @media (max-width: 768px) {
@@ -55,7 +79,8 @@ a, button, .hover-effect,
     display: none;
   }
   
-  body, a, button, .hover-effect, .island-navigation a, .language-toggle, .cta-button {
+  body, a, button, .hover-effect, .island-navigation a, .language-toggle, .cta-button,
+  .three-container, .three-container canvas {
     cursor: auto !important;
   }
 }

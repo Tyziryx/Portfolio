@@ -21,6 +21,8 @@ import './fonts.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  // Ajoutez ce hook dans votre App.js
+  const [reduceAnimations, setReduceAnimations] = useState(false);
 
   // Initialiser AOS
   useEffect(() => {
@@ -34,6 +36,17 @@ function App() {
     // Simulation de chargement
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Détecter les préférences d'animation réduites
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduceAnimations(mediaQuery.matches);
+    
+    const handleChange = (e) => setReduceAnimations(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   return (
@@ -62,6 +75,18 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
+            {/* Nouveaux éléments d'arrière-plan */}
+            <div className="backdrop"></div>
+            <div className="noise-overlay"></div>
+            <div className="backdrop-wave"></div> {/* Nouvel élément */}
+            {!reduceAnimations && <div className="particles-subtle"></div>}
+            <div className="glow-effect"></div>
+            <div className="glow-accent"></div>
+            
+            {/* Vous pouvez enlever ces éléments maintenant redondants */}
+            {/* <div className="fog-overlay"></div> */}
+            {/* <div className="kinetic-background-global"></div> */}
+            
             <CustomCursor />
             <ParticleBackground />
             <Header />

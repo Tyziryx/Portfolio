@@ -1,13 +1,32 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import './Footer.css';
-import useTranslation from '../../hooks/Hooks';
 
 function Footer() {
-  const { t } = useTranslation();
+  const currentYear = new Date().getFullYear();
+  
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
   
   return (
-    <footer className="footer">
-      <p>{t('footer.copyright')}</p>
+    <footer className="simple-footer">
+      <div className="footer-content">
+        <p className="copyright">© {currentYear} Alexi Portfolio</p>
+        
+        <motion.button 
+          className="scroll-top-button"
+          onClick={scrollToTop}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          aria-label="Revenir en haut"
+        >
+          <i className="fas fa-arrow-up"></i>
+        </motion.button>
+      </div>
     </footer>
   );
 }

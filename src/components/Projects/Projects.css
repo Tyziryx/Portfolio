@@ -47,11 +47,11 @@
 .project-link {
   margin-right: 1rem;
   text-decoration: none;
-  color: #42d3ff;
+  color: #4a71ff; /* Remplacé #42d3ff (cyan) par bleu moyen */
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
 .project-link:hover {
-  color: #e65cff;
+  color: #7a4aff; /* Remplacé #e65cff par violet plus cohérent avec notre palette */
 }

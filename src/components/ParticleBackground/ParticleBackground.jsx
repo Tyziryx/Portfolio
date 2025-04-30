@@ -41,10 +41,10 @@ const ParticleBackground = () => {
         },
         particles: {
           color: {
-            value: "#42d3ff",
+            value: "#4a71ff", // Remplacé #42d3ff (cyan) par bleu moyen
           },
           links: {
-            color: "#e65cff",
+            color: "#7a4aff", // Remplacé #e65cff par violet plus profond
             distance: 150,
             enable: true,
             opacity: 0.3,

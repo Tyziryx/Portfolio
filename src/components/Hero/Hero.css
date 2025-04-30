@@ -10,60 +10,19 @@
   z-index: 1;
 }
 
-/* Background avec effet gradients animés */
+/* Modifier ces éléments pour éviter la duplication d'effets d'arrière-plan */
+
+/* Désactiver l'arrière-plan spécifique de la Hero qui est maintenant global */
 .hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background-color: #050508; /* Plus foncé que #0a0a0a pour plus de profondeur */
-  overflow: hidden; /* Pour contenir les effets */
+  display: none; /* on utilise l'arrière-plan global */
 }
 
 .gradient-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(
-      circle at 70% 30%, 
-      rgba(30, 41, 59, 0.5) 0%, 
-      rgba(10, 10, 16, 0) 50%
-    ),
-    linear-gradient(
-      135deg, 
-      rgba(17, 24, 39, 0.95) 0%, 
-      rgba(10, 10, 16, 0.98) 100%
-    );
-  z-index: -1;
-  backdrop-filter: blur(40px); /* Effet de profondeur */
+  display: none; /* on utilise l'arrière-plan global */
 }
 
-/* Ajout d'un effet cinétique discret */
 .kinetic-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%236a00ff' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
-  animation: moveBackground 120s linear infinite;
-  z-index: -1;
-}
-
-/* Animation lente du motif de fond */
-@keyframes moveBackground {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 1000px 1000px;
-  }
+  display: none; /* on utilise l'arrière-plan global */
 }
 
 /* Étincelles/particules subtiles */
@@ -104,15 +63,9 @@
   margin-bottom: 2rem;
 }
 
-.social-link {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.5rem;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
+/* Actualiser la couleur du hover pour les liens sociaux */
 .social-link:hover {
-  color: #00f7ff;
+  color: #7a4aff; /* Violet au lieu de bleu cyan */
 }
 
 .hero-text {
@@ -128,28 +81,30 @@
   position: relative;
 }
 
+/* Modifier le dégradé du texte pour qu'il soit plus visible */
 .gradient-text {
-  background: linear-gradient(90deg, #6a00ff, #ff00ff);
+  background: linear-gradient(90deg, #2447b3, #7a4aff); /* Commence avec un bleu plus vif */
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: transparent !important;
   display: inline-block;
   position: relative;
+  -webkit-text-fill-color: transparent; /* Nécessaire pour certains navigateurs */
 }
 
-/* Effet de lueur autour du titre */
+/* Effet de lueur autour du titre - ajuster pour meilleure visibilité */
 .gradient-text::after {
   content: "Alexi";
   position: absolute;
   top: 0;
   left: 0;
-  color: transparent;
-  filter: blur(20px);
   z-index: -1;
   opacity: 0.8;
-  background: linear-gradient(90deg, #6a00ff, #ff00ff);
+  background: linear-gradient(90deg, #2447b3, #7a4aff);
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: blur(20px);
 }
 
 .hero-subtitle {
@@ -168,6 +123,7 @@
   min-height: 4.8rem; /* Réserver l'espace pour 2 lignes */
 }
 
+/* Amélioration du bouton CTA - changement de la couleur au survol */
 .hero-cta {
   display: flex;
   align-items: center;
@@ -176,7 +132,7 @@
   font-size: 1rem;
   letter-spacing: 0.5px;
   font-weight: 500;
-  background: linear-gradient(90deg, #00f7ff, #6a00ff);
+  background: var(--accent-gradient);
   color: white;
   border: none;
   border-radius: 50px;
@@ -184,6 +140,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(10, 29, 86, 0.4);
 }
 
 .hero-cta::before {
@@ -193,13 +150,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, #6a00ff, #00f7ff);
+  background: var(--accent-gradient-reverse);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.hero-cta:hover::before {
-  opacity: 1;
+.hero-cta:hover {
+  box-shadow: 0 6px 20px rgba(74, 113, 255, 0.5); /* Remplacé cyan par bleu moyen */
 }
 
 .hero-cta span {
@@ -225,7 +182,60 @@
   z-index: 1;
 }
 
-/* Conteneur du wrapper avec gestion améliorée */
+/* Amélioration du conteneur 3D pour supprimer la trace de cadre visible */
+.three-container {
+  width: 100%;
+  height: 450px;
+  max-width: 450px;
+  position: relative;
+  background: transparent;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+/* Assurer que le canvas est vraiment transparent */
+.three-container canvas,
+canvas.three-canvas {
+  display: block;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: none;
+}
+
+/* Supprimer l'effet de lueur qui crée le cadre visible */
+.three-container::before {
+  display: none;
+}
+
+/* Ajouter cette nouvelle classe pour masquer le cadre */
+.three-container-mask {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(12, 14, 31, 0) 70%,
+    var(--bg-dark) 85%,
+    var(--bg-primary) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Assurez-vous que le wrapper a position: relative pour le positionnement correct du masque */
 .three-container-wrapper {
   position: relative;
   width: 100%;
@@ -234,104 +244,5 @@
   justify-content: center;
   align-items: center;
   overflow: visible;
-}
-
-/* Style amélioré pour le conteneur Three.js - suppression complète des bordures */
-.three-container {
-  width: 100%;
-  height: 450px;
-  max-width: 450px;
-  position: relative;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-  overflow: visible; /* Permettre aux effets de dépasser sans être coupés */
-  z-index: 1;
-}
-
-/* Effet de flou adaptatif pour les navigateurs compatibles */
-.three-backdrop-blur {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(
-    circle at center,
-    rgba(10, 10, 26, 0) 35%,
-    rgba(10, 10, 26, 0.2) 100%
-  );
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Lueur violette derrière le modèle 3D - améliorée et agrandie */
-.three-container::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140%; /* Plus large que le conteneur pour masquer complètement les bordures */
-  height: 140%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(106, 0, 255, 0.15) 0%,
-    rgba(255, 0, 255, 0.08) 40%,
-    transparent 80%
-  );
-  filter: blur(40px);
-  z-index: -1;
-  opacity: 0.95;
-  animation: pulseGlow 8s infinite alternate;
-  will-change: transform, opacity;
-}
-
-/* Animation pour la lueur */
-@keyframes pulseGlow {
-  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.7; }
-  100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-}
-
-/* S'assurer que le canvas Three.js n'a aucune bordure */
-.three-container canvas {
-  display: block !important;
-  outline: none !important;
-  border: none !important;
-  background: transparent !important;
-  width: 100% !important;
-  height: 100% !important;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  box-shadow: none !important;
-  pointer-events: auto; /* Permettre les interactions souris */
-}
-
-/* Support pour les navigateurs anciens sans backdrop-filter */
-@supports not (backdrop-filter: blur(6px)) {
-  .three-container::before {
-    filter: blur(30px);
-    opacity: 0.8;
-  }
-}
-
-/* Optimisations pour mobile */
-@media (max-width: 768px) {
-  .three-container-wrapper {
-    height: 300px;
-  }
-  
-  .three-container {
-    height: 300px;
-    max-width: 300px;
-  }
-  
-  .three-container::before {
-    width: 130%;
-    height: 130%;
-  }
+  background: transparent;
 }

@@ -1,6 +1,6 @@
 .contact {
   min-height: 70vh;
-  padding-bottom: 6rem;
+  padding-bottom: 2rem; /* Réduit de 6rem à 2rem */
 }
 
 .contact-container {
@@ -46,11 +46,11 @@
 
 .contact-icon {
   font-size: 1.8rem;
-  color: #42d3ff;
+  color: #4a71ff; /* Remplacé #42d3ff (cyan) par bleu moyen */
   margin-right: 1.5rem;
   width: 50px;
   height: 50px;
-  background: rgba(66, 211, 255, 0.1);
+  background: rgba(74, 113, 255, 0.1); /* Assorti à la couleur */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -72,7 +72,7 @@
 }
 
 .contact-method-details a:hover {
-  color: #42d3ff;
+  color: #7a4aff; /* Remplacé cyan par violet */
 }
 
 .social-links {

@@ -44,9 +44,6 @@ function Contact() {
             <a href="https://linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" className="social-link">
               <i className="fab fa-linkedin-in"></i>
             </a>
-            <a href="https://discord.com/users/tyziryx" target="_blank" rel="noopener noreferrer" className="social-link">
-              <i className="fab fa-discord"></i>
-            </a>
           </div>
         </div>
       </div>

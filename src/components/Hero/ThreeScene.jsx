@@ -1,291 +1,203 @@
-import React, { useRef, useMemo, useEffect } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, MeshDistortMaterial, Sphere, Environment } from '@react-three/drei';
+import { MeshDistortMaterial, Sphere, Environment, ContactShadows, useHelper } from '@react-three/drei';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import * as THREE from 'three';
 
-// Composant pour ajuster la taille de la caméra
-const CameraController = () => {
-  const { camera } = useThree();
-  
-  useEffect(() => {
-    const updateCameraFov = () => {
-      camera.fov = window.innerWidth < 768 ? 75 : 60;
-      camera.updateProjectionMatrix();
-    };
-    
-    window.addEventListener('resize', updateCameraFov);
-    updateCameraFov();
-    
-    return () => window.removeEventListener('resize', updateCameraFov);
-  }, [camera]);
-  
-  return null;
+// Particules représentant des bits/données informatiques
+const DataParticles = ({ count = 40, radius = 2.2 }) => {
+  const points = useRef();
+  const positions = useMemo(() => {
+    const pos = [];
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      // Distribution sur plusieurs orbites pour simuler des flux de données
+      const orbitRadius = radius * (0.8 + Math.random() * 0.5);
+      const x = Math.cos(angle) * orbitRadius;
+      const y = (Math.random() - 0.5) * 1.2;
+      const z = Math.sin(angle) * orbitRadius;
+      pos.push(x, y, z);
+    }
+    return new Float32Array(pos);
+  }, [count, radius]);
+
+  useFrame(({ clock }) => {
+    if (points.current) {
+      const time = clock.getElapsedTime() * 0.3;
+      points.current.rotation.y = time * 0.2;
+      // Animation plus dynamique des particules
+      points.current.rotation.z = Math.sin(time * 0.1) * 0.1;
+    }
+  });
+
+  return (
+    <points ref={points}>
+      <bufferGeometry>
+        <bufferAttribute 
+          attachObject={['attributes', 'position']} 
+          array={positions} 
+          count={count} 
+          itemSize={3} 
+        />
+      </bufferGeometry>
+      <pointsMaterial 
+        size={0.06} 
+        color="#4a71ff" // Bleu plus clair qui correspond au thème
+        transparent 
+        opacity={0.8}
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
 };
 
-// Composant pour la sphère avec effet violet/magenta
-const EnhancedSphere = ({ isMobile }) => {
+// Lignes de code simulées autour de la sphère
+const CodeLines = ({ count = 8, radius = 2.5 }) => {
+  const lines = useRef();
+  const linePositions = useMemo(() => {
+    const positions = [];
+    for (let i = 0; i < count; i++) {
+      // Créer des lignes horizontales à différentes hauteurs
+      const y = (i / count) * 4 - 2;
+      const length = 1.5 + Math.random() * 1.5;
+      positions.push(-length, y, 0);
+      positions.push(length, y + Math.random() * 0.5, 0);
+    }
+    return new Float32Array(positions);
+  }, [count]);
+
+  useFrame(({ clock }) => {
+    if (lines.current) {
+      const t = clock.getElapsedTime();
+      lines.current.rotation.y = t * 0.2;
+      lines.current.rotation.z = Math.sin(t * 0.2) * 0.1;
+    }
+  });
+
+  return (
+    <lineSegments ref={lines}>
+      <bufferGeometry>
+        <bufferAttribute
+          attachObject={['attributes', 'position']}
+          array={linePositions}
+          count={count * 2}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <lineBasicMaterial color="#4a71ff" opacity={0.4} transparent /> // Bleu adapté
+    </lineSegments>
+  );
+};
+
+// Sphère principale avec thème informatique/technologique
+const TechSphere = ({ isMobile }) => {
   const sphereRef = useRef();
+  const [hovered, setHovered] = useState(false);
+  const { mouse } = useThree();
   
-  // Matériau amélioré sans bordures visibles
+  // Matériau avec couleurs tech/cyber
   const materialProps = useMemo(() => ({
-    color: new THREE.Color("#6a00ff"),
+    color: new THREE.Color("#0a1d56"), // Bleu foncé
     attach: "material",
-    distort: 0.5,
-    speed: 1.5,
-    roughness: 0.35,      // Légère diminution pour plus d'éclat
-    metalness: 0.75,      // Augmentation pour de meilleurs reflets
-    emissive: new THREE.Color("#9d4eff"),
-    emissiveIntensity: 0.4, // Augmenté pour plus de brillance
-    clearcoat: 1.5,       // Plus de brillance
-    clearcoatRoughness: 0.15,
-    opacity: 0.9,         // Légèrement plus opaque
+    distort: hovered ? 0.55 : 0.5,
+    speed: 1.8,
+    roughness: 0.1,
+    metalness: 0.9,
+    emissive: new THREE.Color("#4a71ff"), // Bleu moyen
+    emissiveIntensity: 0.5,
+    clearcoat: 2.0,
+    clearcoatRoughness: 0.05,
+    opacity: 1.0,
     transparent: true,
-    transmission: 0.12,   // Légèrement augmenté
-    envMapIntensity: 1.2, // Meilleurs reflets d'environnement
-  }), []);
-  
-  // Animation de rotation améliorée
+    transmission: 0.15,
+    envMapIntensity: 1.6,
+  }), [hovered]); // Gardons la dépendance pour les autres effets de survol
+
+  // Animation interactive
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-    const mouseX = state.mouse.x * 0.1;
-    const mouseY = state.mouse.y * 0.1;
+    
+    // Interaction avec la souris
+    const targetRotationX = mouse.y * 0.3;
+    const targetRotationY = mouse.x * 0.5;
     
     if (sphereRef.current) {
-      sphereRef.current.rotation.x = Math.sin(time * 0.3) * 0.3 + mouseY;
-      sphereRef.current.rotation.y = Math.sin(time * 0.4) * 0.4 + mouseX;
-      sphereRef.current.scale.x = 1 + Math.sin(time * 0.8) * 0.05;
-      sphereRef.current.scale.y = 1 + Math.sin(time * 0.8) * 0.05;
-      sphereRef.current.scale.z = 1 + Math.sin(time * 0.8) * 0.05;
+      // Rotation fluide
+      sphereRef.current.rotation.x = THREE.MathUtils.lerp(
+        sphereRef.current.rotation.x,
+        targetRotationX + Math.sin(time * 0.3) * 0.3,
+        0.05
+      );
+      sphereRef.current.rotation.y = THREE.MathUtils.lerp(
+        sphereRef.current.rotation.y,
+        targetRotationY + Math.sin(time * 0.4) * 0.4,
+        0.05
+      );
+      
+      // Pulsation numérique - comme un processeur qui travaille
+      const pulseBase = Math.sin(time * 0.8) * 0.02;
+      const pulseDigital = Math.sin(time * 3.0) * 0.01; // Pulsation rapide pour effet digital
+      
+      // Effet de scale simplifié qui ne dépend pas du survol
+      sphereRef.current.scale.x = 1 + pulseBase + pulseDigital;
+      sphereRef.current.scale.y = 1 + pulseBase + pulseDigital;
+      sphereRef.current.scale.z = 1 + pulseBase + pulseDigital;
     }
   });
   
   return (
-    <Sphere ref={sphereRef} args={[isMobile ? 1.3 : 1.8, 64, 64]}>
-      <MeshDistortMaterial {...materialProps} />
-    </Sphere>
-  );
-};
-
-// Points lumineux
-const NetworkPoints = ({ count = 25, isMobile }) => {
-  const size = isMobile ? 12 : 25;
-  
-  // Palette de couleurs violettes/magenta
-  const colors = useMemo(() => [
-    "#6a00ff", // Violet profond
-    "#b57aff", // Lavande
-    "#d442ff", // Violet clair
-    "#ff00ff", // Magenta
-    "#ff57d8"  // Rose
-  ], []);
-  
-  // Génération de points avec disposition circulaire
-  const points = useMemo(() => {
-    const tempPoints = [];
-    for (let i = 0; i < count; i++) {
-      const colorIndex = Math.floor(Math.random() * colors.length);
+    <group>
+      {/* Sphère principale - comme un "noyau digital" */}
+      <Sphere 
+        ref={sphereRef} 
+        args={[isMobile ? 1.3 : 1.7, 128, 128]}
+        onPointerOver={() => {
+          // Ne pas changer le cursor du document.body
+          setHovered(true);
+        }}
+        onPointerOut={() => {
+          // Ne pas changer le cursor du document.body
+          setHovered(false);
+        }}
+        onPointerMove={(e) => {
+          // Simplement bloquer la propagation pour éviter les problèmes
+          e.stopPropagation();
+        }}
+      >
+        <MeshDistortMaterial {...materialProps} />
+      </Sphere>
       
-      // Distribution circulaire pour un effet "constellation" autour de la sphère
-      const angle = Math.random() * Math.PI * 2;
-      const radius = Math.random() * size * 0.8;
-      const x = Math.cos(angle) * radius * (Math.random() * 0.5 + 0.5);
-      const y = (Math.random() - 0.5) * size * 0.7;
-      const z = Math.sin(angle) * radius * (Math.random() * 0.5 + 0.5);
+      {/* Aura digitale */}
+      <mesh scale={[1.15, 1.15, 1.15]}>
+        <sphereGeometry args={[isMobile ? 1.3 : 1.7, 32, 32]} />
+        <meshBasicMaterial 
+          color="#0a1d56" // Bleu foncé 
+          transparent={true} 
+          opacity={0.07} 
+          depthWrite={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
       
-      tempPoints.push({
-        position: [x, y, z],
-        size: Math.random() * 0.15 + 0.04,
-        color: colors[colorIndex],
-        speed: Math.random() * 0.02 + 0.01
-      });
-    }
-    return tempPoints;
-  }, [count, size, colors]);
-  
-  const pointsGroup = useRef();
-  const pointRefs = useRef([]);
-  
-  useEffect(() => {
-    pointRefs.current = pointRefs.current.slice(0, points.length);
-  }, [points.length]);
-  
-  useFrame(({ clock, mouse }) => {
-    const time = clock.getElapsedTime();
-    
-    if (pointsGroup.current) {
-      pointsGroup.current.rotation.y = time * 0.1;
-      pointsGroup.current.rotation.x = mouse.y * 0.2;
-      pointsGroup.current.rotation.z = mouse.x * 0.2;
-    }
-    
-    pointRefs.current.forEach((point, i) => {
-      if (point) {
-        const pulse = Math.sin(time * points[i].speed * 5) * 0.2 + 0.8;
-        point.scale.set(pulse, pulse, pulse);
-        
-        const orbitRadius = 0.1;
-        const orbitSpeed = 0.5 + points[i].speed;
-        const orbitX = Math.cos(time * orbitSpeed + i) * orbitRadius;
-        const orbitZ = Math.sin(time * orbitSpeed + i) * orbitRadius;
-        
-        point.position.x = points[i].position[0] + orbitX;
-        point.position.z = points[i].position[2] + orbitZ;
-      }
-    });
-  });
-  
-  return (
-    <group ref={pointsGroup}>
-      {points.map((point, index) => (
-        <mesh 
-          key={`point-${index}`}
-          position={point.position}
-          ref={el => pointRefs.current[index] = el}
-        >
-          <sphereGeometry args={[point.size, 16, 16]} />
-          <meshBasicMaterial 
-            color={point.color}
-            transparent={true}
-            opacity={0.9}
-          />
-        </mesh>
-      ))}
+      {/* Particules de données et lignes de code */}
+      <DataParticles count={42} radius={isMobile ? 1.9 : 2.3} />
+      <CodeLines count={10} radius={isMobile ? 2.0 : 2.5} />
     </group>
   );
 };
-
-// Remplacer le composant Glow existant par cette version améliorée
-
-// Effet de lueur amélioré avec plusieurs couches pour masquer les bordures
-const EnhancedGlow = () => {
-  const innerGlowRef = useRef();
-  const middleGlowRef = useRef();
-  const outerGlowRef = useRef();
-  
-  // Animation de pulsation pour toutes les couches
-  useFrame(({ clock }) => {
-    const time = clock.getElapsedTime();
-    
-    if (innerGlowRef.current) {
-      // Couche interne - pulsation rapide
-      innerGlowRef.current.material.opacity = Math.sin(time * 0.5) * 0.02 + 0.08;
-    }
-    
-    if (middleGlowRef.current) {
-      // Couche moyenne - pulsation moyenne et décalée
-      middleGlowRef.current.material.opacity = Math.sin(time * 0.3 + 0.5) * 0.015 + 0.05;
-    }
-    
-    if (outerGlowRef.current) {
-      // Couche externe - pulsation lente
-      outerGlowRef.current.material.opacity = Math.sin(time * 0.2 + 1) * 0.01 + 0.03;
-    }
-  });
-  
-  return (
-    <>
-      {/* Couche interne - violet vif */}
-      <mesh ref={innerGlowRef}>
-        <sphereGeometry args={[2.5, 32, 32]} />
-        <meshBasicMaterial 
-          color="#b57aff" 
-          transparent={true}
-          opacity={0.08}
-          side={THREE.BackSide}
-        />
-      </mesh>
-      
-      {/* Couche moyenne - violet moyen */}
-      <mesh ref={middleGlowRef}>
-        <sphereGeometry args={[3.2, 32, 32]} />
-        <meshBasicMaterial 
-          color="#9d4eff" 
-          transparent={true}
-          opacity={0.05}
-          side={THREE.BackSide}
-        />
-      </mesh>
-      
-      {/* Couche externe - violet pâle et large */}
-      <mesh ref={outerGlowRef}>
-        <sphereGeometry args={[4.5, 24, 24]} />
-        <meshBasicMaterial 
-          color="#6a00ff" 
-          transparent={true}
-          opacity={0.03}
-          side={THREE.BackSide}
-        />
-      </mesh>
-    </>
-  );
-};
-
-// Remplacez le composant GlowRings par cette version optimisée
-
-// Anneaux lumineux améliorés pour masquer les bordures
-const GlowRings = ({ isMobile }) => {
-  const ringsRef = useRef();
-  
-  useFrame(({ clock, mouse }) => {
-    const time = clock.getElapsedTime();
-    
-    if (ringsRef.current) {
-      // Rotation influencée par le temps et la souris pour plus de dynamisme
-      ringsRef.current.rotation.x = Math.PI / 4 + Math.sin(time * 0.2) * 0.1 + mouse.y * 0.2;
-      ringsRef.current.rotation.y = time * 0.1 + mouse.x * 0.2;
-      ringsRef.current.rotation.z = Math.sin(time * 0.15) * 0.05;
-    }
-  });
-  
-  // Taille augmentée pour couvrir plus d'espace
-  const size = isMobile ? 2.5 : 3.5;
-  
-  return (
-    <group ref={ringsRef}>
-      {/* Premier anneau - plus grand et plus visible */}
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[size, 0.03, 16, 100]} />
-        <meshBasicMaterial color="#ff00ff" transparent opacity={0.2} />
-      </mesh>
-      
-      {/* Deuxième anneau - angle différent */}
-      <mesh rotation={[Math.PI / 4, Math.PI / 4, 0]}>
-        <torusGeometry args={[size * 0.85, 0.025, 16, 80]} />
-        <meshBasicMaterial color="#d442ff" transparent opacity={0.15} />
-      </mesh>
-      
-      {/* Troisième anneau - autre angle */}
-      <mesh rotation={[Math.PI / 3, Math.PI / 3, Math.PI / 5]}>
-        <torusGeometry args={[size * 0.7, 0.02, 16, 60]} />
-        <meshBasicMaterial color="#6a00ff" transparent opacity={0.2} />
-      </mesh>
-      
-      {/* Quatrième anneau - angle supplémentaire */}
-      <mesh rotation={[Math.PI / 6, Math.PI / 2, Math.PI / 3]}>
-        <torusGeometry args={[size * 1.2, 0.01, 16, 90]} />
-        <meshBasicMaterial color="#b57aff" transparent opacity={0.1} />
-      </mesh>
-    </group>
-  );
-};
-
-// Modifiez le rendu du Canvas pour une transparence parfaite
 
 export function ThreeScene() {
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   return (
     <Canvas
-      camera={{ position: [0, 0, 5], fov: 60 }}
+      camera={{ position: [0, 0, 5], fov: 50 }}
       gl={{ 
         antialias: true, 
         alpha: true,
-        powerPreference: "high-performance",
-        precision: "highp",
-        stencil: false,
-        depth: true,
-        premultipliedAlpha: true, // Important pour un mélange transparent parfait
+        premultipliedAlpha: false, // Change de true à false pour éliminer les artefacts de bord
+        preserveDrawingBuffer: false,
+        powerPreference: "high-performance"
       }}
       style={{ 
         position: 'absolute',
@@ -293,60 +205,50 @@ export function ThreeScene() {
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'transparent',
-        pointerEvents: 'auto',
+        background: 'none', // Change 'transparent' à 'none'
         outline: 'none',
-        border: 'none'
+        border: 'none',
+        pointerEvents: 'auto',
+        overflow: 'visible'
       }}
       shadows={false}
-      dpr={[1, Math.min(2, window.devicePixelRatio)]}
+      dpr={[1, 2]}
       onCreated={({ gl }) => {
-        gl.setClearColor(0x000000, 0); // Couleur de fond transparent
+        // Configuration DirectX pour éliminer les bordures noires
+        gl.setClearColor(0x000000, 0); // Alpha à 0 pour une transparence totale
+        gl.domElement.style.mixBlendMode = "normal"; // Mode de fusion normal pour éviter les artefacts de contraste
+        gl.domElement.style.background = 'none';
+        gl.domElement.style.borderRadius = '0';
+        gl.domElement.style.border = 'none';
+        gl.domElement.style.outline = 'none';
+        gl.domElement.style.position = 'absolute';
+        gl.domElement.style.width = 'calc(100% + 4px)'; // Légèrement plus large
+        gl.domElement.style.height = 'calc(100% + 4px)'; // Légèrement plus haut
+        gl.domElement.style.top = '-2px'; // Décalage pour compenser la taille supplémentaire
+        gl.domElement.style.left = '-2px'; // Décalage pour compenser la taille supplémentaire
         gl.physicallyCorrectLights = true;
       }}
     >
-      <CameraController />
+      {/* Éclairage optimisé pour ambiance tech/cyber */}
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1.0} color="#ffffff" />
+      <pointLight position={[-10, -10, -10]} intensity={0.7} color="#0a1d56" /> // Bleu foncé
+      <pointLight position={[5, 0, -5]} intensity={0.7} color="#4a71ff" /> // Bleu moyen
       
-      {/* Environnement plus léger */}
-      <Environment preset="sunset" intensity={0.5} />
+      {/* Environment custom au lieu de "city" */}
+      <Environment preset="night" />
       
-      {/* Éclairage optimisé */}
-      <ambientLight intensity={1.2} color="#ffffff" />
+      {/* Modèle principal */}
+      <TechSphere isMobile={isMobile} />
       
-      {/* Lumières pour masquer les bordures */}
-      <directionalLight position={[5, 5, 5]} intensity={2.2} color="#b57aff" castShadow={false} />
-      <pointLight position={[0, 0, 7]} intensity={1.0} color="#ff00ff" distance={20} decay={2} />
-      <pointLight position={[0, -5, 3]} intensity={1.5} color="#ffffff" distance={15} decay={2} />
-      
-      {/* Lumières supplémentaires pour masquer les bords */}
-      <pointLight position={[3, 0, 0]} intensity={0.5} color="#6a00ff" distance={7} />
-      <pointLight position={[-3, 0, 0]} intensity={0.5} color="#6a00ff" distance={7} />
-      <pointLight position={[0, 3, 0]} intensity={0.5} color="#6a00ff" distance={7} />
-      <pointLight position={[0, -3, 0]} intensity={0.5} color="#6a00ff" distance={7} />
-      
-      <group position={[0, 0, 0]} rotation={[0, Math.PI * 0.25, 0]}>
-        {/* Anneaux extérieurs agrandis pour masquer les bordures */}
-        <GlowRings isMobile={isMobile} />
-        
-        {/* Effet de lueur amélioré */}
-        <EnhancedGlow />
-        
-        {/* Sphère principale */}
-        <EnhancedSphere isMobile={isMobile} />
-        
-        {/* Points de lumière */}
-        <NetworkPoints count={isMobile ? 20 : 30} isMobile={isMobile} />
-      </group>
-      
-      <OrbitControls 
-        enableZoom={false} 
-        enablePan={false} 
-        autoRotate={true}
-        autoRotateSpeed={0.5}
-        minPolarAngle={Math.PI / 4}
-        maxPolarAngle={Math.PI / 1.5}
-        enableDamping={true}
-        dampingFactor={0.05}
+      {/* Ombre digitale */}
+      <ContactShadows
+        position={[0, -1.8, 0]}
+        opacity={0.12}
+        scale={10}
+        blur={3}
+        far={3}
+        color="#0a1d56" // Bleu foncé
       />
     </Canvas>
   );

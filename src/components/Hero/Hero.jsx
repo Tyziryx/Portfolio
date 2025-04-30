@@ -90,7 +90,7 @@ function Hero() {
               target="_blank" 
               rel="noopener noreferrer"
               className="social-link"
-              whileHover={{ scale: 1.2, y: -5, color: "#00f7ff" }}
+              whileHover={{ scale: 1.2, y: -5, color: "#7a4aff" }} // Changé en violet
               whileTap={{ scale: 0.9 }}
             >
               <i className="fab fa-github"></i>
@@ -100,7 +100,7 @@ function Hero() {
               target="_blank" 
               rel="noopener noreferrer"
               className="social-link"
-              whileHover={{ scale: 1.2, y: -5, color: "#00f7ff" }}
+              whileHover={{ scale: 1.2, y: -5, color: "#7a4aff" }} // Changé en violet
               whileTap={{ scale: 0.9 }}
             >
               <i className="fab fa-linkedin-in"></i>
@@ -124,7 +124,7 @@ function Hero() {
               className="hero-cta"
               whileHover={{ 
                 scale: 1.05,
-                boxShadow: "0 5px 25px rgba(0, 247, 255, 0.3)"
+                boxShadow: "0 5px 25px rgba(74, 113, 255, 0.4)" // Remplacé cyan par bleu moyen
               }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
@@ -147,9 +147,8 @@ function Hero() {
           <div className="three-container-wrapper">
             <div className="three-container">
               <ThreeScene />
+              <div className="three-container-mask"></div>
             </div>
-            {/* Élément supplémentaire pour le flou adaptatif */}
-            <div className="three-backdrop-blur"></div>
           </div>
         </div>
       </div>

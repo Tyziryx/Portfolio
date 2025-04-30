@@ -6,6 +6,7 @@ const CustomCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
   const [isClicking, setIsClicking] = useState(false);
+  const [isOverThreeJs, setIsOverThreeJs] = useState(false);
 
   useEffect(() => {
     const mouseMove = e => {
@@ -23,64 +24,106 @@ const CustomCursor = () => {
       setIsClicking(false);
     };
 
+    // Détection d'entrée/sortie de la zone ThreeJS
+    const handleThreeJsEnter = () => {
+      setIsOverThreeJs(true);
+    };
+
+    const handleThreeJsLeave = () => {
+      setIsOverThreeJs(false);
+    };
+
     window.addEventListener("mousemove", mouseMove);
     window.addEventListener("mousedown", mouseDown);
     window.addEventListener("mouseup", mouseUp);
+
+    // Ajouter les écouteurs d'événements pour ThreeJS
+    const threeContainer = document.querySelector('.three-container');
+    if (threeContainer) {
+      threeContainer.addEventListener("mouseenter", handleThreeJsEnter);
+      threeContainer.addEventListener("mouseleave", handleThreeJsLeave);
+    }
 
     return () => {
       window.removeEventListener("mousemove", mouseMove);
       window.removeEventListener("mousedown", mouseDown);
       window.removeEventListener("mouseup", mouseUp);
+      
+      if (threeContainer) {
+        threeContainer.removeEventListener("mouseenter", handleThreeJsEnter);
+        threeContainer.removeEventListener("mouseleave", handleThreeJsLeave);
+      }
     };
   }, []);
 
   const variants = {
     default: {
-      x: mousePosition.x - 16,
-      y: mousePosition.y - 16,
-      transition: { type: "spring", stiffness: 500, damping: 28 }
+      x: mousePosition.x - 5,  // Centrer le point (10px / 2)
+      y: mousePosition.y - 5,
+      transition: { 
+        type: "spring", 
+        stiffness: 1000, 
+        damping: 40, 
+        mass: 0.5 
+      }
     },
     hover: {
-      x: mousePosition.x - 24,
-      y: mousePosition.y - 24,
-      height: 48,
-      width: 48,
-      backgroundColor: "rgba(66, 211, 255, 0.4)",
-      border: "none",
-      transition: { type: "spring", stiffness: 500, damping: 28 }
+      x: mousePosition.x - 5,
+      y: mousePosition.y - 5,
+      scale: 1.2,
+      transition: { 
+        type: "spring", 
+        stiffness: 1000, 
+        damping: 40 
+      }
     },
     clicking: {
-      x: mousePosition.x - 16,
-      y: mousePosition.y - 16,
-      scale: 0.8,
-      backgroundColor: "rgba(230, 92, 255, 0.4)",
-      transition: { type: "spring", stiffness: 500, damping: 28 }
+      x: mousePosition.x - 5,
+      y: mousePosition.y - 5,
+      scale: 1.5,
+      transition: { 
+        type: "spring", 
+        stiffness: 1000, 
+        damping: 40 
+      }
     }
   };
 
   const ringVariants = {
     default: {
-      x: mousePosition.x - 32,
-      y: mousePosition.y - 32,
-      transition: { type: "spring", stiffness: 300, damping: 22 }
+      x: mousePosition.x - 20, // Centrer l'anneau (40px / 2)
+      y: mousePosition.y - 20,
+      transition: { 
+        type: "spring", 
+        stiffness: 500, 
+        damping: 35, 
+        mass: 1 
+      }
     },
     hover: {
-      x: mousePosition.x - 32,
-      y: mousePosition.y - 32,
-      scale: 1.5,
-      transition: { type: "spring", stiffness: 300, damping: 22 }
+      x: mousePosition.x - 32.5, // Centrer l'anneau agrandi (65px / 2)
+      y: mousePosition.y - 32.5,
+      transition: { 
+        type: "spring", 
+        stiffness: 500, 
+        damping: 35 
+      }
     },
     clicking: {
-      x: mousePosition.x - 32,
-      y: mousePosition.y - 32,
+      x: mousePosition.x - 20,
+      y: mousePosition.y - 20,
       scale: 0.8,
-      opacity: 0.7,
-      transition: { type: "spring", stiffness: 300, damping: 22 }
+      transition: { 
+        type: "spring", 
+        stiffness: 500, 
+        damping: 35 
+      }
     }
   };
 
   useEffect(() => {
     const handleLinkHoverEvents = () => {
+      // Sélectionne tous les éléments interactifs sauf dans ThreeJS
       document.querySelectorAll("a, button, .hover-effect").forEach(el => {
         el.addEventListener("mouseenter", () => setCursorVariant("hover"));
         el.addEventListener("mouseleave", () => setCursorVariant("default"));
@@ -89,28 +132,29 @@ const CustomCursor = () => {
     
     handleLinkHoverEvents();
     
-    // Réexécuter quand le DOM peut changer
-    window.addEventListener('DOMContentLoaded', handleLinkHoverEvents);
+    // Observer les changements DOM pour les éléments ajoutés dynamiquement
+    const observer = new MutationObserver(handleLinkHoverEvents);
+    observer.observe(document.body, { childList: true, subtree: true });
     
-    return () => {
-      window.removeEventListener('DOMContentLoaded', handleLinkHoverEvents);
-    };
+    return () => observer.disconnect();
   }, []);
 
-  // Détermine la variante à utiliser en fonction des états
+  // Détermine la variante à utiliser
   const currentVariant = isClicking ? "clicking" : cursorVariant;
 
   return (
     <>
       <motion.div
-        className={`cursor-dot ${isClicking ? 'clicking' : ''}`}
+        className={`cursor-dot ${isClicking ? 'clicking' : ''} ${isOverThreeJs ? 'over-threejs' : ''}`}
         variants={variants}
         animate={currentVariant}
+        initial="default"
       />
       <motion.div
-        className={`cursor-ring ${isClicking ? 'clicking' : ''}`}
+        className={`cursor-ring ${isClicking ? 'clicking' : ''} ${cursorVariant === "hover" ? 'hover' : ''} ${isOverThreeJs ? 'over-threejs' : ''}`}
         variants={ringVariants}
         animate={currentVariant}
+        initial="default"
       />
     </>
   );
