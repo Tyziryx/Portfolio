@@ -235,16 +235,18 @@
 @media (max-width: 480px) {
   /* Réduire l'espace entre les cartes */
   .skills-grid-inline {
-    gap: 0.75rem;
+    gap: 0.5rem; /* Réduit de 0.75rem à 0.5rem */
+    padding: 0; /* Suppression du padding potentiellement problématique */
+    width: 100%; /* S'assurer que la grille utilise toute la largeur */
   }
   
   /* Définir une largeur fixe qui permet deux cartes par ligne */
   .skill-card-flip {
-    width: calc(50% - 1rem);  /* 50% moins les marges pour avoir 2 cartes par ligne */
-    min-width: 120px;
-    max-width: 150px;
-    height: 180px;
-    margin: 0.5rem;
+    width: calc(50% - 0.6rem); /* Réduit de 1rem à 0.6rem pour tenir compte d'écrans plus étroits */
+    min-width: 100px; /* Réduit de 120px à 100px */
+    max-width: 140px; /* Réduit de 150px à 140px */
+    height: 170px; /* Réduit de 180px à 170px */
+    margin: 0.3rem; /* Réduit de 0.5rem à 0.3rem */
   }
   
   /* Ajuster le contenu pour s'adapter à la nouvelle taille */
@@ -263,6 +265,11 @@
   .skill-card-front h4 {
     font-size: 0.8rem;
   }
+  
+  /* Ajustement pour assurer le bon affichage sur iPhone */
+  .skills-inline-container {
+    padding: 0 0.5rem; /* Réduit le padding horizontal */
+  }
 }
 
 /* Pour les écrans très très petits */
@@ -272,6 +279,27 @@
     min-width: 100px;
     height: 170px;
     margin: 0.35rem;
+  }
+}
+
+/* Ajout d'une règle encore plus stricte pour les iPhone et appareils similaires */
+@media (max-width: 390px) {
+  .skill-card-flip {
+    width: calc(50% - 0.4rem); /* Calcul encore plus serré */
+    min-width: 90px; /* Minimum absolument nécessaire */
+    margin: 0.2rem; /* Marges minimales */
+    height: 160px; /* Hauteur réduite */
+  }
+  
+  .skill-description {
+    font-size: 0.75rem; /* Police plus petite */
+    line-height: 1.2; /* Interligne réduit */
+    max-height: 90px; /* Hauteur maximale réduite */
+  }
+  
+  .skill-link {
+    width: 36px; /* Bouton plus petit */
+    height: 36px;
   }
 }
 
