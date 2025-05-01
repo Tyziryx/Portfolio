@@ -43,7 +43,7 @@ function Projects() {
       description: t('projects.project3.description'),
       image: project3Image,
       imagePosition: 'center 25%',
-      codeLink: "https://github.com/Tyziryx/AdminMonitoringSystem",
+      codeLink: "https://github.com/Tyziryx/amserveur",
     }
   ];
 
