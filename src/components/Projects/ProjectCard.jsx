@@ -27,13 +27,16 @@ function ProjectCard({ project, onImageClick }) {
       <h3>{project.title}</h3>
       <p>{project.description}</p>
       <div className="project-links">
-        <a href={project.codeLink} className="project-link" target="_blank" rel="noopener noreferrer">
-          <i className="fab fa-github"></i> {t('projects.codeLink')}
+        <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="project-link">
+          <i className="fas fa-code"></i> {t('projects.codeLink')}
         </a>
-        {project.siteLink && (
-          <a href={project.siteLink} className="project-link" target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-external-link-alt"></i> {t('projects.siteLink', 'Voir le site')}
+        
+        {project.siteLink ? (
+          <a href={project.siteLink} target="_blank" rel="noopener noreferrer" className="project-link site-link">
+            <i className="fas fa-external-link-alt"></i> {t('projects.siteLink')}
           </a>
+        ) : project.maintenanceNote && (
+          <span className="maintenance-note">{project.maintenanceNote}</span>
         )}
       </div>
     </div>

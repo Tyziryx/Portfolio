@@ -27,7 +27,8 @@ function Projects() {
       image: project1Image,
       imagePosition: 'center 25%',
       codeLink: "https://github.com/Tyziryx/WebsiteProg",
-      siteLink: "https://tyzi.fr/geodex",
+      siteLink: null, // Lien retiré
+      maintenanceNote: "Site en maintenance" // Note simple
     },
     {
       id: 2,
@@ -68,7 +69,6 @@ function Projects() {
         ))}
       </div>
 
-      {/* Modal pour agrandir les images */}
       {showModal && (
         <div className="image-modal" onClick={() => setShowModal(false)}>
           <div className="modal-content">

@@ -211,3 +211,10 @@
     max-height: 70vh;
   }
 }
+
+/* Style pour la note de maintenance */
+.maintenance-note {
+  color: #ff9300;
+  font-style: italic;
+  margin-left: 1rem;
+}
