@@ -7,7 +7,7 @@ export default {
   },
   hero: {
     greeting: "Bonjour, je suis",
-    subtitle: "Étudiant en Informatique L2",
+    subtitle: "Étudiant en Informatique L3",
     description: "Passionné par la programmation, les réseaux et les nouvelles technologies. Je transforme mes cours en projets concrets.",
     cta: "Voir mes projets",
     scrollDown: "Défiler"

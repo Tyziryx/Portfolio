@@ -7,7 +7,7 @@ export default {
     },
     hero: {
       greeting: "Hello, I'm",
-      subtitle: "Computer Science Student (2nd Year)",
+      subtitle: "Computer Science Student (3nd Year)",
       description: "Passionate about programming, networks and new technologies. Turning my courses into real-world projects.",
       cta: "View my projects",
       scrollDown: "Scroll Down"
