@@ -34,9 +34,9 @@ export const translations = {
     },
     currently: {
       label: "// En_ce_moment",
-      item1: "Je bosse sur Mbox v2 : ajout firewall configurable + monitoring SNMP + VPN",
-      item2: "Je dévore la doc Cisco pour passer CCNA2 bientôt",
-      item3: "Je postule dans des boîtes réseau/cybersec pour alternance sept 2026"
+      item1: "Développement Mbox v2 : amélioration globale, contrôle parental et autres fonctionnalités.",
+      item2: "Approfondissement des compétences réseau : cours et projets académiques.",
+      item3: "Je postule dans des boîtes réseau et cybersécurité pour une alternance en septembre 2026"
     },
     skills: {
       label: "02 // Stack",
@@ -129,9 +129,9 @@ export const translations = {
     },
     currently: {
       label: "// Currently",
-      item1: "Working on Mbox v2: configurable firewall + SNMP monitoring + VPN",
-      item2: "Studying Cisco docs to pass CCNA2 soon",
-      item3: "Applying to network/cybersec companies for work-study Sept 2026"
+      item1: "Working on Mbox v2: overall improvements, parental control and other features.",
+      item2: "Deepening networking skills through coursework and academic projects.",
+      item3: "Applying to network and cybersec companies for a work‑study role in Sept 2026"
     },
     skills: {
       label: "02 // Stack",
