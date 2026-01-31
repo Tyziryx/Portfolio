@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alexi Miaille</title>
+    <meta name="description" content="Portfolio d'Alexi Miaille - Étudiant L3 Informatique CERI Avignon. Passionné par les réseaux, l'infrastructure et le développement. Objectif : Master SYRIUS (Cybersécurité & Réseaux)." />
+    <link rel="icon" type="image/svg+xml" href="/Logo_Alexi.svg" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --bg: #09090B;
+        --fg: #F4F4F5;
+        --accent: #A855F7;
+        --border: #27272A;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg);
+        color: var(--fg);
+        -webkit-font-smoothing: antialiased;
+      }
+      .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+      /* Subtle grid background */
+      .bg-dots {
+        background-image: radial-gradient(circle, #27272A 1px, transparent 1px);
+        background-size: 32px 32px;
+      }
+
+      /* Clean Bevel */
+      .bevel-sm {
+        clip-path: polygon(
+          0% 8px, 8px 0%,
+          100% 0%, 100% 0%,
+          100% calc(100% - 8px), calc(100% - 8px) 100%,
+          0% 100%, 0% 100%
+        );
+      }
+
+      /* Smooth Scroll */
+      html { scroll-behavior: smooth; }
+
+      /* Custom Selection */
+      ::selection { background: var(--accent); color: white; }
+    </style>
+  </head>
+  <body class="bg-dots">
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
