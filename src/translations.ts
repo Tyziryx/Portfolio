@@ -27,7 +27,7 @@ export const translations = {
       card1Desc: "L3 Informatique - CERI Avignon",
       card2Title: "Approche",
       card2Desc: "Apprendre en bidouillant",
-      card3Title: "Objectif 2025",
+      card3Title: "Objectif 2026",
       card3Desc: "Master SYRIUS (Réseau/Cybersec)",
       card4Title: "Certification",
       card4Desc: "Cisco CCNA1"
@@ -44,18 +44,18 @@ export const translations = {
       category1: "Réseaux & Infrastructure",
       category1Items: ["Cisco CCNA1", "Config routeurs/switchs", "Linux serveur", "Monitoring système", "Scripting Bash"],
       category2: "Développement",
-      category2Items: ["PHP", "Python", "Java", "HTML/CSS", "JavaScript", "Flask"],
+      category2Items: ["PHP", "Python", "Java", "HTML/CSS", "JavaScript"],
       category3: "Outils & Bases de Données",
-      category3Items: ["PostgreSQL", "Git", "React", "C++"]
+      category3Items: ["PostgreSQL", "Git", "React"]
     },
     projects: {
       label: "03 // Travaux",
       title: "Projets_Sélectionnés",
-      buildLog: "// WORKS_2024-2025",
+      buildLog: "// WORKS_2025-2026",
       project1: {
         category: "Réseau & Infrastructure",
         title: "Mbox - Box Internet",
-        desc: "Interface d'administration complète pour routeur domestique virtualisé (sept 2026 - janv 2027). Architecture 3 VMs avec double NAT, 7 services réseau configurés (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Modes débutant/expert, delegation DNS, Webmail, Speedtest avec historique, Forum. 4 mois de dev, ~2000 lignes de code PHP/Bash.",
+        desc: "Interface d'administration complète pour routeur domestique virtualisé (sept 2025 - janv 2026). Architecture 3 VMs avec double NAT, 7 services réseau configurés (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Modes débutant/expert, delegation DNS, Webmail, Speedtest avec historique, Forum. 4 mois de dev, ~2000 lignes de code PHP/Bash.",
         tech: ["PHP", "Bash", "DHCP", "DNS", "Linux"]
       },
       project2: {
@@ -122,7 +122,7 @@ export const translations = {
       card1Desc: "L3 Computer Science - CERI Avignon",
       card2Title: "Approach",
       card2Desc: "Learning by tinkering",
-      card3Title: "Goal 2025",
+      card3Title: "Goal 2026",
       card3Desc: "Master SYRIUS (Network/Cybersec)",
       card4Title: "Certification",
       card4Desc: "Cisco CCNA1"
@@ -139,18 +139,18 @@ export const translations = {
       category1: "Networks & Infrastructure",
       category1Items: ["Cisco CCNA1", "Router/Switch config", "Linux server", "System monitoring", "Bash scripting"],
       category2: "Development",
-      category2Items: ["PHP", "Python", "Java", "HTML/CSS", "JavaScript", "Flask"],
+      category2Items: ["PHP", "Python", "Java", "HTML/CSS", "JavaScript"],
       category3: "Tools & Databases",
-      category3Items: ["PostgreSQL", "Git", "React", "C++"]
+      category3Items: ["PostgreSQL", "Git", "React"]
     },
     projects: {
       label: "03 // Works",
       title: "Selected_Projects",
-      buildLog: "// WORKS_2024-2025",
+      buildLog: "// WORKS_2025-2026",
       project1: {
         category: "Network & Infrastructure",
         title: "Mbox - Internet Box",
-        desc: "Complete administration interface for virtualized home router (Sept 2026 - Jan 2027). 3 VMs architecture with double NAT, 7 configured network services (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Beginner/Expert modes, DNS delegation, Webmail, Speedtest with history, Forum. 4 months dev, ~2000 lines PHP/Bash code.",
+        desc: "Complete administration interface for virtualized home router (Sept 2025 - Jan 2026). 3 VMs architecture with double NAT, 7 configured network services (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Beginner/Expert modes, DNS delegation, Webmail, Speedtest with history, Forum. 4 months dev, ~2000 lines PHP/Bash code.",
         tech: ["PHP", "Bash", "DHCP", "DNS", "Linux"]
       },
       project2: {
