@@ -17,8 +17,8 @@ export const translations = {
     },
     about: {
       label: "01 // À_Propos",
-      title1: "Bidouilleur dans",
-      title2: "l'Âme.",
+      title1: "Curieux &",
+      title2: "Méthodique.",
       paragraph1: "Depuis petit, je démonte et répare tout ce qui me passe entre les mains. Ce qui a commencé avec des appareils électroniques s'est naturellement tourné vers l'informatique : ",
       paragraph1Highlight: "comprendre comment ça marche",
       paragraph1End: ", c'est ce qui me motive.",
@@ -34,9 +34,9 @@ export const translations = {
     },
     currently: {
       label: "// En_ce_moment",
-      item1: "Développement Mbox v2 : amélioration globale, contrôle parental et autres fonctionnalités.",
-      item2: "Approfondissement des compétences réseau : cours et projets académiques.",
-      item3: "Je postule dans des boîtes réseau et cybersécurité pour une alternance en septembre 2026"
+      item1: "Semestre de printemps L3 : cours, projets académiques et exploration personnelle.",
+      item2: "Approfondissement réseau, cybersécurité et pratique personnelle.",
+      item3: "Candidatures en cours pour une alternance en septembre 2026"
     },
     skills: {
       label: "02 // Stack",
@@ -52,10 +52,12 @@ export const translations = {
       label: "03 // Travaux",
       title: "Projets_Sélectionnés",
       buildLog: "// WORKS_2025-2026",
+      viewOnGithub: "Voir sur GitHub",
+      readReport: "Lire le rapport",
       project1: {
         category: "Réseau & Infrastructure",
         title: "Mbox - Box Internet",
-        desc: "Interface d'administration complète pour routeur domestique virtualisé (sept 2025 - janv 2026). Architecture 3 VMs avec double NAT, 7 services réseau configurés (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Modes débutant/expert, delegation DNS, Webmail, Speedtest avec historique, Forum. 4 mois de dev, ~2000 lignes de code PHP/Bash.",
+        desc: "Interface d'administration complète pour routeur domestique virtualisé (sept 2025 - janv 2026). Architecture 3 VMs avec double NAT, 7 services réseau configurés (Apache/HTTPS, BIND9, DHCP, Postfix, FTP, MariaDB, SSH). Modes débutant/expert, délégation DNS, Webmail, Speedtest avec historique, Forum. 4 mois de dev, ~2000 lignes de code PHP/Bash.",
         tech: ["PHP", "Bash", "DHCP", "DNS", "Linux"]
       },
       project2: {
@@ -84,9 +86,10 @@ export const translations = {
       }
     },
     contact: {
-      title: "On discute ?",
+      title: "Contactez-moi",
       subtitle: "Recherche alternance Sept 2026 // Réseau • Cybersec • DevOps",
-      cta: "Envoyer un email"
+      cta: "Envoyer un email",
+      downloadCV: "Télécharger CV"
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
@@ -102,8 +105,8 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      status: "Status: Looking for work-study program",
-      title1: "Computer",
+      status: "Status: Looking for a work-study program",
+      title1: "Computer Science",
       title2: "& Systems.",
       description: "Computer Science student (L3) at University of Avignon (CERI). Between ",
       descriptionHighlight: "development, networking and infrastructure",
@@ -112,14 +115,14 @@ export const translations = {
     },
     about: {
       label: "01 // About_Me",
-      title1: "Tinkerer at",
-      title2: "Heart.",
+      title1: "Curious &",
+      title2: "Methodical.",
       paragraph1: "Since childhood, I've been taking apart and fixing everything I can get my hands on. What started with electronics naturally evolved into computer science: ",
       paragraph1Highlight: "understanding how things work",
       paragraph1End: " is what drives me.",
       paragraph2: "Currently in L3 Computer Science at University of Avignon (CERI), I'm exploring different areas. My academic projects trained me in web development. But it's by working with networks (CCNA1, DHCP/DNS config with Mbox) that I found a particular interest in infrastructure. Goal: Master's SYRIUS (CERI) to deepen networking and cybersecurity.",
       card1Title: "Education",
-      card1Desc: "L3 Computer Science - CERI Avignon",
+      card1Desc: "Year 3 Computer Science - CERI Avignon",
       card2Title: "Approach",
       card2Desc: "Learning by tinkering",
       card3Title: "Goal 2026",
@@ -129,9 +132,9 @@ export const translations = {
     },
     currently: {
       label: "// Currently",
-      item1: "Working on Mbox v2: overall improvements, parental control and other features.",
-      item2: "Deepening networking skills through coursework and academic projects.",
-      item3: "Applying to network and cybersec companies for a work‑study role in Sept 2026"
+      item1: "Spring semester L3: classes, academic projects and personal exploration.",
+      item2: "Deepening networking, cybersecurity skills and personal practice.",
+      item3: "Actively applying for a work‑study position in September 2026"
     },
     skills: {
       label: "02 // Stack",
@@ -147,6 +150,8 @@ export const translations = {
       label: "03 // Works",
       title: "Selected_Projects",
       buildLog: "// WORKS_2025-2026",
+      viewOnGithub: "View on GitHub",
+      readReport: "Read the report",
       project1: {
         category: "Network & Infrastructure",
         title: "Mbox - Internet Box",
@@ -162,7 +167,7 @@ export const translations = {
       project3: {
         category: "Ops & Monitoring",
         title: "AdminMonitoring System",
-        desc: "Real-time monitoring system: CPU, RAM, disk metrics with Flask web interface. Solo project to learn system monitoring and automation.",
+        desc: "Real-time monitoring system: CPU, RAM, disk metrics with Flask web interface. Personal project to explore system monitoring and automation.",
         tech: ["Python", "Flask", "Linux"]
       },
       project4: {
@@ -179,13 +184,14 @@ export const translations = {
       }
     },
     contact: {
-      title: "Let's talk?",
+      title: "Contact Me",
       subtitle: "Looking for work-study Sept 2026 // Network • Cybersec • DevOps",
-      cta: "Send an email"
+      cta: "Send an email",
+      downloadCV: "Download CV"
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
-      uptime: "Student L3 - CERI Avignon",
+      uptime: "Year 3 Student - CERI Avignon",
       builtWith: "Made with ☕ & curiosity"
     }
   }

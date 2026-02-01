@@ -116,23 +116,23 @@ const Portfolio = () => {
           </a>
           <div className="flex items-center gap-3 md:gap-8">
             <div className="hidden md:flex gap-6 lg:gap-8 font-mono text-[10px] uppercase tracking-widest font-bold">
-              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 transition-colors">{t.nav.about}</a>
-              <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 transition-colors">{t.nav.skills}</a>
-              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 transition-colors">{t.nav.projects}</a>
-              <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 transition-colors">{t.nav.contact}</a>
+              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.about}</a>
+              <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.skills}</a>
+              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.projects}</a>
+              <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.contact}</a>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={toggleLanguage}
-                className="w-8 h-8 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all bevel-sm"
-                aria-label="Toggle language"
+                className="w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
+                aria-label={lang === 'fr' ? "Changer de langue" : "Change language"}
               >
                 <Globe size={16} />
               </button>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden w-8 h-8 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all bevel-sm"
-                aria-label="Toggle menu"
+                className="md:hidden w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
+                aria-label={mobileMenuOpen ? (lang === 'fr' ? "Fermer le menu" : "Close menu") : (lang === 'fr' ? "Ouvrir le menu" : "Open menu")}
               >
                 <Menu size={16} />
               </button>
@@ -151,16 +151,17 @@ const Portfolio = () => {
                 <span className="font-mono text-xs uppercase tracking-widest text-purple-500 font-bold">Menu</span>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-8 h-8 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all bevel-sm"
+                  aria-label={lang === 'fr' ? "Fermer le menu" : "Close menu"}
+                  className="w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
                 >
                   <X size={16} />
                 </button>
               </div>
               <div className="flex flex-col p-4 space-y-1 font-mono uppercase tracking-wider font-bold">
-                <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 hover:bg-zinc-800/50 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.about}</a>
-                <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 hover:bg-zinc-800/50 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.skills}</a>
-                <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 hover:bg-zinc-800/50 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.projects}</a>
-                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 hover:bg-zinc-800/50 transition-all py-4 px-4 text-sm">{t.nav.contact}</a>
+                <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.about}</a>
+                <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.skills}</a>
+                <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.projects}</a>
+                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 text-sm">{t.nav.contact}</a>
               </div>
               <div className="mt-auto p-4 border-t border-zinc-800">
                 <div className="flex items-center gap-2 text-xs text-zinc-600 font-mono">
@@ -178,23 +179,23 @@ const Portfolio = () => {
         <div className="max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-1 mb-6 md:mb-8 bevel-sm">
             <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-            <span className="font-mono text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-zinc-400">{t.hero.status}</span>
+            <span className="font-mono text-[10px] md:text-xs uppercase font-bold tracking-widest text-zinc-400">{t.hero.status}</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-[0.9] mb-6 md:mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-[0.95] md:leading-[0.9] mb-6 md:mb-8">
             {t.hero.title1}<br/><span className="text-purple-500 italic">{t.hero.title2}</span>
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed mb-8 md:mb-12 max-w-2xl">
             {t.hero.description}<span className="text-white">{t.hero.descriptionHighlight}</span>{t.hero.descriptionEnd}
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href="#projects" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm hover:bg-purple-600 hover:text-white transition-all">
+            <a href="#projects" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm hover:bg-purple-600 hover:text-white active:bg-purple-700 active:text-white transition-all">
               {t.hero.cta}
             </a>
             <div className="flex gap-2">
-              <a href="https://github.com/aleximiaille" target="_blank" rel="noopener noreferrer" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all bevel-sm">
+              <a href="https://github.com/Tyziryx" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm">
                 <Github size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 transition-all bevel-sm">
+              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm">
                 <Linkedin size={20} />
               </a>
             </div>
@@ -224,22 +225,22 @@ const Portfolio = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 pt-8 md:pt-12">
-              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm group hover:border-purple-500/50 transition-colors">
+              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
                 <BookOpen className="text-purple-500 mb-4" size={24} />
                 <h4 className="font-bold uppercase text-sm mb-2">{t.about.card1Title}</h4>
                 <p className="text-xs text-zinc-500 font-mono">{t.about.card1Desc}</p>
               </div>
-              <div className="p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm group hover:border-purple-500/50 transition-colors">
+              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
                 <Coffee className="text-purple-500 mb-4" size={24} />
                 <h4 className="font-bold uppercase text-sm mb-2">{t.about.card2Title}</h4>
                 <p className="text-xs text-zinc-500 font-mono">{t.about.card2Desc}</p>
               </div>
-              <div className="p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm group hover:border-purple-500/50 transition-colors">
+              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
                 <Terminal className="text-purple-500 mb-4" size={24} />
                 <h4 className="font-bold uppercase text-sm mb-2">{t.about.card3Title}</h4>
                 <p className="text-xs text-zinc-500 font-mono">{t.about.card3Desc}</p>
               </div>
-              <div className="p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm group hover:border-purple-500/50 transition-colors">
+              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
                 <Binary className="text-purple-500 mb-4" size={24} />
                 <h4 className="font-bold uppercase text-sm mb-2">{t.about.card4Title}</h4>
                 <p className="text-xs text-zinc-500 font-mono">{t.about.card4Desc}</p>
@@ -263,11 +264,11 @@ const Portfolio = () => {
               <div key={i} className="space-y-6">
                 <div className="flex items-center gap-3 text-zinc-300">
                   {skill.icon}
-                  <h3 className="font-bold uppercase tracking-widest text-sm">{skill.name}</h3>
+                  <h3 className="font-bold uppercase tracking-widest text-xs">{skill.name}</h3>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {skill.items.map((item, idx) => (
-                    <span key={idx} className="font-mono text-[11px] bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-sm text-zinc-400 hover:text-purple-400 transition-colors">
+                    <span key={idx} className="font-mono text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-sm text-zinc-400 hover:text-purple-400 active:text-purple-400 transition-colors">
                       {item}
                     </span>
                   ))}
@@ -316,26 +317,26 @@ const Portfolio = () => {
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">{t.projects.title}</h2>
           </div>
-          <span className="font-mono text-[9px] md:text-[10px] text-zinc-600">{t.projects.buildLog}</span>
+          <span className="font-mono text-[10px] md:text-xs text-zinc-600">{t.projects.buildLog}</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, i) => (
             <div
               key={i}
               onClick={() => setSelectedProject(project)}
-              className="group bg-zinc-900/40 border border-zinc-800 p-8 hover:border-purple-500/50 transition-all bevel-sm relative overflow-hidden flex flex-col h-full cursor-pointer"
+              className="group bg-zinc-900/40 border border-zinc-800 p-8 md:hover:border-purple-500/50 active:border-purple-500/30 transition-all bevel-sm relative overflow-hidden flex flex-col h-full cursor-pointer"
             >
               <div className="flex justify-between items-start mb-6">
                 <span className="font-mono text-[10px] text-purple-500 font-bold uppercase tracking-widest">{project.category}</span>
-                <ArrowUpRight size={18} className="text-zinc-600 group-hover:text-white transition-colors" />
+                <ArrowUpRight size={18} className="text-zinc-600 group-hover:text-white group-active:text-white transition-colors" />
               </div>
-              <h3 className="text-2xl font-black uppercase mb-4 group-hover:text-purple-500 transition-colors leading-tight">{project.title}</h3>
+              <h3 className="text-2xl font-black uppercase mb-4 group-hover:text-purple-500 group-active:text-purple-500 transition-colors leading-tight">{project.title}</h3>
               <p className="text-zinc-400 text-sm leading-relaxed mb-8">
                 {project.desc}
               </p>
               <div className="flex flex-wrap gap-2 mt-auto">
-                {project.tech.map(t => (
-                  <span key={t} className="font-mono text-[9px] text-zinc-600 uppercase">#{t}</span>
+                {project.tech.map(tech => (
+                  <span key={tech} className="font-mono text-[10px] md:text-xs text-zinc-600 uppercase">#{tech}</span>
                 ))}
               </div>
             </div>
@@ -346,7 +347,7 @@ const Portfolio = () => {
       {/* Modal pour les projets */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-2 md:p-4"
+          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-6"
           onClick={() => setSelectedProject(null)}
         >
           <div
@@ -355,12 +356,12 @@ const Portfolio = () => {
           >
             <div className="sticky top-0 bg-zinc-900 border-b border-zinc-800 p-4 md:p-6 flex justify-between items-start md:items-center z-10">
               <div className="flex-1 mr-2">
-                <span className="font-mono text-[9px] md:text-[10px] text-purple-500 font-bold uppercase tracking-widest">{selectedProject.category}</span>
+                <span className="font-mono text-[10px] md:text-xs text-purple-500 font-bold uppercase tracking-widest">{selectedProject.category}</span>
                 <h3 className="text-xl md:text-3xl font-black uppercase mt-1 md:mt-2 leading-tight">{selectedProject.title}</h3>
               </div>
               <button
                 onClick={() => setSelectedProject(null)}
-                className="w-8 h-8 md:w-10 md:h-10 border border-zinc-800 hover:border-purple-500 hover:text-purple-500 transition-all flex items-center justify-center bevel-sm flex-shrink-0"
+                className="w-11 h-11 md:w-12 md:h-12 border border-zinc-800 hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all flex items-center justify-center bevel-sm flex-shrink-0" aria-label={lang === 'fr' ? "Fermer" : "Close"}
               >
                 <X size={18} />
               </button>
@@ -393,7 +394,7 @@ const Portfolio = () => {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold uppercase text-xs bevel-sm hover:bg-purple-600 hover:text-white transition-all"
                   >
-                    Voir sur GitHub <Github size={16} />
+                    {t.projects.viewOnGithub} <Github size={16} />
                   </a>
                   {selectedProject.title.includes("Mbox") && (
                     <a
@@ -402,7 +403,7 @@ const Portfolio = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center gap-2 bg-zinc-800 border border-zinc-700 text-white px-6 md:px-8 py-3 md:py-4 font-bold uppercase text-xs bevel-sm hover:border-purple-500 hover:bg-purple-600 transition-all"
                     >
-                      Lire le rapport <BookOpen size={16} />
+                      {t.projects.readReport} <BookOpen size={16} />
                     </a>
                   )}
                 </div>
@@ -424,17 +425,17 @@ const Portfolio = () => {
               <a href="mailto:alexim13550@gmail.com" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:bg-purple-600 hover:text-white transition-all shadow-lg active:scale-95">
                 {t.contact.cta} <Mail size={16} />
               </a>
-              <a href="/CV%20Alexi%20Miaille.pdf" download className="bg-zinc-800 border border-zinc-700 text-white px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-600 transition-all active:scale-95">
-                Télécharger CV <ArrowUpRight size={16} />
+              <a href="/CV%20Alexi%20Miaille.pdf" download className="bg-zinc-800 border border-zinc-700 text-white px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-600 active:border-purple-500 active:bg-purple-700 transition-all">
+                {t.contact.downloadCV} <ArrowUpRight size={16} />
               </a>
             </div>
-            <div className="flex justify-center md:justify-end gap-6 font-mono text-[10px] text-zinc-600 uppercase font-bold tracking-widest">
-              <a href="https://github.com/Tyziryx" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Github</a>
-              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Linkedin</a>
+            <div className="flex justify-center md:justify-end gap-6 font-mono text-xs text-zinc-600 uppercase font-bold tracking-widest">
+              <a href="https://github.com/Tyziryx" target="_blank" rel="noopener noreferrer" className="hover:text-white active:text-white transition-colors">Github</a>
+              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" className="hover:text-white active:text-white transition-colors">Linkedin</a>
             </div>
           </div>
         </div>
-        <div className="container mx-auto mt-24 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-[9px] text-zinc-700 uppercase tracking-[0.3em]">
+        <div className="container mx-auto mt-24 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-[10px] text-zinc-700 uppercase tracking-[0.3em]">
           <span>{t.footer.copyright}</span>
           <div className="flex gap-4">
             <span className="text-zinc-800">{t.footer.uptime}</span>
