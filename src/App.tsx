@@ -425,7 +425,7 @@ const Portfolio = () => {
               <a href="mailto:alexim13550@gmail.com" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:bg-purple-600 hover:text-white transition-all shadow-lg active:scale-95">
                 {t.contact.cta} <Mail size={16} />
               </a>
-              <a href="/CV%20Alexi%20Miaille.pdf" download className="bg-zinc-800 border border-zinc-700 text-white px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-600 active:border-purple-500 active:bg-purple-700 transition-all">
+              <a href="/CV%20Alexi%20Miaille2026%20Alternance.pdf" download className="bg-zinc-800 border border-zinc-700 text-white px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-600 active:border-purple-500 active:bg-purple-700 transition-all">
                 {t.contact.downloadCV} <ArrowUpRight size={16} />
               </a>
             </div>
