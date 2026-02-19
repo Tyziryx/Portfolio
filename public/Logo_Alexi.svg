@@ -3,11 +3,11 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #2447b3;
+        fill: #a855f7;
       }
 
       .cls-2 {
-        fill: #4a71ff;
+        fill: #F4F4F5;
       }
 
       .cls-3 {
@@ -15,11 +15,11 @@
       }
     </style>
     <linearGradient id="Dégradé_sans_nom_16" data-name="Dégradé sans nom 16" x1="94.89" y1="34.16" x2="137.09" y2="43.88" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#2447b3"/>
-      <stop offset=".25" stop-color="#3256cf"/>
-      <stop offset=".54" stop-color="#3f65e9"/>
-      <stop offset=".8" stop-color="#476df9"/>
-      <stop offset="1" stop-color="#4a71ff"/>
+      <stop offset="0" stop-color="#7c3aed"/>
+      <stop offset=".25" stop-color="#8b5cf6"/>
+      <stop offset=".54" stop-color="#9333ea"/>
+      <stop offset=".8" stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#c084fc"/>
     </linearGradient>
   </defs>
   <g id="Calque_1-2" data-name="Calque 1" transform="scale(1.)">

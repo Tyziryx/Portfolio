@@ -1,178 +1,150 @@
-## Description du projet
+# Portfolio Alexi Miaille v3.0
 
-Ce portfolio moderne présente mes compétences, projets et informations de contact dans une interface élégante et interactive avec support multilingue (français et anglais).
+Portfolio minimaliste d'Alexi Miaille - Étudiant L3 Informatique CERI Avignon.
 
-## Fonctionnalités
+## À propos
 
-- **Design moderne** avec animations et effets visuels
-- **Interface responsive** s'adaptant à tous les appareils
-- **Support multilingue** (français et anglais)
-- **Sections organisées** : À propos, Projets, Compétences, Contact
-- **Barre de navigation interactive** avec détection de section active
-- **Animations au défilement** avec la bibliothèque AOS
-- **Thème sombre** avec dégradés et effets visuels modernes
-- **Indicateurs de niveau de compétence** visuels
+Portfolio personnel présentant mes projets, compétences et parcours en informatique.
+Design minimaliste "tech brutalist" avec focus sur la lisibilité et la performance.
 
-## Technologies utilisées
+**Objectif** : Alternance Master SYRIUS (Systèmes, Réseaux, Cybersécurité) - Rentrée 2025
 
-- React.js
-- JavaScript (ES6+)
-- HTML5 & CSS3
-- AOS (Animate On Scroll)
-- Font Awesome
-- LocalStorage (pour sauvegarder la langue)
-- React Context API (pour la gestion de l'état global)
+## Caractéristiques
 
-## Prérequis
+- ✅ Design minimaliste pro (noir/violet/blanc)
+- ✅ Multilingue FR/EN avec switch temps réel
+- ✅ 5 projets académiques avec modals interactifs
+- ✅ Section "En ce moment" pour montrer l'activité
+- ✅ Build ultra-rapide (< 1s) avec Vite
+- ✅ Responsive mobile/desktop
+- ✅ Performance optimisée
 
-Pour exécuter ce projet localement, vous aurez besoin de :
+## Stack Technique
 
-- Node.js (version 14 ou supérieure)
-- npm (généralement installé avec Node.js)
+- **React 19** avec TypeScript
+- **Vite** comme bundler (build en ~950ms)
+- **Tailwind CSS** (via CDN)
+- **Lucide React** pour les icônes
+- **Fonts** : Inter + JetBrains Mono
 
 ## Installation
 
-Suivez ces étapes pour installer et configurer le projet sur votre machine locale :
-
-1. **Clonez le dépôt**
-   ```bash
-   git clone https://github.com/Tyziryx/mon-portfolio.git
-   cd mon-portfolio
-   ```
-
-2. **Installez les dépendances**
-   ```bash
-   npm install
-   ```
-
-   Si vous rencontrez des problèmes avec React 19, vous pouvez installer une version stable :
-   ```bash
-   npm uninstall react react-dom
-   npm install react@18.2.0 react-dom@18.2.0
-   ```
-
-3. **Installez Font Awesome si nécessaire**
-   ```bash
-   npm install @fortawesome/fontawesome-free
-   ```
-
-## Exécution locale
-
-Pour lancer l'application en mode développement :
-
 ```bash
-npm start
+npm install
 ```
 
-Le site sera accessible à l'adresse [http://localhost:3000](http://localhost:3000) dans votre navigateur.
+## Développement
 
-Le serveur de développement se rechargera automatiquement si vous modifiez les fichiers source.
+```bash
+npm run dev
+```
 
-## Construction pour la production
+Le site sera accessible sur `http://localhost:3000` (ou 3001 si 3000 est occupé)
 
-Pour créer une version optimisée pour la production :
+## Build Production
 
 ```bash
 npm run build
+npm run preview
 ```
 
-Cela génère une version de production dans le dossier `build`, optimisée pour les meilleures performances. Les fichiers sont minifiés et les noms incluent des hachages.
+Le dossier `dist/` contient les fichiers prêts pour le déploiement.
 
-## Structure du projet
+## Structure
 
 ```
-mon-portfolio/
-├── public/                # Fichiers publics et index.html
-├── src/                   # Code source du projet
-│   ├── assets/            # Images et ressources
-│   │   └── images/        # Images du projet
-│   ├── components/        # Composants React
-│   │   ├── About/         # Section À propos
-│   │   ├── Contact/       # Section Contact
-│   │   ├── Footer/        # Pied de page
-│   │   ├── Header/        # En-tête avec navigation
-│   │   ├── Hero/          # Section d'accueil
-│   │   ├── Projects/      # Section Projets
-│   │   └── Skills/        # Section Compétences
-│   ├── context/           # Contextes React (gestion d'état)
-│   │   └── Context.jsx    # Contexte de langue
-│   ├── hooks/             # Hooks personnalisés
-│   │   └── Hooks.jsx      # Hook de traduction
-│   ├── translations/      # Fichiers de traduction
-│   │   ├── fr.jsx         # Traductions françaises
-│   │   └── eng.jsx        # Traductions anglaises
-│   ├── App.js             # Composant principal
-│   ├── index.js           # Point d'entrée
-│   └── *.css              # Fichiers de styles
-└── package.json          # Configuration du projet et dépendances
+portfolio-v3/
+├── public/
+│   └── Logo_Alexi.svg      # Logo (favicon)
+├── src/
+│   ├── assets/images/      # Images projets
+│   ├── App.tsx             # Composant principal
+│   ├── index.tsx           # Point d'entrée
+│   ├── translations.ts     # Traductions FR/EN
+│   └── vite-env.d.ts       # Types TypeScript
+├── index.html              # Template HTML
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## Sections du Portfolio
+
+1. **Hero** : Présentation rapide + liens sociaux
+2. **À Propos** : Mon parcours, motivations, objectifs
+3. **En ce moment** : Activités en cours (L3, projets, candidatures)
+4. **Compétences** : Stack technique organisée par catégories
+5. **Projets** : 5 projets académiques avec détails
+6. **Contact** : Email + liens sociaux
+
+## Projets Présentés
+
+1. **Mbox** - Interface de gestion box internet (DHCP, DNS, monitoring)
+2. **CeriCar** - Plateforme de covoiturage (Yii2, PostgreSQL)
+3. **AdminMonitoring** - Système de monitoring système (Flask)
+4. **GéoDex** - Site web de collection (PHP, PostgreSQL)
+5. **Ma Supérette** - Application de gestion (Java, Swing)
+
+## Déploiement
+
+### Vercel (recommandé)
+```bash
+npm install -g vercel
+vercel
+```
+
+### Netlify
+```bash
+npm run build
+# Glisser-déposer le dossier dist/ sur netlify.com/drop
+```
+
+### GitHub Pages
+```bash
+# Ajouter dans package.json:
+# "homepage": "https://tyziryx.github.io/portfolio-v3"
+
+npm install --save-dev gh-pages
+npm run build
+
+# Ajouter dans package.json scripts:
+# "predeploy": "npm run build",
+# "deploy": "gh-pages -d dist"
+
+npm run deploy
 ```
 
 ## Personnalisation
 
-Pour personnaliser le portfolio avec vos propres informations :
+### Modifier les traductions
+Éditer `src/translations.ts` pour changer les textes FR/EN.
 
-1. Modifiez les fichiers de traduction dans translations pour mettre à jour les textes
-2. Remplacez les images dans images par vos propres images
-3. Mettez à jour les liens des projets et des réseaux sociaux dans les composants correspondants
-
-## Problèmes courants et solutions
-
-### Problème de dépendances React
-
-Si vous rencontrez des erreurs liées à React 19, installez une version stable :
-
-```bash
-npm uninstall react react-dom
-npm install react@18.2.0 react-dom@18.2.0
-```
-
-### Problème de rendu des icônes Font Awesome
-
-Si les icônes ne s'affichent pas, assurez-vous que Font Awesome est correctement importé :
-
-```jsx
-// dans index.js
-import '@fortawesome/fontawesome-free/css/all.min.css';
-```
-
-## Déploiement
-
-Ce site peut être facilement déployé sur diverses plateformes comme Netlify, Vercel, ou GitHub Pages.
-
-### Déploiement sur GitHub Pages
-
-```bash
-npm install --save gh-pages
-```
-
-Ajoutez ces lignes à votre package.json :
-
-```json
-"homepage": "https://votre-nom-utilisateur.github.io/mon-portfolio",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
+### Modifier les couleurs
+Dans `index.html`, variables CSS :
+```css
+:root {
+  --bg: #09090B;
+  --fg: #F4F4F5;
+  --accent: #A855F7;
+  --border: #27272A;
 }
 ```
 
-Puis exécutez :
-
-```bash
-npm run deploy
-```
-
-## Licence
-
-Ce projet est sous licence MIT. Vous êtes libre de l'utiliser, de le modifier et de le distribuer selon les termes de cette licence.
+### Ajouter un projet
+Dans `src/translations.ts`, ajouter `project6` puis mettre à jour `src/App.tsx`.
 
 ## Contact
 
-Pour toute question ou suggestion, n'hésitez pas à me contacter :
+- **Email** : alexim13550@gmail.com
+- **LinkedIn** : [linkedin.com/in/alexi-miaille-baba88333](https://www.linkedin.com/in/alexi-miaille-baba88333/)
+- **GitHub** : [github.com/Tyziryx](https://github.com/Tyziryx)
 
-- Email: alexim13550@gmail.com
-- GitHub: [Tyziryx](https://github.com/Tyziryx)
-- LinkedIn: [Alexi Miaille](https://linkedin.com/in/alexi-miaille-baba88333)
+## Licence
+
+MIT - Libre d'utilisation pour inspiration
 
 ---
 
-Créé avec ❤️ par Alexi Miaille
+**Version** : 3.0.0
+**Auteur** : Alexi Miaille
+**Dernière mise à jour** : Janvier 2025
