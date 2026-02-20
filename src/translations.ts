@@ -87,7 +87,7 @@ export const translations = {
     },
     contact: {
       title: "Contactez-moi",
-      subtitle: "Recherche alternance Sept 2026 // Réseau • Cybersec • DevOps",
+      subtitle: "Recherche alternance Sept 2026 // Réseau • Cybersécurité",
       cta: "Envoyer un email",
       downloadCV: "Télécharger CV"
     },
@@ -185,7 +185,7 @@ export const translations = {
     },
     contact: {
       title: "Contact Me",
-      subtitle: "Looking for work-study Sept 2026 // Network • Cybersec • DevOps",
+      subtitle: "Looking for work-study Sept 2026 // Network • Cybersecurity",
       cta: "Send an email",
       downloadCV: "Download CV"
     },
