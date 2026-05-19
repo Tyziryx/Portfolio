@@ -7,7 +7,7 @@ Portfolio minimaliste d'Alexi Miaille - Étudiant L3 Informatique CERI Avignon.
 Portfolio personnel présentant mes projets, compétences et parcours en informatique.
 Design minimaliste "tech brutalist" avec focus sur la lisibilité et la performance.
 
-**Objectif** : Alternance Master SYRIUS (Systèmes, Réseaux, Cybersécurité) - Rentrée 2025
+**Objectif** : Alternance Master SYRIUS (Systèmes, Réseaux, Cybersécurité) - Rentrée 2026
 
 ## Caractéristiques
 
