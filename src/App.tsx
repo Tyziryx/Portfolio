@@ -1,449 +1,561 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
-  ArrowUpRight, Github, Linkedin, Shield, Terminal,
-  Cpu, Code, Globe, Layout, Mail, BookOpen, Coffee, Binary, User, X, Menu
+  ArrowUpRight, Github, Linkedin, Shield, Server, MonitorDot, Code,
+  Globe, Mail, BookOpen, X, Menu
 } from "lucide-react";
 import { translations, Language, Translations } from "./translations";
+import "./App.css";
 
 import geodexImg from "./assets/images/geodex.jpg";
-import javaImg from "./assets/images/java-bdd.png";
+import javaImg from "./assets/images/java-bdd.jpg";
 import amsImg from "./assets/images/ams-dashboard.jpg";
-import cericarImg from "./assets/images/cericar.png";
-import mboxImg from "./assets/images/mbox.png";
+import cericarImg from "./assets/images/cericar.jpg";
+import mboxImg from "./assets/images/mbox.jpg";
 
-interface Project {
+const CV_URL = "/CV%20Alexi%20Miaille2026%20Alternance.pdf";
+const MBOX_REPORT_URL = "/Rapport%20FInal%20Miaille%20Alexi.pdf";
+const NETWORK_REPORT_URL = "/Rapport%20Reseau%20PME%20DMZ.pdf";
+const GITHUB_URL = "https://github.com/Tyziryx";
+const LINKEDIN_URL = "https://www.linkedin.com/in/alexi-miaille-baba88333";
+const EMAIL = "alexim13550@gmail.com";
+
+const SECTION_IDS = ["profil", "parcours", "stack", "projets", "contact"];
+
+const skillIcons: Record<string, React.ReactNode> = {
+  shield: <Shield size={15} />,
+  server: <Server size={15} />,
+  monitor: <MonitorDot size={15} />,
+  code: <Code size={15} />
+};
+
+interface GridProject {
+  key: string;
   category: string;
   title: string;
   desc: string;
   tech: string[];
-  link: string;
-  image: string;
+  link?: string;
+  image?: string;
 }
 
-const Portfolio = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState<Language>('fr');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const t: Translations = translations[lang];
+interface TermLine {
+  type: "cmd" | "out" | "ok" | "hint";
+  text: string;
+}
+
+const Logo = () => (
+  <svg viewBox="-20 -20 240 140" aria-label="Alexi Miaille" role="img">
+    <defs>
+      <linearGradient id="logo-grad" x1="94.89" y1="34.16" x2="137.09" y2="43.88" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stopColor="#7c3aed" />
+        <stop offset=".25" stopColor="#8b5cf6" />
+        <stop offset=".54" stopColor="#9333ea" />
+        <stop offset=".8" stopColor="#a855f7" />
+        <stop offset="1" stopColor="#c084fc" />
+      </linearGradient>
+    </defs>
+    <g>
+      <path fill="#a855f7" d="M134.75,34.43c-1.61,5.05-5.46,7.58-11.56,7.58h-28.13l-8.9,24.63h-16.96l8.35-23.63-14.27-.19c-15.91,19.2-31.18,27.99-46.37,27.99-4.42,0-8.15-.82-11.18-2.46-3.82-2.08-5.73-5.15-5.73-9.19,0-3.44,1.42-6.8,4.26-10.09,4.58-5.27,11.51-9.17,20.79-11.7,7.26-1.96,15.34-2.88,24.15-3.46l9.38-.86L87.01,0h22.83l-12.22,34.43h37.13ZM51.91,42.01c-11.84,0-20.15,1.71-24.91,5.12-3.95,2.84-5.92,5.86-5.92,9.05,0,2.72,1.42,4.07,4.26,4.07,3.92,0,8.81-2.21,14.68-6.63,5.15-3.82,9.11-7.69,11.89-11.6ZM90.61,7.86l-19.95,24.8,10.58-.77,9.37-24.04Z" />
+      <path fill="#F4F4F5" d="M201.58,91.28c-1.33,5.05-5.72,7.58-13.17,7.58h-17c-5.3,0-7.96-1.53-7.96-4.59,0-1.07.33-2.48.99-4.22l7.86-20.46-23.49,25.77c-2.53,2.81-5.29,4.22-8.29,4.22-.57,0-1.17-.05-1.8-.14-3.6-.41-5.4-2.21-5.4-5.4,0-1.23.28-2.56.85-3.98l11.65-30.08-29.22,35.29c-1.96,2.4-4.83,3.6-8.62,3.6h-9.61l19.13-54.7-23.28.02,4.14-11.96h31.64c4.36,0,6.54,1.59,6.54,4.78,0,1.23-.3,2.72-.9,4.45l-10.18,29.37,20.37-23.07c2.59-2.97,4.58-4.89,5.97-5.78,2.3-1.45,5.29-2.18,8.95-2.18,1.04,0,2.13.36,3.27,1.09,1.74,1.14,2.6,2.83,2.6,5.07,0,1.39-.35,2.95-1.04,4.69l-9.19,23.87,18.23-18.33c2.59-2.59,4.31-4.15,5.16-4.69,1.48-.85,3.62-1.26,6.39-1.23,1.1,0,2.27.41,3.5,1.23,1.89,1.23,2.84,3.03,2.84,5.4,0,1.36-.32,2.86-.95,4.5l-11.32,29.89h21.31Z" />
+      <path fill="url(#logo-grad)" d="M134.16,44.12l-40.05.1,4.28-12.06,34.23.45c2.82.8,3.26,1.7,3.08,3.54l-1.53,7.98Z" />
+    </g>
+  </svg>
+);
+
+const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) => {
+  const [lines, setLines] = useState<TermLine[]>([]);
+  const [input, setInput] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    setLines([
+      { type: "cmd", text: t.initialCmd },
+      { type: "out", text: t.initialOut },
+      { type: "hint", text: t.hint }
+    ]);
+  }, [lang, t]);
 
-  const toggleLanguage = () => {
-    setLang(prev => prev === 'fr' ? 'en' : 'fr');
-  };
+  useEffect(() => {
+    if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
+  }, [lines]);
+
+  const run = useCallback((raw: string) => {
+    const cmd = raw.trim().toLowerCase();
+    if (!cmd) return;
+    if (cmd === "clear") {
+      setLines([]);
+      setInput("");
+      return;
+    }
+    const next: TermLine[] = [{ type: "cmd", text: raw.trim() }];
+    const resp = t.responses[cmd];
+    if (resp) {
+      const type = cmd === "sudo hire-me" ? "ok" : "out";
+      resp.split("\n").forEach(l => next.push({ type, text: l }));
+      if (cmd === "projets" || cmd === "projects") {
+        document.getElementById("projets")?.scrollIntoView({ behavior: "smooth" });
+      }
+      if (cmd === "cv") {
+        window.open(CV_URL, "_blank", "noopener");
+      }
+    } else {
+      next.push({ type: "out", text: t.notFound(cmd) });
+    }
+    setLines(prev => [...prev, ...next]);
+    setInput("");
+    inputRef.current?.focus();
+  }, [t]);
+
+  const suggestions = lang === "fr"
+    ? ["help", "stage", "projets", "sudo hire-me"]
+    : ["help", "stage", "projects", "sudo hire-me"];
+
+  return (
+    <div className="terminal bevel" onClick={() => inputRef.current?.focus()}>
+      <div className="terminal-head">
+        <span className="t-dot a"></span><span className="t-dot"></span><span className="t-dot"></span>
+        <span className="t-title">{t.title}</span>
+      </div>
+      <div className="terminal-body" ref={bodyRef}>
+        {lines.map((l, i) => (
+          <div key={i} className={`t-line ${l.type === "out" ? "t-out" : l.type === "ok" ? "t-ok" : l.type === "hint" ? "t-hint" : ""}`}>
+            {l.type === "cmd" ? (<><span className="t-prompt">$</span> <span className="t-cmd">{l.text}</span></>) : l.text}
+          </div>
+        ))}
+        <div className="t-input-line">
+          <span className="t-prompt">$</span>
+          <input
+            ref={inputRef}
+            className="t-input"
+            type="text"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") run(input); }}
+            autoComplete="off"
+            spellCheck={false}
+            aria-label={t.inputAria}
+          />
+        </div>
+      </div>
+      <div className="t-suggest">
+        <span className="t-suggest-label">{t.tryLabel}</span>
+        {suggestions.map(cmd => (
+          <button key={cmd} onClick={e => { e.stopPropagation(); run(cmd); }}>{cmd}</button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const NetDiagram = () => (
+  <pre className="net-diagram">{`        ┌─────────┐
+        │Internet │
+        └────┬────┘
+             │ WAN :3080
+      ┌──────┴──────┐
+      │  `}<b>OPNsense</b>{`   │
+      │  firewall   │
+      └──┬───────┬──┘
+    LAN  │       │  DMZ /29
+  ┌──────┴───┐ ┌─┴────────┐
+  │`}<i>Switch L3</i>{` │ │`}<i>Ubuntu</i>{`    │
+  │Cisco+ACL │ │`}<i>nginx :80</i>{` │
+  └┬────┬───┬┘ └──────────┘
+   │    │   │   `}<em>anti-pivot ✓</em>{`
+ `}<b>VL10</b>{` `}<b>VL20</b>{` `}<b>VL30</b>{`
+ users admin guest`}</pre>
+);
+
+const useReveal = (deps: unknown[]) => {
+  useEffect(() => {
+    const els = document.querySelectorAll<HTMLElement>(".reveal:not(.in)");
+    if (!("IntersectionObserver" in window)) {
+      els.forEach(el => el.classList.add("in"));
+      return;
+    }
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("in");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+    return () => io.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+};
+
+const Portfolio = () => {
+  const [lang, setLang] = useState<Language>("fr");
+  const [selectedProject, setSelectedProject] = useState<GridProject | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("profil");
+  const t: Translations = translations[lang];
+
+  const isNotFound = !["/", "/index.html"].includes(window.location.pathname);
+
+  useReveal([lang]);
+
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) setActiveSection(e.target.id); });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    SECTION_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
+  }, [isNotFound]);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const projects: Project[] = [
-    {
-      category: t.projects.project1.category,
-      title: t.projects.project1.title,
-      desc: t.projects.project1.desc,
-      tech: t.projects.project1.tech,
-      link: "https://github.com/Tyziryx/Mbox",
-      image: mboxImg
-    },
-    {
-      category: t.projects.project2.category,
-      title: t.projects.project2.title,
-      desc: t.projects.project2.desc,
-      tech: t.projects.project2.tech,
-      link: "https://github.com/Tyziryx/CeriCar",
-      image: cericarImg
-    },
-    {
-      category: t.projects.project3.category,
-      title: t.projects.project3.title,
-      desc: t.projects.project3.desc,
-      tech: t.projects.project3.tech,
-      link: "https://github.com/Tyziryx/amserveur",
-      image: amsImg
-    },
-    {
-      category: t.projects.project4.category,
-      title: t.projects.project4.title,
-      desc: t.projects.project4.desc,
-      tech: t.projects.project4.tech,
-      link: "https://github.com/Tyziryx/WebsiteProg",
-      image: geodexImg
-    },
-    {
-      category: t.projects.project5.category,
-      title: t.projects.project5.title,
-      desc: t.projects.project5.desc,
-      tech: t.projects.project5.tech,
-      link: "https://github.com/Tyziryx/Ams-JavaBdd",
-      image: javaImg
-    }
+  const gridProjects: GridProject[] = [
+    { key: "grafana", ...t.projects.grafana },
+    { key: "cericar", ...t.projects.cericar, link: "https://github.com/Tyziryx/CeriCar", image: cericarImg },
+    { key: "ams", ...t.projects.ams, link: "https://github.com/Tyziryx/amserveur", image: amsImg },
+    { key: "geodex", ...t.projects.geodex, link: "https://github.com/Tyziryx/WebsiteProg", image: geodexImg },
+    { key: "java", ...t.projects.java, link: "https://github.com/Tyziryx/Ams-JavaBdd", image: javaImg }
   ];
 
-  const skills = [
-    {
-      name: t.skills.category1,
-      items: t.skills.category1Items,
-      icon: <Code size={18}/>
-    },
-    {
-      name: t.skills.category2,
-      items: t.skills.category2Items,
-      icon: <Cpu size={18}/>
-    },
-    {
-      name: t.skills.category3,
-      items: t.skills.category3Items,
-      icon: <Shield size={18}/>
-    }
+  const navLinks = [
+    { id: "profil", label: t.nav.about },
+    { id: "parcours", label: t.nav.journey },
+    { id: "stack", label: t.nav.skills },
+    { id: "projets", label: t.nav.projects },
+    { id: "contact", label: t.nav.contact }
   ];
+
+  if (isNotFound) {
+    return (
+      <div className="notfound">
+        <div className="notfound-box bevel">
+          <div className="code">404</div>
+          <div className="msg">{t.notFound.msg}</div>
+          <div className="sub">{t.notFound.sub}</div>
+          <a href="/">{t.notFound.back}</a>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen flex flex-col">
-
-      {/* Simple Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled ? 'bg-zinc-950/95 backdrop-blur-md border-zinc-800 py-3' : 'bg-zinc-950/80 backdrop-blur-sm border-zinc-800 py-4'}`}>
-        <div className="container mx-auto px-4 md:px-6 flex justify-between items-center">
-          <a href="#top" onClick={(e) => handleNavClick(e, '#top')} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <img src="/Logo_Alexi.svg" alt="Alexi Miaille" className="w-20 h-12 md:w-24 md:h-14 object-contain" />
+    <div>
+      {/* ===== NAV ===== */}
+      <nav className="nav">
+        <div className="nav-inner">
+          <a href="#profil" onClick={e => handleNavClick(e, "#profil")} className="nav-logo" aria-label="Alexi Miaille, accueil">
+            <Logo />
           </a>
-          <div className="flex items-center gap-3 md:gap-8">
-            <div className="hidden md:flex gap-6 lg:gap-8 font-mono text-[10px] uppercase tracking-widest font-bold">
-              <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.about}</a>
-              <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.skills}</a>
-              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.projects}</a>
-              <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 active:text-purple-500 transition-colors">{t.nav.contact}</a>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={toggleLanguage}
-                className="w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
-                aria-label={lang === 'fr' ? "Changer de langue" : "Change language"}
+          <div className="nav-links">
+            {navLinks.map(l => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                onClick={e => handleNavClick(e, `#${l.id}`)}
+                className={activeSection === l.id ? "active" : ""}
               >
-                <Globe size={16} />
-              </button>
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
-                aria-label={mobileMenuOpen ? (lang === 'fr' ? "Fermer le menu" : "Close menu") : (lang === 'fr' ? "Ouvrir le menu" : "Open menu")}
-              >
-                <Menu size={16} />
-              </button>
-            </div>
+                {l.label}
+              </a>
+            ))}
+          </div>
+          <div className="nav-actions">
+            <button className="nav-btn" onClick={() => setLang(p => p === "fr" ? "en" : "fr")} aria-label={t.a11y.switchLang}>
+              <Globe size={16} />
+            </button>
+            <button className="nav-btn nav-burger" onClick={() => setMobileMenuOpen(true)} aria-label={t.a11y.openMenu}>
+              <Menu size={16} />
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* ===== MOBILE MENU ===== */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setMobileMenuOpen(false)}></div>
-          <div className="absolute top-0 right-0 h-full w-[75vw] max-w-xs bg-zinc-900 border-l border-zinc-800 shadow-2xl">
-            <div className="flex flex-col h-full">
-              <div className="flex items-center justify-between p-4 border-b border-zinc-800">
-                <span className="font-mono text-xs uppercase tracking-widest text-purple-500 font-bold">Menu</span>
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  aria-label={lang === 'fr' ? "Fermer le menu" : "Close menu"}
-                  className="w-11 h-11 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-              <div className="flex flex-col p-4 space-y-1 font-mono uppercase tracking-wider font-bold">
-                <a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.about}</a>
-                <a href="#skills" onClick={(e) => handleNavClick(e, '#skills')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.skills}</a>
-                <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 border-b border-zinc-800/50 text-sm">{t.nav.projects}</a>
-                <a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-purple-500 hover:bg-zinc-800/50 active:bg-zinc-800/50 active:text-purple-500 transition-all py-4 px-4 text-sm">{t.nav.contact}</a>
-              </div>
-              <div className="mt-auto p-4 border-t border-zinc-800">
-                <div className="flex items-center gap-2 text-xs text-zinc-600 font-mono">
-                  <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
-                  <span className="uppercase tracking-wider">Alexi Miaille</span>
-                </div>
-              </div>
+        <>
+          <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="mobile-menu">
+            <div className="mobile-menu-head">
+              <span>Menu</span>
+              <button className="nav-btn" onClick={() => setMobileMenuOpen(false)} aria-label={t.a11y.closeMenu}>
+                <X size={16} />
+              </button>
+            </div>
+            <div className="mobile-menu-links">
+              {navLinks.map(l => (
+                <a key={l.id} href={`#${l.id}`} onClick={e => handleNavClick(e, `#${l.id}`)}>{l.label}</a>
+              ))}
+            </div>
+            <div className="mobile-menu-foot">
+              <span className="pulse-dot"></span>
+              <span>Alexi Miaille</span>
             </div>
           </div>
-        </div>
+        </>
       )}
 
-      {/* Hero Section */}
-      <header id="top" className="pt-32 md:pt-40 pb-16 md:pb-24 px-4 md:px-6 container mx-auto">
-        <div className="max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3 py-1 mb-6 md:mb-8 bevel-sm">
-            <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-            <span className="font-mono text-[10px] md:text-xs uppercase font-bold tracking-widest text-zinc-400">{t.hero.status}</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black uppercase tracking-tighter leading-[0.95] md:leading-[0.9] mb-6 md:mb-8">
-            {t.hero.title1}<br/><span className="text-purple-500 italic">{t.hero.title2}</span>
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-zinc-400 leading-relaxed mb-8 md:mb-12 max-w-2xl">
-            {t.hero.description}<span className="text-white">{t.hero.descriptionHighlight}</span>{t.hero.descriptionEnd}
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <a href="#projects" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm hover:bg-purple-600 hover:text-white active:bg-purple-700 active:text-white transition-all">
-              {t.hero.cta}
-            </a>
-            <div className="flex gap-2">
-              <a href="https://github.com/Tyziryx" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm">
+      <div className="page">
+        {/* ===== HERO ===== */}
+        <header className="hero" id="profil">
+          <div>
+            <div className="status-badge"><span className="pulse-dot"></span> {t.hero.status}</div>
+            <h1 className="hero-title">
+              {t.hero.title1}<br /><span className="accent">{t.hero.title2}</span>
+            </h1>
+            <p className="hero-desc">
+              {t.hero.description}<strong>{t.hero.descriptionHighlight}</strong>{t.hero.descriptionEnd}
+            </p>
+            <div className="btn-row">
+              <a href="#projets" onClick={e => handleNavClick(e, "#projets")} className="btn-primary bevel">{t.hero.cta}</a>
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn-icon bevel" aria-label="GitHub">
                 <Github size={20} />
               </a>
-              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-12 h-12 border border-zinc-800 flex items-center justify-center hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all bevel-sm">
+              <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="btn-icon bevel" aria-label="LinkedIn">
                 <Linkedin size={20} />
               </a>
             </div>
           </div>
-        </div>
-      </header>
+          <Terminal t={t.terminal} lang={lang} />
+        </header>
 
-      {/* Section: A Propos */}
-      <section id="about" className="py-16 md:py-24 px-4 md:px-6 border-t border-zinc-900">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
-            <div className="space-y-6 md:space-y-8">
-              <div className="flex items-center gap-3 text-purple-500 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
-                <User size={14} className="md:w-4 md:h-4" /> {t.about.label}
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-tight">
-                {t.about.title1}<br/><span className="text-zinc-600">{t.about.title2}</span>
-              </h2>
-              <div className="space-y-4 text-zinc-400 leading-relaxed text-lg">
-                <p>
-                  {t.about.paragraph1}<span className="text-white">{t.about.paragraph1Highlight}</span>{t.about.paragraph1End}
+        {/* ===== PARCOURS ===== */}
+        <section className="section" id="parcours">
+          <div className="ghost-num">01</div>
+          <div className="section-inner">
+            <div className="eyebrow">{t.journey.label}</div>
+            <h2 className="sec-title reveal">{t.journey.title1}<br /><span className="dim">{t.journey.title2}</span></h2>
+            <div className="timeline">
+              <div className="tl-item current reveal">
+                <span className="tl-node"></span>
+                <div className="tl-date">{t.journey.internDate}</div>
+                <h3>{t.journey.internTitle}</h3>
+                <div className="tl-sub">{t.journey.internSub}</div>
+                <p className="tl-story">
+                  {t.journey.internStory}<strong>{t.journey.internStoryHighlight}</strong>{t.journey.internStoryEnd}
                 </p>
-                <p>
-                  {t.about.paragraph2}
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 pt-8 md:pt-12">
-              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
-                <BookOpen className="text-purple-500 mb-4" size={24} />
-                <h4 className="font-bold uppercase text-sm mb-2">{t.about.card1Title}</h4>
-                <p className="text-xs text-zinc-500 font-mono">{t.about.card1Desc}</p>
-              </div>
-              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
-                <Coffee className="text-purple-500 mb-4" size={24} />
-                <h4 className="font-bold uppercase text-sm mb-2">{t.about.card2Title}</h4>
-                <p className="text-xs text-zinc-500 font-mono">{t.about.card2Desc}</p>
-              </div>
-              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
-                <Terminal className="text-purple-500 mb-4" size={24} />
-                <h4 className="font-bold uppercase text-sm mb-2">{t.about.card3Title}</h4>
-                <p className="text-xs text-zinc-500 font-mono">{t.about.card3Desc}</p>
-              </div>
-              <div className="p-4 md:p-6 bg-zinc-900/30 border border-zinc-800 bevel-sm md:group-hover:border-purple-500/50 md:hover:border-purple-500/50 active:border-purple-500/30 transition-colors">
-                <Binary className="text-purple-500 mb-4" size={24} />
-                <h4 className="font-bold uppercase text-sm mb-2">{t.about.card4Title}</h4>
-                <p className="text-xs text-zinc-500 font-mono">{t.about.card4Desc}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-16 md:py-24 px-4 md:px-6 bg-zinc-950/50 border-y border-zinc-900">
-        <div className="container mx-auto">
-          <div className="mb-12 md:mb-16">
-             <div className="flex items-center gap-3 text-purple-500 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold mb-4">
-                <Cpu size={14} className="md:w-4 md:h-4" /> {t.skills.label}
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">{t.skills.title}</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {skills.map((skill, i) => (
-              <div key={i} className="space-y-6">
-                <div className="flex items-center gap-3 text-zinc-300">
-                  {skill.icon}
-                  <h3 className="font-bold uppercase tracking-widest text-xs">{skill.name}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {skill.items.map((item, idx) => (
-                    <span key={idx} className="font-mono text-xs bg-zinc-900 border border-zinc-800 px-3 py-1 rounded-sm text-zinc-400 hover:text-purple-400 active:text-purple-400 transition-colors">
-                      {item}
-                    </span>
-                  ))}
+                <div className="tl-phase"><span className="ph">{t.journey.phase1}</span> {t.journey.phase1Label}</div>
+                <ul>
+                  {t.journey.phase1Items.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+                <div className="tl-phase"><span className="ph">{t.journey.phase2}</span> {t.journey.phase2Label}</div>
+                <ul>
+                  {t.journey.phase2Items.map((item, i) => <li key={i}>{item}</li>)}
+                </ul>
+                <div className="chips">
+                  {t.journey.internChips.map(c => <span key={c} className="chip hot">{c}</span>)}
                 </div>
               </div>
-            ))}
+              <div className="tl-item reveal">
+                <span className="tl-node"></span>
+                <div className="tl-date">{t.journey.degreeDate}</div>
+                <h3>{t.journey.degreeTitle}</h3>
+                <div className="tl-sub">{t.journey.degreeSub}</div>
+              </div>
+              <div className="tl-item reveal">
+                <span className="tl-node"></span>
+                <div className="tl-date">{t.journey.masterDate}</div>
+                <h3>{t.journey.masterTitle}</h3>
+                <div className="tl-sub">{t.journey.masterSub}</div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Currently Section */}
-      <section className="py-12 md:py-16 px-4 md:px-6 container mx-auto border-b border-zinc-900">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center gap-3 text-purple-500 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold mb-6 md:mb-8">
-            <Coffee size={16} /> {t.currently.label}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="bg-zinc-900/30 border border-zinc-800 p-4 md:p-6 bevel-sm">
-              <div className="text-purple-500 mb-2 md:mb-3">
-                <BookOpen size={18} />
-              </div>
-              <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">{t.currently.item1}</p>
+        {/* ===== STACK ===== */}
+        <section className="section" id="stack">
+          <div className="ghost-num">02</div>
+          <div className="section-inner">
+            <div className="eyebrow">{t.skills.label}</div>
+            <h2 className="sec-title reveal">{t.skills.title1}<span className="dim">{t.skills.title2}</span></h2>
+            <div className="skills-grid">
+              {t.skills.categories.map((cat, i) => (
+                <div key={i} className="card bevel skill-block reveal">
+                  <h3>{skillIcons[cat.icon]} {cat.name}</h3>
+                  <div className="skill-origin mono">{cat.origin}</div>
+                  <div className="chips">
+                    {cat.items.map(item => (
+                      <span key={item.name} className={`chip${item.hot ? " hot" : ""}`}>{item.name}</span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="bg-zinc-900/30 border border-zinc-800 p-4 md:p-6 bevel-sm">
-              <div className="text-purple-500 mb-2 md:mb-3">
-                <Terminal size={18} />
-              </div>
-              <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">{t.currently.item2}</p>
-            </div>
-            <div className="bg-zinc-900/30 border border-zinc-800 p-4 md:p-6 bevel-sm">
-              <div className="text-purple-500 mb-2 md:mb-3">
-                <Mail size={18} />
-              </div>
-              <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">{t.currently.item3}</p>
+            <div className="skills-legend">
+              <span><span className="swatch hot"></span>{t.skills.legendHot}</span>
+              <span><span className="swatch"></span>{t.skills.legendBase}</span>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-16 md:py-32 px-4 md:px-6 container mx-auto">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 md:mb-16 space-y-4 md:space-y-0">
-          <div className="space-y-3 md:space-y-4">
-            <div className="flex items-center gap-3 text-purple-500 font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
-              <Layout size={14} className="md:w-4 md:h-4" /> {t.projects.label}
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter italic">{t.projects.title}</h2>
-          </div>
-          <span className="font-mono text-[10px] md:text-xs text-zinc-600">{t.projects.buildLog}</span>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, i) => (
-            <div
-              key={i}
-              onClick={() => setSelectedProject(project)}
-              className="group bg-zinc-900/40 border border-zinc-800 p-8 md:hover:border-purple-500/50 active:border-purple-500/30 transition-all bevel-sm relative overflow-hidden flex flex-col h-full cursor-pointer"
-            >
-              <div className="flex justify-between items-start mb-6">
-                <span className="font-mono text-[10px] text-purple-500 font-bold uppercase tracking-widest">{project.category}</span>
-                <ArrowUpRight size={18} className="text-zinc-600 group-hover:text-white group-active:text-white transition-colors" />
-              </div>
-              <h3 className="text-2xl font-black uppercase mb-4 group-hover:text-purple-500 group-active:text-purple-500 transition-colors leading-tight">{project.title}</h3>
-              <p className="text-zinc-400 text-sm leading-relaxed mb-8">
-                {project.desc}
-              </p>
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {project.tech.map(tech => (
-                  <span key={tech} className="font-mono text-[10px] md:text-xs text-zinc-600 uppercase">#{tech}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* ===== PROJETS ===== */}
+        <section className="section" id="projets">
+          <div className="ghost-num">03</div>
+          <div className="section-inner">
+            <div className="eyebrow">{t.projects.label}</div>
+            <h2 className="sec-title reveal">{t.projects.title1}<span className="dim">{t.projects.title2}</span></h2>
 
-      {/* Modal pour les projets */}
+            {/* Featured : Réseau PME GNS3 */}
+            <div className="featured bevel reveal" style={{ cursor: "default" }}>
+              <div className="featured-info">
+                <div className="featured-tag"><span className="star">{t.projects.featuredTag}</span><span>{t.projects.gns3.category}</span></div>
+                <h3>{t.projects.gns3.title}</h3>
+                <p>{t.projects.gns3.desc}</p>
+                <div className="chips" style={{ marginBottom: 22 }}>
+                  {t.projects.gns3.tech.map(tech => <span key={tech} className="chip">{tech}</span>)}
+                </div>
+                <div className="btn-row" style={{ marginTop: "auto" }}>
+                  <a href={NETWORK_REPORT_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary bevel">
+                    {t.projects.readNetworkReport} <BookOpen size={15} />
+                  </a>
+                </div>
+              </div>
+              <div className="featured-visual">
+                <NetDiagram />
+                <span className="visual-caption">{t.projects.diagramCaption}</span>
+              </div>
+            </div>
+
+            {/* Featured : Mbox */}
+            <div className="featured bevel reveal" style={{ cursor: "default" }}>
+              <div className="featured-info">
+                <div className="featured-tag"><span className="star">{t.projects.featuredTag}</span><span>{t.projects.mbox.category}</span></div>
+                <h3>{t.projects.mbox.title}</h3>
+                <p>{t.projects.mbox.desc}</p>
+                <div className="chips" style={{ marginBottom: 22 }}>
+                  {t.projects.mbox.tech.map(tech => <span key={tech} className="chip">{tech}</span>)}
+                </div>
+                <div className="btn-row" style={{ marginTop: "auto" }}>
+                  <a href="https://github.com/Tyziryx/Mbox" target="_blank" rel="noopener noreferrer" className="btn-primary bevel">
+                    {t.projects.viewOnGithub} <Github size={15} />
+                  </a>
+                  <a href={MBOX_REPORT_URL} target="_blank" rel="noopener noreferrer" className="btn-secondary bevel">
+                    {t.projects.readReport} <BookOpen size={15} />
+                  </a>
+                </div>
+              </div>
+              <div className="featured-visual">
+                <img src={mboxImg} alt="Interface d'administration Mbox" loading="lazy" />
+                <span className="visual-caption">{t.projects.mboxCaption}</span>
+              </div>
+            </div>
+
+            {/* Grille */}
+            <div className="projects-grid">
+              {gridProjects.map(p => (
+                <div
+                  key={p.key}
+                  className="card bevel proj-card"
+                  onClick={() => (p.image || p.link) && setSelectedProject(p)}
+                  style={!p.image && !p.link ? { cursor: "default" } : undefined}
+                >
+                  <div className="proj-thumb">
+                    {p.key === "grafana" ? (
+                      <div className="g-wall" aria-hidden="true">
+                        <div className="g-panel"><div className="g-label">Veeam</div><div className="g-val ok">47 ✓</div></div>
+                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Échecs" : "Failed"}</div><div className="g-val crit">2 ✗</div></div>
+                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Imp. off" : "Prn. off"}</div><div className="g-val warn">3</div></div>
+                        <div className="g-panel"><div className="g-label">Tickets</div><div className="g-val">12</div></div>
+                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Alertes" : "Alerts"}</div><div className="g-val warn">4</div></div>
+                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Parc" : "Fleet"}</div><div className="g-val ok">OK</div></div>
+                      </div>
+                    ) : (
+                      p.image && <img src={p.image} alt={p.title} loading="lazy" />
+                    )}
+                  </div>
+                  <div className="proj-body">
+                    <div className="proj-cat">{p.category}</div>
+                    <h3>{p.title}</h3>
+                    <p>{p.desc}</p>
+                    <div className="proj-tags">
+                      {p.tech.map(tech => <span key={tech}>#{tech}</span>)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="card bevel proj-card proj-next">
+                <div className="proj-next-inner">
+                  <div className="sym">&gt;_</div>
+                  <p>{t.projects.nextProject.split("\n").map((l, i) => <React.Fragment key={i}>{l}<br /></React.Fragment>)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* ===== MODAL ===== */}
       {selectedProject && (
-        <div
-          className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 md:p-6"
-          onClick={() => setSelectedProject(null)}
-        >
-          <div
-            className="bg-zinc-900 border-2 border-purple-500/50 max-w-4xl w-full max-h-[95vh] md:max-h-[90vh] overflow-y-auto bevel-sm"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="sticky top-0 bg-zinc-900 border-b border-zinc-800 p-4 md:p-6 flex justify-between items-start md:items-center z-10">
-              <div className="flex-1 mr-2">
-                <span className="font-mono text-[10px] md:text-xs text-purple-500 font-bold uppercase tracking-widest">{selectedProject.category}</span>
-                <h3 className="text-xl md:text-3xl font-black uppercase mt-1 md:mt-2 leading-tight">{selectedProject.title}</h3>
+        <div className="modal-overlay" onClick={() => setSelectedProject(null)}>
+          <div className="modal bevel" onClick={e => e.stopPropagation()}>
+            <div className="modal-head">
+              <div>
+                <div className="proj-cat">{selectedProject.category}</div>
+                <h3>{selectedProject.title}</h3>
               </div>
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="w-11 h-11 md:w-12 md:h-12 border border-zinc-800 hover:border-purple-500 hover:text-purple-500 active:border-purple-500 active:text-purple-500 transition-all flex items-center justify-center bevel-sm flex-shrink-0" aria-label={lang === 'fr' ? "Fermer" : "Close"}
-              >
+              <button className="modal-close" onClick={() => setSelectedProject(null)} aria-label={t.a11y.close}>
                 <X size={18} />
               </button>
             </div>
-
-            <div className="p-4 md:p-6 space-y-4 md:space-y-6">
-              <img
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                className="w-full border border-zinc-800 bevel-sm"
-              />
-
-              <div className="space-y-3 md:space-y-4">
-                <p className="text-zinc-300 text-base md:text-lg leading-relaxed">
-                  {selectedProject.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  {selectedProject.tech.map(tech => (
-                    <span key={tech} className="bg-zinc-800 border border-zinc-700 px-3 md:px-4 py-1.5 md:py-2 font-mono text-xs md:text-sm text-purple-400">
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-2 md:gap-3 mt-2 md:mt-4">
-                  <a
-                    href={selectedProject.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-white text-black px-6 md:px-8 py-3 md:py-4 font-bold uppercase text-xs bevel-sm hover:bg-purple-600 hover:text-white transition-all"
-                  >
-                    {t.projects.viewOnGithub} <Github size={16} />
-                  </a>
-                  {selectedProject.title.includes("Mbox") && (
-                    <a
-                      href="/Rapport%20FInal%20Miaille%20Alexi.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-zinc-800 border border-zinc-700 text-white px-6 md:px-8 py-3 md:py-4 font-bold uppercase text-xs bevel-sm hover:border-purple-500 hover:bg-purple-600 transition-all"
-                    >
-                      {t.projects.readReport} <BookOpen size={16} />
-                    </a>
-                  )}
-                </div>
+            <div className="modal-body">
+              {selectedProject.image && (
+                <img src={selectedProject.image} alt={selectedProject.title} />
+              )}
+              <p className="modal-desc">{selectedProject.desc}</p>
+              <div className="chips">
+                {selectedProject.tech.map(tech => <span key={tech} className="chip">{tech}</span>)}
               </div>
+              {selectedProject.link && (
+                <div className="modal-actions">
+                  <a href={selectedProject.link} target="_blank" rel="noopener noreferrer" className="btn-primary bevel">
+                    {t.projects.viewOnGithub} <Github size={15} />
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* Footer Section */}
-      <footer id="contact" className="mt-auto py-16 md:py-24 px-4 md:px-6 border-t border-zinc-900">
-        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
-          <div className="text-center md:text-left">
-            <h2 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4">{t.contact.title}</h2>
-            <p className="text-zinc-500 font-mono text-xs md:text-sm tracking-tight italic uppercase">{t.contact.subtitle}</p>
-          </div>
-          <div className="flex flex-col gap-4 w-full md:w-auto">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <a href="mailto:alexim13550@gmail.com" className="bg-white text-black px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:bg-purple-600 hover:text-white transition-all shadow-lg active:scale-95">
-                {t.contact.cta} <Mail size={16} />
-              </a>
-              <a href="/CV%20Alexi%20Miaille2026%20Alternance.pdf" download className="bg-zinc-800 border border-zinc-700 text-white px-8 py-4 font-bold uppercase text-xs bevel-sm flex items-center justify-center gap-2 hover:border-purple-500 hover:bg-purple-600 active:border-purple-500 active:bg-purple-700 transition-all">
-                {t.contact.downloadCV} <ArrowUpRight size={16} />
-              </a>
+      {/* ===== FOOTER / CONTACT ===== */}
+      <footer className="footer" id="contact">
+        <div className="page">
+          <div className="footer-main">
+            <div>
+              <h2 className="footer-title">{t.contact.title}</h2>
+              <p className="footer-sub">{t.contact.subtitle}</p>
             </div>
-            <div className="flex justify-center md:justify-end gap-6 font-mono text-xs text-zinc-600 uppercase font-bold tracking-widest">
-              <a href="https://github.com/Tyziryx" target="_blank" rel="noopener noreferrer" className="hover:text-white active:text-white transition-colors">Github</a>
-              <a href="https://www.linkedin.com/in/alexi-miaille-baba88333" target="_blank" rel="noopener noreferrer" className="hover:text-white active:text-white transition-colors">Linkedin</a>
+            <div className="footer-col">
+              <div className="btn-row">
+                <a href={`mailto:${EMAIL}`} className="btn-primary bevel">
+                  {t.contact.cta} <Mail size={15} />
+                </a>
+                <a href={CV_URL} download className="btn-secondary bevel">
+                  {t.contact.downloadCV} <ArrowUpRight size={15} />
+                </a>
+              </div>
+              <div className="footer-socials">
+                <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">Github</a>
+                <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">Linkedin</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="container mx-auto mt-24 pt-8 border-t border-zinc-900 flex flex-col md:flex-row justify-between items-center gap-4 font-mono text-[10px] text-zinc-700 uppercase tracking-[0.3em]">
-          <span>{t.footer.copyright}</span>
-          <div className="flex gap-4">
-            <span className="text-zinc-800">{t.footer.uptime}</span>
-            <span className="hidden md:block">{t.footer.builtWith}</span>
+          <div className="footer-meta">
+            <span>{t.footer.copyright}</span>
+            <span>{t.footer.uptime}</span>
           </div>
         </div>
       </footer>
-
     </div>
   );
 };
