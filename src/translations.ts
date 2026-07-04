@@ -13,7 +13,7 @@ export const translations = {
       title2: "& Systèmes.",
       description: "Étudiant en L3 informatique au CERI d'Avignon, actuellement en stage ",
       descriptionHighlight: "administration systèmes, réseaux et cybersécurité",
-      descriptionEnd: " chez SBI Informatique. Ce qui me plaît : comprendre une infra de bout en bout, la sécuriser, et la documenter proprement.",
+      descriptionEnd: " chez SBI Informatique. Ce qui me plaît : décortiquer une infra de bout en bout et la sécuriser, avec une doc propre derrière.",
       cta: "Voir mes projets"
     },
     terminal: {
@@ -151,7 +151,7 @@ export const translations = {
       cericar: {
         category: "Web Application",
         title: "CeriCar, covoiturage",
-        desc: "Plateforme complète : recherche AJAX, réservations, profils conducteurs et voyageurs, gestion des rôles. Développée en binôme avec Yii2 et PostgreSQL, architecture MVC.",
+        desc: "Un BlaBlaCar étudiant monté en binôme avec Yii2 et PostgreSQL : recherche AJAX, réservations, profils conducteurs et passagers, gestion des rôles.",
         tech: ["Yii2", "PHP", "PostgreSQL", "Bootstrap"]
       },
       ams: {
@@ -163,13 +163,13 @@ export const translations = {
       geodex: {
         category: "Web Development",
         title: "GéoDex, collection",
-        desc: "Application de collection de pierres : authentification, profils utilisateurs, back-office admin. PHP natif et PostgreSQL, gestion CRUD complète, en binôme.",
+        desc: "Un site de collection de pierres en PHP natif, sans framework : authentification, profils utilisateurs, back-office admin et tout le CRUD écrit à la main sur PostgreSQL. En binôme.",
         tech: ["PHP", "PostgreSQL", "HTML/CSS"]
       },
       java: {
         category: "Application Java",
         title: "Ma Supérette du Net",
-        desc: "Gestion de supérette : fournisseurs, stocks, ventes et tableaux de bord. Interface Swing et PostgreSQL, architecture MVC, en binôme.",
+        desc: "Une supérette à gérer en Java Swing : fournisseurs, stocks, ventes et tableaux de bord. Architecture MVC sur PostgreSQL, monté en binôme.",
         tech: ["Java", "PostgreSQL", "Swing"]
       }
     },
@@ -209,7 +209,7 @@ export const translations = {
       title2: "& Systems.",
       description: "Computer science student (year 3) at CERI, Avignon University, currently interning in ",
       descriptionHighlight: "systems administration, networking and cybersecurity",
-      descriptionEnd: " at SBI Informatique. What I enjoy: understanding an infrastructure end to end, securing it, and documenting it properly.",
+      descriptionEnd: " at SBI Informatique. What I enjoy: taking an infrastructure apart end to end and locking it down, with proper docs to show for it.",
       cta: "See my projects"
     },
     terminal: {
@@ -223,7 +223,7 @@ export const translations = {
       responses: {
         "help": "commands: whoami · stage · projects · cv · contact · sudo hire-me · clear",
         "whoami": "alexi · CS student at CERI Avignon · sysadmin intern @ SBI Informatique",
-        "stage": "SBI Informatique (May to August 2026, extended by amendment)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam)\nphase 2 · operations:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
+        "stage": "SBI Informatique (May to August 2026, internship extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam)\nphase 2 · operations:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
         "projects": "→ heading to the Projects section…",
         "projets": "→ heading to the Projects section…",
         "cv": "→ opening the resume…",
@@ -236,7 +236,7 @@ export const translations = {
       label: "01 // Journey",
       title1: "From class",
       title2: "to the field.",
-      internDate: "May to August 2026 · Ongoing · Extended by amendment",
+      internDate: "May to August 2026 · Ongoing · Internship extended",
       internTitle: "Sysadmin & Network intern at SBI Informatique",
       internSub: "Avignon Agroparc · multi-client IT & security provider",
       internStory: "Initially hired for projects, then ",
@@ -347,7 +347,7 @@ export const translations = {
       cericar: {
         category: "Web Application",
         title: "CeriCar, ridesharing",
-        desc: "Complete platform: AJAX search, bookings, driver and passenger profiles, role management. Pair project built with Yii2 and PostgreSQL, MVC architecture.",
+        desc: "A student BlaBlaCar built in a pair with Yii2 and PostgreSQL: AJAX search, bookings, driver and passenger profiles, role management.",
         tech: ["Yii2", "PHP", "PostgreSQL", "Bootstrap"]
       },
       ams: {
@@ -359,13 +359,13 @@ export const translations = {
       geodex: {
         category: "Web Development",
         title: "GéoDex, collection",
-        desc: "Stone collection app: authentication, user profiles, admin back-office. Native PHP and PostgreSQL, full CRUD management, pair project.",
+        desc: "A stone collection site in plain PHP, no framework: authentication, user profiles, admin back-office and all the CRUD written by hand on PostgreSQL. Pair project.",
         tech: ["PHP", "PostgreSQL", "HTML/CSS"]
       },
       java: {
         category: "Java Application",
         title: "My Online Grocery",
-        desc: "Store management: suppliers, inventory, sales and dashboards. Swing interface and PostgreSQL, MVC architecture, pair project.",
+        desc: "A grocery store to run in Java Swing: suppliers, inventory, sales and dashboards. MVC architecture on PostgreSQL, built in a pair.",
         tech: ["Java", "PostgreSQL", "Swing"]
       }
     },
