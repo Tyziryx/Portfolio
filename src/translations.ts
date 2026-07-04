@@ -27,7 +27,7 @@ export const translations = {
       responses: {
         "help": "commandes : whoami · stage · projets · cv · contact · sudo hire-me · clear",
         "whoami": "alexi · L3 CERI Avignon · stagiaire adminsys @ SBI Informatique",
-        "stage": "SBI Informatique (mai à août 2026, prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam)\nphase 2 · exploitation :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
+        "stage": "SBI Informatique (mai à août 2026, prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam)\nphase 2 · au quotidien :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
         "projets": "→ direction la section Projets…",
         "projects": "→ direction la section Projets…",
         "cv": "→ ouverture du CV…",
@@ -45,7 +45,7 @@ export const translations = {
       internSub: "Avignon Agroparc · prestataire IT & sécurité multi-clients",
       internStory: "Recruté au départ pour des projets, puis ",
       internStoryHighlight: "prolongé parce que l'équipe avait besoin de renfort",
-      internStoryEnd: " : je suis passé des projets aux missions d'exploitation, au même rythme que les techniciens.",
+      internStoryEnd: " : depuis, je travaille sur le terrain au même rythme que les techniciens.",
       phase1: "Phase 1",
       phase1Label: "Projets",
       phase1Items: [
@@ -53,7 +53,7 @@ export const translations = {
         "Mur de supervision Grafana 6 écrans : scripts Bash sur les API Atera, KPAX et Veeam"
       ],
       phase2: "Phase 2",
-      phase2Label: "Exploitation, comme un vrai employé",
+      phase2Label: "Le quotidien avec l'équipe",
       phase2Items: [
         "Tickets et support client au quotidien via Atera, parc d'impression avec KPAX",
         "Interventions sur site : passerelles, plans d'adressage, Windows Server 2022, accès RDS",
@@ -241,7 +241,7 @@ export const translations = {
       internSub: "Avignon Agroparc · multi-client IT & security provider",
       internStory: "Initially hired for projects, then ",
       internStoryHighlight: "extended because the team needed backup",
-      internStoryEnd: ": I moved from projects to operations, working at the same pace as the technicians.",
+      internStoryEnd: ": since then I have been working in the field at the same pace as the technicians.",
       phase1: "Phase 1",
       phase1Label: "Projects",
       phase1Items: [
@@ -249,7 +249,7 @@ export const translations = {
         "6-screen Grafana supervision wall: Bash scripts querying the Atera, KPAX and Veeam APIs"
       ],
       phase2: "Phase 2",
-      phase2Label: "Operations, like a full team member",
+      phase2Label: "Day to day with the team",
       phase2Items: [
         "Daily client tickets and support through Atera, printer fleet with KPAX",
         "On-site interventions: gateways, IP addressing plans, Windows Server 2022, RDS access",
