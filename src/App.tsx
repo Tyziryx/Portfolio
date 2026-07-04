@@ -91,7 +91,7 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
     const next: TermLine[] = [{ type: "cmd", text: raw.trim() }];
     const resp = t.responses[cmd];
     if (resp) {
-      const type = cmd === "sudo hire-me" ? "ok" : "out";
+      const type = cmd === "systemctl status alexi" ? "ok" : "out";
       resp.split("\n").forEach(l => next.push({ type, text: l }));
       if (cmd === "projets" || cmd === "projects") {
         document.getElementById("projets")?.scrollIntoView({ behavior: "smooth" });
@@ -108,8 +108,8 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
   }, [t]);
 
   const suggestions = lang === "fr"
-    ? ["help", "stage", "projets", "sudo hire-me"]
-    : ["help", "stage", "projects", "sudo hire-me"];
+    ? ["help", "stage", "projets", "systemctl status alexi"]
+    : ["help", "stage", "projects", "systemctl status alexi"];
 
   return (
     <div className="terminal bevel" onClick={() => inputRef.current?.focus()}>

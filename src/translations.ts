@@ -25,14 +25,14 @@ export const translations = {
       inputAria: "Terminal du portfolio : tapez une commande, par exemple help",
       notFound: (cmd: string) => "bash: " + cmd + " : commande introuvable, essayez `help`",
       responses: {
-        "help": "commandes : whoami · stage · projets · cv · contact · sudo hire-me · clear",
+        "help": "commandes : whoami · stage · projets · cv · contact · systemctl status alexi · clear",
         "whoami": "alexi · L3 CERI Avignon · stagiaire adminsys @ SBI Informatique",
         "stage": "SBI Informatique (mai à août 2026, prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam)\nphase 2 · au quotidien :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
         "projets": "→ direction la section Projets…",
         "projects": "→ direction la section Projets…",
         "cv": "→ ouverture du CV…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
-        "sudo hire-me": "[sudo] permission accordée ✓\nAlternance dès sept 2026 · réseau & cybersécurité\n→ alexim13550@gmail.com",
+        "systemctl status alexi": "● alexi.service - étudiant réseaux & systèmes\n   Loaded: loaded (CERI Avignon, L3)\n   Active: active (running) depuis mai 2026 · stage SBI\n   Next: master SYRIUS sept 2026, cherche l'alternance\n→ alexim13550@gmail.com",
         "ls": "stage/  projets/  cv.pdf  contact.txt"
       } as Record<string, string>
     },
@@ -221,14 +221,14 @@ export const translations = {
       inputAria: "Portfolio terminal: type a command, for example help",
       notFound: (cmd: string) => "bash: " + cmd + ": command not found, try `help`",
       responses: {
-        "help": "commands: whoami · stage · projects · cv · contact · sudo hire-me · clear",
+        "help": "commands: whoami · stage · projects · cv · contact · systemctl status alexi · clear",
         "whoami": "alexi · CS student at CERI Avignon · sysadmin intern @ SBI Informatique",
         "stage": "SBI Informatique (May to August 2026, internship extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam)\nphase 2 · operations:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
         "projects": "→ heading to the Projects section…",
         "projets": "→ heading to the Projects section…",
         "cv": "→ opening the resume…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
-        "sudo hire-me": "[sudo] permission granted ✓\nWork-study from Sept 2026 · networking & cybersecurity\n→ alexim13550@gmail.com",
+        "systemctl status alexi": "● alexi.service - networks & systems student\n   Loaded: loaded (CERI Avignon, BSc)\n   Active: active (running) since May 2026 · SBI internship\n   Next: SYRIUS Master Sept 2026, looking for a work-study\n→ alexim13550@gmail.com",
         "ls": "internship/  projects/  resume.pdf  contact.txt"
       } as Record<string, string>
     },
