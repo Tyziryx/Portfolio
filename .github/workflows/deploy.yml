@@ -1,0 +1,67 @@
+name: Deploy vers VPS
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Préparer la clé SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H "${{ secrets.VPS_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Envoyer le build
+        run: |
+          tar -czf dist.tar.gz -C dist .
+          scp -i ~/.ssh/id_deploy dist.tar.gz root@${{ secrets.VPS_HOST }}:/tmp/dist.tar.gz
+
+      - name: Déployer sur le VPS
+        run: |
+          ssh -i ~/.ssh/id_deploy root@${{ secrets.VPS_HOST }} 'bash -s' <<'EOF'
+          set -euo pipefail
+          DIST=/var/www/tyzi.fr/Portfolio/dist
+          # backup de l'ancien dist, on garde les 3 derniers
+          tar -czf /root/backup-dist-$(date +%Y%m%d-%H%M%S).tar.gz -C "$DIST" . || true
+          ls -t /root/backup-dist-*.tar.gz 2>/dev/null | tail -n +4 | xargs -r rm -f
+          rm -rf "$DIST".new
+          mkdir -p "$DIST".new
+          tar -xzf /tmp/dist.tar.gz -C "$DIST".new
+          test -f "$DIST".new/index.html
+          chown -R www-data:www-data "$DIST".new
+          rm -rf "$DIST".old
+          mv "$DIST" "$DIST".old 2>/dev/null || true
+          mv "$DIST".new "$DIST"
+          rm -rf "$DIST".old /tmp/dist.tar.gz
+          nginx -t
+          systemctl reload nginx
+          echo "Deploy OK : $(date)"
+          EOF
+
+      - name: Vérifier le site
+        run: |
+          sleep 2
+          code=$(curl -s -o /dev/null -w "%{http_code}" https://tyzi.fr)
+          echo "HTTP $code"
+          test "$code" = "200"
