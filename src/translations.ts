@@ -14,7 +14,13 @@ export const translations = {
       description: "Étudiant en L3 informatique au CERI d'Avignon, actuellement en stage ",
       descriptionHighlight: "administration systèmes, réseaux et cybersécurité",
       descriptionEnd: " chez SBI Informatique. Ce qui me plaît : décortiquer une infra de bout en bout et la sécuriser, avec une doc propre derrière.",
-      cta: "Voir mes projets"
+      cta: "Voir mes projets",
+      facts: [
+        { label: "début", value: "sept 2026" },
+        { label: "rythme", value: "2 sem / 2 sem" },
+        { label: "zone", value: "Avignon & alentours" },
+        { label: "permis", value: "B + véhicule" }
+      ]
     },
     terminal: {
       title: "alexi@srv-dmz: ~ · tapez une commande",
@@ -25,13 +31,14 @@ export const translations = {
       inputAria: "Terminal du portfolio : tapez une commande, par exemple help",
       notFound: (cmd: string) => "bash: " + cmd + " : commande introuvable, essayez `help`",
       responses: {
-        "help": "commandes : whoami · stage · projets · cv · contact · systemctl status alexi · clear",
+        "help": "commandes : whoami · stage · alternance · projets · cv · contact · systemctl status alexi · clear",
         "whoami": "alexi · L3 CERI Avignon · stagiaire adminsys @ SBI Informatique",
         "stage": "SBI Informatique (mai à août 2026, prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam)\nphase 2 · au quotidien :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
         "projets": "→ direction la section Projets…",
         "projects": "→ direction la section Projets…",
         "cv": "→ ouverture du CV…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "alternance": "master SYRIUS · dès sept 2026 · rythme 2 sem école / 2 sem entreprise\nzone : Avignon & alentours · permis B + véhicule\ncôté employeur : aide à l'embauche 5 000 € (PME), formation financée par l'OPCO\n→ alexim13550@gmail.com",
         "systemctl status alexi": "● alexi.service - étudiant réseaux & systèmes\n   Loaded: loaded (CERI Avignon, L3)\n   Active: active (running) depuis mai 2026 · stage SBI\n   Next: master SYRIUS sept 2026, cherche l'alternance\n→ alexim13550@gmail.com",
         "ls": "stage/  projets/  cv.pdf  contact.txt"
       } as Record<string, string>
@@ -127,7 +134,7 @@ export const translations = {
       viewOnGithub: "Voir sur GitHub",
       readReport: "Lire le rapport",
       readNetworkReport: "Lire le rapport réseau",
-      diagramCaption: "Topologie réelle de la maquette",
+      diagramCaption: "Trajet d'une requête web dans la maquette",
       mboxCaption: "Interface réelle du projet",
       nextProject: "Prochain projet\nen cours de build…",
       gns3: {
@@ -176,6 +183,7 @@ export const translations = {
     contact: {
       title: "Contactez-moi",
       subtitle: "Alternance Sept 2026 // Réseau • Cybersécurité • Infra",
+      employerNote: "Côté employeur : aide à l'embauche 5 000 € (entreprise de moins de 250 salariés) · formation financée par l'OPCO",
       cta: "Envoyer un email",
       downloadCV: "Télécharger CV"
     },
@@ -210,7 +218,13 @@ export const translations = {
       description: "Computer science student (year 3) at CERI, Avignon University, currently interning in ",
       descriptionHighlight: "systems administration, networking and cybersecurity",
       descriptionEnd: " at SBI Informatique. What I enjoy: taking an infrastructure apart end to end and locking it down, with proper docs to show for it.",
-      cta: "See my projects"
+      cta: "See my projects",
+      facts: [
+        { label: "start", value: "Sept 2026" },
+        { label: "pace", value: "2 wks / 2 wks" },
+        { label: "area", value: "Avignon area" },
+        { label: "license", value: "B + car" }
+      ]
     },
     terminal: {
       title: "alexi@srv-dmz: ~ · type a command",
@@ -221,13 +235,14 @@ export const translations = {
       inputAria: "Portfolio terminal: type a command, for example help",
       notFound: (cmd: string) => "bash: " + cmd + ": command not found, try `help`",
       responses: {
-        "help": "commands: whoami · stage · projects · cv · contact · systemctl status alexi · clear",
+        "help": "commands: whoami · stage · alternance · projects · cv · contact · systemctl status alexi · clear",
         "whoami": "alexi · CS student at CERI Avignon · sysadmin intern @ SBI Informatique",
         "stage": "SBI Informatique (May to August 2026, internship extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam)\nphase 2 · operations:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
         "projects": "→ heading to the Projects section…",
         "projets": "→ heading to the Projects section…",
         "cv": "→ opening the resume…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "alternance": "SYRIUS Master's · from Sept 2026 · 2 wks school / 2 wks company\narea: Avignon & surroundings · driving license + car\nfor employers (France): €5,000 hiring aid (SMBs), training funded by OPCO\n→ alexim13550@gmail.com",
         "systemctl status alexi": "● alexi.service - networks & systems student\n   Loaded: loaded (CERI Avignon, BSc)\n   Active: active (running) since May 2026 · SBI internship\n   Next: SYRIUS Master Sept 2026, looking for a work-study\n→ alexim13550@gmail.com",
         "ls": "internship/  projects/  resume.pdf  contact.txt"
       } as Record<string, string>
@@ -323,7 +338,7 @@ export const translations = {
       viewOnGithub: "View on GitHub",
       readReport: "Read the report",
       readNetworkReport: "Read the network report",
-      diagramCaption: "Actual lab topology",
+      diagramCaption: "Path of a web request through the lab",
       mboxCaption: "Actual project interface",
       nextProject: "Next project\ncurrently building…",
       gns3: {
@@ -372,6 +387,7 @@ export const translations = {
     contact: {
       title: "Contact me",
       subtitle: "Work-study Sept 2026 // Network • Cybersecurity • Infra",
+      employerNote: "For employers (France): €5,000 hiring aid (companies under 250 employees) · training funded by OPCO",
       cta: "Send an email",
       downloadCV: "Download resume"
     },

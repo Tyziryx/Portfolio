@@ -149,22 +149,61 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
 };
 
 const NetDiagram = () => (
-  <pre className="net-diagram">{`        ┌─────────┐
-        │Internet │
-        └────┬────┘
-             │ WAN :3080
-      ┌──────┴──────┐
-      │  `}<b>OPNsense</b>{`   │
-      │  firewall   │
-      └──┬───────┬──┘
-    LAN  │       │  DMZ /29
-  ┌──────┴───┐ ┌─┴────────┐
-  │`}<i>Switch L3</i>{` │ │`}<i>Ubuntu</i>{`    │
-  │Cisco+ACL │ │`}<i>nginx :80</i>{` │
-  └┬────┬───┬┘ └──────────┘
-   │    │   │   `}<em>anti-pivot ✓</em>{`
- `}<b>VL10</b>{` `}<b>VL20</b>{` `}<b>VL30</b>{`
- users admin guest`}</pre>
+  <svg className="net-svg" viewBox="0 0 460 290" role="img" aria-label="Topologie de la maquette : Internet, pare-feu OPNsense, LAN avec switch L3 et VLANs, DMZ avec serveur Ubuntu nginx">
+    {/* liens */}
+    <g className="nsvg-links">
+      <path d="M230 42 V78" />
+      <path d="M200 122 V145 H96 V162" />
+      <path d="M260 122 V145 H372 V162" />
+      <path d="M56 202 V226" />
+      <path d="M96 202 V226" />
+      <path d="M136 202 V226" />
+    </g>
+    <text className="nsvg-tag" x="238" y="62">WAN :3080</text>
+    <text className="nsvg-tag" x="120" y="140">LAN</text>
+    <text className="nsvg-tag" x="290" y="140">DMZ /29</text>
+
+    {/* anti-pivot : lien DMZ vers LAN barré */}
+    <path className="nsvg-blocked" d="M320 190 H160" />
+    <text className="nsvg-deny" x="212" y="184">✗</text>
+    <text className="nsvg-ok" x="228" y="184">anti-pivot</text>
+
+    {/* paquet animé (requête web) */}
+    <rect className="nsvg-packet" x="-3" y="-3" width="6" height="6" />
+
+    {/* nœuds */}
+    <g className="nsvg-node">
+      <title>Le monde extérieur : la requête du visiteur arrive par le WAN</title>
+      <rect x="180" y="10" width="100" height="32" />
+      <text className="nsvg-name" x="230" y="30" textAnchor="middle">Internet</text>
+    </g>
+    <g className="nsvg-node nsvg-accent">
+      <title>OPNsense : NAT, filtrage, isolation de la DMZ</title>
+      <rect x="155" y="78" width="150" height="44" />
+      <text className="nsvg-name" x="230" y="96" textAnchor="middle">OPNsense</text>
+      <text className="nsvg-sub" x="230" y="112" textAnchor="middle">firewall · NAT</text>
+    </g>
+    <g className="nsvg-node">
+      <title>Switch L3 Cisco : routage inter-VLAN et ACLs</title>
+      <rect x="36" y="162" width="120" height="40" />
+      <text className="nsvg-name" x="96" y="180" textAnchor="middle">Switch L3</text>
+      <text className="nsvg-sub" x="96" y="195" textAnchor="middle">Cisco + ACL</text>
+    </g>
+    <g className="nsvg-node">
+      <title>Serveur Ubuntu en DMZ : nginx sert le portfolio</title>
+      <rect x="312" y="162" width="120" height="40" />
+      <text className="nsvg-name" x="372" y="180" textAnchor="middle">Ubuntu</text>
+      <text className="nsvg-sub" x="372" y="195" textAnchor="middle">nginx :80</text>
+    </g>
+    <g className="nsvg-vlans">
+      <text x="56" y="242" textAnchor="middle">VL10</text>
+      <text x="96" y="242" textAnchor="middle">VL20</text>
+      <text x="136" y="242" textAnchor="middle">VL30</text>
+      <text className="nsvg-sub" x="56" y="257" textAnchor="middle">users</text>
+      <text className="nsvg-sub" x="96" y="257" textAnchor="middle">admin</text>
+      <text className="nsvg-sub" x="136" y="257" textAnchor="middle">guest</text>
+    </g>
+  </svg>
 );
 
 const useReveal = (deps: unknown[]) => {
@@ -316,6 +355,14 @@ const Portfolio = () => {
             <p className="hero-desc">
               {t.hero.description}<strong>{t.hero.descriptionHighlight}</strong>{t.hero.descriptionEnd}
             </p>
+            <div className="hero-facts bevel">
+              {t.hero.facts.map(f => (
+                <div key={f.label} className="hf-item">
+                  <span className="hf-label">{f.label}</span>
+                  <span className="hf-val">{f.value}</span>
+                </div>
+              ))}
+            </div>
             <div className="btn-row">
               <a href="#projets" onClick={e => handleNavClick(e, "#projets")} className="btn-primary bevel">{t.hero.cta}</a>
               <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="btn-icon bevel" aria-label="GitHub">
@@ -534,6 +581,7 @@ const Portfolio = () => {
             <div>
               <h2 className="footer-title">{t.contact.title}</h2>
               <p className="footer-sub">{t.contact.subtitle}</p>
+              <p className="footer-employer">{t.contact.employerNote}</p>
             </div>
             <div className="footer-col">
               <div className="btn-row">

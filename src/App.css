@@ -199,6 +199,11 @@ img { max-width: 100%; }
 .hero-title .accent { color: var(--accent); font-style: italic; }
 .hero-desc { font-size: clamp(16px, 2vw, 20px); color: var(--z400); line-height: 1.6; max-width: 640px; margin-bottom: 34px; }
 .hero-desc strong { color: var(--fg); font-weight: 600; }
+.hero-facts { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--z800); background: rgba(24, 24, 27, 0.4); margin-bottom: 30px; }
+.hf-item { display: flex; flex-direction: column; gap: 3px; padding: 12px 20px; border-right: 1px solid var(--z800); }
+.hf-item:last-child { border-right: none; }
+.hf-label { font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--z600); }
+.hf-val { font-size: 13px; font-weight: 600; color: var(--fg); white-space: nowrap; }
 
 /* ============ TERMINAL ============ */
 .terminal {
@@ -302,10 +307,30 @@ img { max-width: 100%; }
 @media (max-width: 900px) { .featured-visual { border-left: none; border-top: 1px solid var(--z800); } }
 .featured-visual img { border: 1px solid var(--z800); display: block; }
 .visual-caption { font-family: var(--mono); font-size: 10px; color: var(--z600); text-transform: uppercase; letter-spacing: 0.2em; text-align: center; }
-.net-diagram { font-family: var(--mono); font-size: 11.5px; line-height: 1.55; color: var(--z500); white-space: pre; }
-.net-diagram b { color: var(--accent); font-weight: 700; }
-.net-diagram i { color: var(--fg); font-style: normal; }
-.net-diagram em { color: var(--ok); font-style: normal; }
+.net-svg { width: 100%; max-width: 460px; height: auto; display: block; font-family: var(--mono); }
+.nsvg-links path { stroke: var(--z800); stroke-width: 1.5; fill: none; }
+.nsvg-node rect { fill: #0c0c0f; stroke: var(--z800); stroke-width: 1; transition: stroke 0.2s; }
+.nsvg-node:hover rect { stroke: var(--accent); }
+.nsvg-accent rect { fill: rgba(168, 85, 247, 0.12); stroke: var(--accent); }
+.nsvg-name { fill: var(--fg); font-size: 13px; font-weight: 700; }
+.nsvg-sub { fill: var(--z500); font-size: 10px; font-weight: 400; }
+.nsvg-tag { fill: var(--z600); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+.nsvg-vlans text { fill: var(--accent); font-size: 11px; font-weight: 700; }
+.nsvg-vlans .nsvg-sub { fill: var(--z500); }
+.nsvg-blocked { stroke: var(--crit); stroke-width: 1; stroke-dasharray: 4 4; opacity: 0.45; fill: none; }
+.nsvg-deny { fill: var(--crit); font-size: 12px; }
+.nsvg-ok { fill: var(--ok); font-size: 9px; letter-spacing: 0.08em; }
+.nsvg-packet {
+  fill: var(--accent);
+  offset-path: path("M230 30 V140 H372 V176");
+  animation: nsvg-travel 3.2s ease-in-out infinite alternate;
+}
+@keyframes nsvg-travel {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+@supports not (offset-path: path("M0 0")) { .nsvg-packet { display: none; } }
+@media (prefers-reduced-motion: reduce) { .nsvg-packet { display: none; } }
 
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 @media (max-width: 900px) { .projects-grid { grid-template-columns: 1fr; } }
@@ -374,6 +399,7 @@ img { max-width: 100%; }
 .footer-main { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px; margin-bottom: 48px; }
 .footer-title { font-family: var(--display); font-size: clamp(30px, 5vw, 46px); font-weight: 900; text-transform: uppercase; letter-spacing: -0.03em; margin-bottom: 10px; }
 .footer-sub { font-family: var(--mono); font-size: 12px; color: var(--z500); text-transform: uppercase; letter-spacing: 0.05em; }
+.footer-employer { font-family: var(--mono); font-size: 11px; color: var(--z600); margin-top: 12px; max-width: 460px; line-height: 1.6; }
 .footer-col { display: flex; flex-direction: column; gap: 16px; }
 .footer-socials { display: flex; justify-content: flex-end; gap: 20px; font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; }
 .footer-socials a { color: var(--z600); text-decoration: none; transition: color 0.2s; }
@@ -415,7 +441,10 @@ img { max-width: 100%; }
   .featured-visual { padding: 16px; }
   .featured p { font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
   .featured h3 { margin-bottom: 10px; }
-  .net-diagram { font-size: 9.5px; line-height: 1.5; }
+  .hero-facts { display: flex; }
+  .hf-item { flex: 1 1 40%; padding: 10px 14px; border-bottom: 1px solid var(--z800); }
+  .hf-item:nth-child(2n) { border-right: none; }
+  .hf-item:nth-child(n+3) { border-bottom: none; }
 
   .proj-body { padding: 16px 18px 18px; }
   .proj-thumb { height: 130px; }
