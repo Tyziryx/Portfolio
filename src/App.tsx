@@ -15,8 +15,8 @@ import mboxImg from "./assets/images/mbox.jpg";
 const CV_URL = "/CV%20Alexi%20Miaille2026%20Alternance.pdf";
 const MBOX_REPORT_URL = "/Rapport%20FInal%20Miaille%20Alexi.pdf";
 const NETWORK_REPORT_URL = "/Rapport%20Reseau%20PME%20DMZ.pdf";
-const GITHUB_URL = "https://github.com/Tyziryx";
-const LINKEDIN_URL = "https://www.linkedin.com/in/alexi-miaille-baba88333";
+const GITHUB_URL = "/go/github";
+const LINKEDIN_URL = "/go/linkedin";
 const EMAIL = "alexim13550@gmail.com";
 
 const SECTION_IDS = ["profil", "parcours", "stack", "projets", "contact"];
