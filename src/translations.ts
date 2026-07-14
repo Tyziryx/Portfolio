@@ -135,6 +135,13 @@ export const translations = {
       readReport: "Lire le rapport",
       readNetworkReport: "Lire le rapport réseau",
       diagramCaption: "Trajet d'une requête web dans la maquette",
+      diagram: {
+        aria: "Topologie de la maquette : Internet, pare-feu OPNsense, LAN avec switch L3 et VLANs, DMZ avec serveur Ubuntu nginx",
+        internet: "Le monde extérieur : la requête du visiteur arrive par le WAN",
+        opnsense: "OPNsense : NAT, filtrage, isolation de la DMZ",
+        switchL3: "Switch L3 Cisco : routage inter-VLAN et ACLs",
+        dmz: "Serveur Ubuntu en DMZ : nginx sert le portfolio"
+      },
       mboxCaption: "Interface réelle du projet",
       nextProject: "Prochain projet\nen cours de build…",
       gns3: {
@@ -339,6 +346,13 @@ export const translations = {
       readReport: "Read the report",
       readNetworkReport: "Read the network report",
       diagramCaption: "Path of a web request through the lab",
+      diagram: {
+        aria: "Lab topology: Internet, OPNsense firewall, LAN with L3 switch and VLANs, DMZ with Ubuntu nginx server",
+        internet: "The outside world: the visitor's request comes in through the WAN",
+        opnsense: "OPNsense: NAT, filtering, DMZ isolation",
+        switchL3: "Cisco L3 switch: inter-VLAN routing and ACLs",
+        dmz: "Ubuntu server in the DMZ: nginx serves the portfolio"
+      },
       mboxCaption: "Actual project interface",
       nextProject: "Next project\ncurrently building…",
       gns3: {

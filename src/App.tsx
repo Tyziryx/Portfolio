@@ -148,8 +148,8 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
   );
 };
 
-const NetDiagram = () => (
-  <svg className="net-svg" viewBox="0 0 460 290" role="img" aria-label="Topologie de la maquette : Internet, pare-feu OPNsense, LAN avec switch L3 et VLANs, DMZ avec serveur Ubuntu nginx">
+const NetDiagram = ({ d }: { d: Translations["projects"]["diagram"] }) => (
+  <svg className="net-svg" viewBox="0 0 460 268" role="img" aria-label={d.aria}>
     {/* liens */}
     <g className="nsvg-links">
       <path d="M230 42 V78" />
@@ -160,37 +160,37 @@ const NetDiagram = () => (
       <path d="M136 202 V226" />
     </g>
     <text className="nsvg-tag" x="238" y="62">WAN :3080</text>
-    <text className="nsvg-tag" x="120" y="140">LAN</text>
-    <text className="nsvg-tag" x="290" y="140">DMZ /29</text>
+    <text className="nsvg-tag" x="104" y="139">LAN</text>
+    <text className="nsvg-tag" x="330" y="139">DMZ /29</text>
 
     {/* anti-pivot : lien DMZ vers LAN barré */}
-    <path className="nsvg-blocked" d="M320 190 H160" />
-    <text className="nsvg-deny" x="212" y="184">✗</text>
-    <text className="nsvg-ok" x="228" y="184">anti-pivot</text>
+    <path className="nsvg-blocked" d="M312 187 H156" />
+    <text className="nsvg-ok" x="234" y="179" textAnchor="middle">anti-pivot</text>
+    <text className="nsvg-deny" x="234" y="191" textAnchor="middle">✗</text>
 
     {/* paquet animé (requête web) */}
-    <rect className="nsvg-packet" x="-3" y="-3" width="6" height="6" />
+    <rect className="nsvg-packet" x="-3.5" y="-3.5" width="7" height="7" />
 
     {/* nœuds */}
     <g className="nsvg-node">
-      <title>Le monde extérieur : la requête du visiteur arrive par le WAN</title>
+      <title>{d.internet}</title>
       <rect x="180" y="10" width="100" height="32" />
-      <text className="nsvg-name" x="230" y="30" textAnchor="middle">Internet</text>
+      <text className="nsvg-name" x="230" y="31" textAnchor="middle">Internet</text>
     </g>
     <g className="nsvg-node nsvg-accent">
-      <title>OPNsense : NAT, filtrage, isolation de la DMZ</title>
+      <title>{d.opnsense}</title>
       <rect x="155" y="78" width="150" height="44" />
-      <text className="nsvg-name" x="230" y="96" textAnchor="middle">OPNsense</text>
-      <text className="nsvg-sub" x="230" y="112" textAnchor="middle">firewall · NAT</text>
+      <text className="nsvg-name" x="230" y="97" textAnchor="middle">OPNsense</text>
+      <text className="nsvg-sub" x="230" y="113" textAnchor="middle">firewall · NAT</text>
     </g>
     <g className="nsvg-node">
-      <title>Switch L3 Cisco : routage inter-VLAN et ACLs</title>
+      <title>{d.switchL3}</title>
       <rect x="36" y="162" width="120" height="40" />
       <text className="nsvg-name" x="96" y="180" textAnchor="middle">Switch L3</text>
       <text className="nsvg-sub" x="96" y="195" textAnchor="middle">Cisco + ACL</text>
     </g>
     <g className="nsvg-node">
-      <title>Serveur Ubuntu en DMZ : nginx sert le portfolio</title>
+      <title>{d.dmz}</title>
       <rect x="312" y="162" width="120" height="40" />
       <text className="nsvg-name" x="372" y="180" textAnchor="middle">Ubuntu</text>
       <text className="nsvg-sub" x="372" y="195" textAnchor="middle">nginx :80</text>
@@ -468,7 +468,7 @@ const Portfolio = () => {
                 </div>
               </div>
               <div className="featured-visual">
-                <NetDiagram />
+                <NetDiagram d={t.projects.diagram} />
                 <span className="visual-caption">{t.projects.diagramCaption}</span>
               </div>
             </div>
@@ -509,12 +509,36 @@ const Portfolio = () => {
                   <div className="proj-thumb">
                     {p.key === "grafana" ? (
                       <div className="g-wall" aria-hidden="true">
-                        <div className="g-panel"><div className="g-label">Veeam</div><div className="g-val ok">47 ✓</div></div>
-                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Échecs" : "Failed"}</div><div className="g-val crit">2 ✗</div></div>
-                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Imp. off" : "Prn. off"}</div><div className="g-val warn">3</div></div>
-                        <div className="g-panel"><div className="g-label">Tickets</div><div className="g-val">12</div></div>
-                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Alertes" : "Alerts"}</div><div className="g-val warn">4</div></div>
-                        <div className="g-panel"><div className="g-label">{lang === "fr" ? "Parc" : "Fleet"}</div><div className="g-val ok">OK</div></div>
+                        <div className="g-panel">
+                          <div className="g-label">Veeam</div>
+                          <div className="g-val ok">47 ✓</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-ok" points="0,10 10,8 20,9 30,5 40,7 50,3 60,4" /></svg>
+                        </div>
+                        <div className="g-panel">
+                          <div className="g-label">{lang === "fr" ? "Échecs" : "Failed"}</div>
+                          <div className="g-val crit">2 ✗</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-crit" points="0,11 10,11 20,9 30,11 40,10 50,12 60,11" /></svg>
+                        </div>
+                        <div className="g-panel">
+                          <div className="g-label">{lang === "fr" ? "Imp. off" : "Prn. off"}</div>
+                          <div className="g-val warn">3</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-warn" points="0,8 10,10 20,7 30,9 40,6 50,9 60,8" /></svg>
+                        </div>
+                        <div className="g-panel">
+                          <div className="g-label">Tickets</div>
+                          <div className="g-val">12</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-acc" points="0,9 10,6 20,8 30,4 40,6 50,2 60,5" /></svg>
+                        </div>
+                        <div className="g-panel">
+                          <div className="g-label">{lang === "fr" ? "Alertes" : "Alerts"}</div>
+                          <div className="g-val warn">4</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-warn" points="0,10 10,7 20,9 30,6 40,8 50,5 60,7" /></svg>
+                        </div>
+                        <div className="g-panel">
+                          <div className="g-label">{lang === "fr" ? "Parc" : "Fleet"}</div>
+                          <div className="g-val ok">OK</div>
+                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-ok" points="0,7 10,7 20,6 30,7 40,7 50,6 60,7" /></svg>
+                        </div>
                       </div>
                     ) : (
                       p.image && <img src={p.image} alt={p.title} loading="lazy" />
