@@ -107,9 +107,7 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
     inputRef.current?.focus();
   }, [t]);
 
-  const suggestions = lang === "fr"
-    ? ["help", "stage", "projets", "systemctl status alexi"]
-    : ["help", "stage", "projects", "systemctl status alexi"];
+  const suggestions = ["help", "alternance", "stage", "systemctl status alexi"];
 
   return (
     <div className="terminal bevel" onClick={() => inputRef.current?.focus()}>
@@ -150,51 +148,65 @@ const Terminal = ({ t, lang }: { t: Translations["terminal"]; lang: Language }) 
 
 const NetDiagram = ({ d }: { d: Translations["projects"]["diagram"] }) => (
   <svg className="net-svg" viewBox="0 0 460 268" role="img" aria-label={d.aria}>
-    {/* liens */}
+    {/* liens physiques */}
     <g className="nsvg-links">
-      <path d="M230 42 V78" />
-      <path d="M200 122 V145 H96 V162" />
-      <path d="M260 122 V145 H372 V162" />
-      <path d="M56 202 V226" />
-      <path d="M96 202 V226" />
-      <path d="M136 202 V226" />
+      <path className="l-wan" d="M230 42 V78" />
+      <path className="l-lan" d="M200 122 V145 H96 V162" />
+      <path className="l-dmz" d="M260 122 V145 H372 V162" />
+      <path className="l-vlan" d="M56 202 V226" />
+      <path className="l-vlan" d="M96 202 V226" />
+      <path className="l-vlan" d="M136 202 V226" />
     </g>
+
+    {/* trafic : cycle de 9 s, un seul paquet visible par flux */}
+    <path className="nsvg-flow f-wan" d="M230 42 V78" />
+    <path className="nsvg-flow f-dmz" d="M260 122 V145 H372 V162" />
+    <path className="nsvg-flow f-lan" d="M96 162 V145 H200 V122" />
+    <path className="nsvg-flow f-deny" d="M312 187 H240" />
+
+    {/* halo d'inspection du pare-feu (sous les nœuds : la boîte est translucide) */}
+    <rect className="nsvg-scan s-fw" x="155" y="78" width="150" height="44" />
+
     <text className="nsvg-tag" x="238" y="62">WAN :3080</text>
     <text className="nsvg-tag" x="104" y="139">LAN</text>
     <text className="nsvg-tag" x="330" y="139">DMZ /29</text>
 
-    {/* anti-pivot : lien DMZ vers LAN barré */}
-    <path className="nsvg-blocked" d="M312 187 H156" />
-    <text className="nsvg-ok" x="234" y="179" textAnchor="middle">anti-pivot</text>
-    <text className="nsvg-deny" x="234" y="191" textAnchor="middle">✗</text>
-
-    {/* paquet animé (requête web) */}
-    <rect className="nsvg-packet" x="-3.5" y="-3.5" width="7" height="7" />
+    {/* anti-pivot : c'est ici que le paquet f-deny meurt */}
+    <g className="nsvg-barrier">
+      <title>{d.deny}</title>
+      <rect x="160" y="168" width="150" height="28" fill="transparent" />
+      <path className="nsvg-blocked" d="M312 187 H156" />
+      <text className="nsvg-ok" x="234" y="179" textAnchor="middle">anti-pivot</text>
+      <text className="nsvg-deny" x="234" y="191" textAnchor="middle">✗</text>
+    </g>
 
     {/* nœuds */}
-    <g className="nsvg-node">
+    <g className="nsvg-node n-wan">
       <title>{d.internet}</title>
       <rect x="180" y="10" width="100" height="32" />
       <text className="nsvg-name" x="230" y="31" textAnchor="middle">Internet</text>
     </g>
-    <g className="nsvg-node nsvg-accent">
+    <g className="nsvg-node nsvg-accent n-fw">
       <title>{d.opnsense}</title>
       <rect x="155" y="78" width="150" height="44" />
       <text className="nsvg-name" x="230" y="97" textAnchor="middle">OPNsense</text>
       <text className="nsvg-sub" x="230" y="113" textAnchor="middle">firewall · NAT</text>
     </g>
-    <g className="nsvg-node">
+    <g className="nsvg-node n-sw">
       <title>{d.switchL3}</title>
       <rect x="36" y="162" width="120" height="40" />
       <text className="nsvg-name" x="96" y="180" textAnchor="middle">Switch L3</text>
       <text className="nsvg-sub" x="96" y="195" textAnchor="middle">Cisco + ACL</text>
     </g>
-    <g className="nsvg-node">
+    <g className="nsvg-node n-srv">
       <title>{d.dmz}</title>
       <rect x="312" y="162" width="120" height="40" />
       <text className="nsvg-name" x="372" y="180" textAnchor="middle">Ubuntu</text>
       <text className="nsvg-sub" x="372" y="195" textAnchor="middle">nginx :80</text>
     </g>
+    {/* 200 OK : la bordure du serveur passe au vert, au-dessus du nœud opaque */}
+    <rect className="nsvg-scan s-ok" x="312" y="162" width="120" height="40" />
+
     <g className="nsvg-vlans">
       <text x="56" y="242" textAnchor="middle">VL10</text>
       <text x="96" y="242" textAnchor="middle">VL20</text>
@@ -205,6 +217,113 @@ const NetDiagram = ({ d }: { d: Translations["projects"]["diagram"] }) => (
     </g>
   </svg>
 );
+
+/* ---------- Mur Grafana : 6 écrans, un par source. CSS/SVG, aucune lib, aucune image ---------- */
+
+// Alertes Atera par créneau : 7 créneaux × 4 jours, niveaux 0..4
+const G_HEAT = [
+  0, 1, 1, 2, 1, 0, 0,
+  1, 2, 3, 2, 1, 1, 0,
+  2, 3, 4, 3, 2, 1, 1,
+  0, 1, 2, 2, 1, 1, 0
+];
+
+// Parc Atera : segments d'état sur la fenêtre affichée
+const G_STATE = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+
+// Activité KPAX : hauteurs de barres, forme sans échelle (comme les sparklines actuelles)
+const G_BARS = [38, 62, 45, 70, 52, 84, 58];
+
+const GrafanaWall = ({ size, lang }: { size: "thumb" | "large"; lang: Language }) => {
+  const fr = lang === "fr";
+  return (
+    <div
+      className={`g-wall g-wall--${size}`}
+      aria-hidden={size === "thumb" ? true : undefined}
+      role={size === "large" ? "img" : undefined}
+      aria-label={size === "large"
+        ? (fr
+          ? "Reconstitution du mur de supervision : trois écrans Atera (tickets, alertes, parc), un écran Veeam, un écran KPAX, un écran Bitdefender"
+          : "Monitoring wall reconstruction: three Atera screens (tickets, alerts, fleet), one Veeam screen, one KPAX screen, one Bitdefender screen")
+        : undefined}
+    >
+      <div className="g-bar">
+        <span className="g-led" />
+        <span className="g-bar-t">grafana</span>
+        <span className="g-bar-sep">/</span>
+        <span className="g-bar-s">parc-sbi</span>
+        <span className="g-bar-r">{fr ? "6 écrans · auto 30 s" : "6 screens · auto 30 s"}</span>
+      </div>
+
+      <div className="g-grid">
+        {/* écran 1 · Atera : tickets ouverts */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">Atera</span><span className="g-num">12</span></div>
+          <div className="g-viz">
+            <svg className="g-chart" viewBox="0 0 100 40" preserveAspectRatio="none" focusable="false">
+              <g className="g-glines"><path d="M0 10H100M0 20H100M0 30H100" /></g>
+              <path className="g-area" d="M0 26 8 20 17 28 25 14 33 22 42 10 50 18 58 24 67 12 75 20 83 26 92 16 100 21 V40 H0 Z" />
+              <polyline className="g-ln" points="0,26 8,20 17,28 25,14 33,22 42,10 50,18 58,24 67,12 75,20 83,26 92,16 100,21" />
+            </svg>
+          </div>
+          <div className="g-cap g-lg">{fr ? "tickets ouverts" : "open tickets"}</div>
+        </div>
+
+        {/* écran 2 · Atera : alertes */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">Atera</span><span className="g-num warn">4</span></div>
+          <div className="g-viz g-heat">
+            {G_HEAT.map((lvl, i) => <i key={i} className={`g-cell g-l${lvl}`} />)}
+          </div>
+          <div className="g-cap g-lg">{fr ? "alertes / créneau" : "alerts / time slot"}</div>
+        </div>
+
+        {/* écran 3 · Atera : parc */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">Atera</span><span className="g-num ok">OK</span></div>
+          <div className="g-viz g-state">
+            {G_STATE.map((_, i) => <i key={i} />)}
+          </div>
+          <div className="g-cap g-lg">{fr ? "parc en ligne" : "fleet online"}</div>
+        </div>
+
+        {/* écran 4 · Veeam : sauvegardes */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">Veeam</span><span className="g-num ok">96%</span></div>
+          <div className="g-viz g-gauge">
+            <svg viewBox="0 0 100 54" focusable="false">
+              <path className="gg-track" d="M10 48 A40 40 0 0 1 90 48" pathLength={100} />
+              <path className="gg-fill" d="M10 48 A40 40 0 0 1 90 48" pathLength={100} strokeDasharray="96 100" />
+            </svg>
+          </div>
+          <div className="g-cap g-lg">{fr ? "sauvegardes · 47/49 · 2 échecs" : "backups · 47/49 · 2 failed"}</div>
+        </div>
+
+        {/* écran 5 · KPAX : imprimantes */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">KPAX</span><span className="g-num warn">3</span></div>
+          <div className="g-viz g-bars">
+            {G_BARS.map((h, i) => <i key={i} style={{ height: `${h}%` }} />)}
+          </div>
+          <div className="g-cap g-lg">{fr ? "imprimantes hors ligne" : "printers offline"}</div>
+        </div>
+
+        {/* écran 6 · Bitdefender : protection des postes */}
+        <div className="g-p">
+          <div className="g-head"><span className="g-src">Bitdefender</span></div>
+          <div className="g-viz g-shield">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path d="M12 2 L21 6 V12 L12 22 L3 12 V6 Z" />
+              <path d="M8 12 L11 15 L16 9" />
+            </svg>
+            <span className="g-shield-t">{fr ? "actif" : "active"}</span>
+          </div>
+          <div className="g-cap g-lg">{fr ? "protection des postes" : "endpoint protection"}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const useReveal = (deps: unknown[]) => {
   useEffect(() => {
@@ -383,7 +502,25 @@ const Portfolio = () => {
             <div className="eyebrow">{t.journey.label}</div>
             <h2 className="sec-title reveal">{t.journey.title1}<br /><span className="dim">{t.journey.title2}</span></h2>
             <div className="timeline">
+              {/* 1 · Alternance COMAITE, en cours */}
               <div className="tl-item current reveal">
+                <span className="tl-node"></span>
+                <div className="tl-date">{t.journey.apprenticeDate}</div>
+                <h3>{t.journey.apprenticeTitle}</h3>
+                <div className="tl-sub">{t.journey.apprenticeSub}</div>
+                <p className="tl-story">
+                  {t.journey.apprenticeStory}<strong>{t.journey.apprenticeStoryHighlight}</strong>{t.journey.apprenticeStoryEnd}
+                </p>
+              </div>
+              {/* 2 · Master SYRIUS */}
+              <div className="tl-item reveal">
+                <span className="tl-node"></span>
+                <div className="tl-date">{t.journey.masterDate}</div>
+                <h3>{t.journey.masterTitle}</h3>
+                <div className="tl-sub">{t.journey.masterSub}</div>
+              </div>
+              {/* 3 · Stage SBI, terminé */}
+              <div className="tl-item reveal">
                 <span className="tl-node"></span>
                 <div className="tl-date">{t.journey.internDate}</div>
                 <h3>{t.journey.internTitle}</h3>
@@ -403,17 +540,12 @@ const Portfolio = () => {
                   {t.journey.internChips.map(c => <span key={c} className="chip hot">{c}</span>)}
                 </div>
               </div>
+              {/* 4 · Licence */}
               <div className="tl-item reveal">
                 <span className="tl-node"></span>
                 <div className="tl-date">{t.journey.degreeDate}</div>
                 <h3>{t.journey.degreeTitle}</h3>
                 <div className="tl-sub">{t.journey.degreeSub}</div>
-              </div>
-              <div className="tl-item reveal">
-                <span className="tl-node"></span>
-                <div className="tl-date">{t.journey.masterDate}</div>
-                <h3>{t.journey.masterTitle}</h3>
-                <div className="tl-sub">{t.journey.masterSub}</div>
               </div>
             </div>
           </div>
@@ -503,46 +635,17 @@ const Portfolio = () => {
                 <div
                   key={p.key}
                   className="card bevel proj-card"
-                  onClick={() => (p.image || p.link) && setSelectedProject(p)}
-                  style={!p.image && !p.link ? { cursor: "default" } : undefined}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedProject(p)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedProject(p); }
+                  }}
                 >
                   <div className="proj-thumb">
-                    {p.key === "grafana" ? (
-                      <div className="g-wall" aria-hidden="true">
-                        <div className="g-panel">
-                          <div className="g-label">Veeam</div>
-                          <div className="g-val ok">47 ✓</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-ok" points="0,10 10,8 20,9 30,5 40,7 50,3 60,4" /></svg>
-                        </div>
-                        <div className="g-panel">
-                          <div className="g-label">{lang === "fr" ? "Échecs" : "Failed"}</div>
-                          <div className="g-val crit">2 ✗</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-crit" points="0,11 10,11 20,9 30,11 40,10 50,12 60,11" /></svg>
-                        </div>
-                        <div className="g-panel">
-                          <div className="g-label">{lang === "fr" ? "Imp. off" : "Prn. off"}</div>
-                          <div className="g-val warn">3</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-warn" points="0,8 10,10 20,7 30,9 40,6 50,9 60,8" /></svg>
-                        </div>
-                        <div className="g-panel">
-                          <div className="g-label">Tickets</div>
-                          <div className="g-val">12</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-acc" points="0,9 10,6 20,8 30,4 40,6 50,2 60,5" /></svg>
-                        </div>
-                        <div className="g-panel">
-                          <div className="g-label">{lang === "fr" ? "Alertes" : "Alerts"}</div>
-                          <div className="g-val warn">4</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-warn" points="0,10 10,7 20,9 30,6 40,8 50,5 60,7" /></svg>
-                        </div>
-                        <div className="g-panel">
-                          <div className="g-label">{lang === "fr" ? "Parc" : "Fleet"}</div>
-                          <div className="g-val ok">OK</div>
-                          <svg className="g-spark" viewBox="0 0 60 14" preserveAspectRatio="none"><polyline className="sp-ok" points="0,7 10,7 20,6 30,7 40,7 50,6 60,7" /></svg>
-                        </div>
-                      </div>
-                    ) : (
-                      p.image && <img src={p.image} alt={p.title} loading="lazy" />
-                    )}
+                    {p.key === "grafana"
+                      ? <GrafanaWall size="thumb" lang={lang} />
+                      : p.image && <img src={p.image} alt={p.title} loading="lazy" />}
                   </div>
                   <div className="proj-body">
                     <div className="proj-cat">{p.category}</div>
@@ -579,9 +682,18 @@ const Portfolio = () => {
               </button>
             </div>
             <div className="modal-body">
-              {selectedProject.image && (
-                <img src={selectedProject.image} alt={selectedProject.title} />
-              )}
+              {selectedProject.image
+                ? <img src={selectedProject.image} alt={selectedProject.title} />
+                : selectedProject.key === "grafana" && (
+                  <>
+                    <GrafanaWall size="large" lang={lang} />
+                    <span className="visual-caption">
+                      {lang === "fr"
+                        ? "Reconstitution du mur · mock CSS/SVG"
+                        : "Wall reconstruction · CSS/SVG mock"}
+                    </span>
+                  </>
+                )}
               <p className="modal-desc">{selectedProject.desc}</p>
               <div className="chips">
                 {selectedProject.tech.map(tech => <span key={tech} className="chip">{tech}</span>)}
@@ -605,7 +717,6 @@ const Portfolio = () => {
             <div>
               <h2 className="footer-title">{t.contact.title}</h2>
               <p className="footer-sub">{t.contact.subtitle}</p>
-              <p className="footer-employer">{t.contact.employerNote}</p>
             </div>
             <div className="footer-col">
               <div className="btn-row">

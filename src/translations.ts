@@ -8,18 +8,18 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      status: "Stage @ SBI Informatique · Alternance Sept 2026",
+      status: "Alternance @ COMAITE · Master SYRIUS",
       title1: "Réseaux",
       title2: "& Systèmes.",
-      description: "Étudiant en L3 informatique au CERI d'Avignon, actuellement en stage ",
-      descriptionHighlight: "administration systèmes, réseaux et cybersécurité",
-      descriptionEnd: " chez SBI Informatique. Ce qui me plaît : décortiquer une infra de bout en bout et la sécuriser, avec une doc propre derrière.",
+      description: "Étudiant en Master SYRIUS au CERI d'Avignon, en alternance ",
+      descriptionHighlight: "systèmes et réseaux",
+      descriptionEnd: " chez COMAITE, hébergeur web et e-commerce à Vedène. Ce qui me plaît : décortiquer une infra de bout en bout et la sécuriser, avec une doc propre derrière.",
       cta: "Voir mes projets",
       facts: [
-        { label: "début", value: "sept 2026" },
+        { label: "alternance", value: "COMAITE" },
+        { label: "formation", value: "Master SYRIUS" },
         { label: "rythme", value: "2 sem / 2 sem" },
-        { label: "zone", value: "Avignon & alentours" },
-        { label: "permis", value: "B + véhicule" }
+        { label: "zone", value: "Avignon & alentours" }
       ]
     },
     terminal: {
@@ -27,37 +27,43 @@ export const translations = {
       hint: "// tapez `help` ou cliquez un bouton ↓",
       tryLabel: "Essayez :",
       initialCmd: "whoami",
-      initialOut: "alexi · L3 CERI · stagiaire adminsys @ SBI",
+      initialOut: "alexi · master SYRIUS · alternant sys & réseaux @ COMAITE",
       inputAria: "Terminal du portfolio : tapez une commande, par exemple help",
       notFound: (cmd: string) => "bash: " + cmd + " : commande introuvable, essayez `help`",
       responses: {
         "help": "commandes : whoami · stage · alternance · projets · cv · contact · systemctl status alexi · clear",
-        "whoami": "alexi · L3 CERI Avignon · stagiaire adminsys @ SBI Informatique",
-        "stage": "SBI Informatique (mai à août 2026, prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam)\nphase 2 · au quotidien :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
+        "whoami": "alexi · master SYRIUS CERI Avignon · alternant sys & réseaux @ COMAITE",
+        "stage": "SBI Informatique (mai à août 2026, terminé · prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam, Bitdefender)\nphase 2 · le quotidien avec l'équipe :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
         "projets": "→ direction la section Projets…",
         "projects": "→ direction la section Projets…",
         "cv": "→ ouverture du CV…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
-        "alternance": "master SYRIUS · dès sept 2026 · rythme 2 sem école / 2 sem entreprise\nzone : Avignon & alentours · permis B + véhicule\ncôté employeur : aide à l'embauche 5 000 € (PME), formation financée par l'OPCO\n→ alexim13550@gmail.com",
-        "systemctl status alexi": "● alexi.service - étudiant réseaux & systèmes\n   Loaded: loaded (CERI Avignon, L3)\n   Active: active (running) depuis mai 2026 · stage SBI\n   Next: master SYRIUS sept 2026, cherche l'alternance\n→ alexim13550@gmail.com",
-        "ls": "stage/  projets/  cv.pdf  contact.txt"
+        "alternance": "COMAITE SARL · Vedène (84) · hébergeur web & e-commerce\nposte : alternant systèmes & réseaux\ncontrat : du 1er sept 2026 au 31 août 2028, toute la durée du master\nrythme : 2 sem au CERI / 2 sem en entreprise\n→ alexim13550@gmail.com",
+        "systemctl status alexi": "● alexi.service - alternant réseaux & systèmes\n   Loaded: loaded (CERI Avignon, master SYRIUS)\n   Active: active (running) depuis sept 2026 · COMAITE\n  Process: stage SBI 2026 (code=exited, status=0/SUCCESS)\n     Next: diplôme master SYRIUS · août 2028\n→ alexim13550@gmail.com",
+        "ls": "alternance/  stage/  projets/  cv.pdf  contact.txt"
       } as Record<string, string>
     },
     journey: {
       label: "01 // Parcours",
       title1: "Du cours",
       title2: "au terrain.",
-      internDate: "Mai à Août 2026 · En cours · Prolongé par avenant",
+      apprenticeDate: "Sept 2026 à Août 2028 · En cours",
+      apprenticeTitle: "Alternance Systèmes & Réseaux chez COMAITE",
+      apprenticeSub: "Vedène (84) · hébergeur web & e-commerce",
+      apprenticeStory: "Contrat signé sur ",
+      apprenticeStoryHighlight: "les deux années du master",
+      apprenticeStoryEnd: ", en rythme 2 semaines au CERI puis 2 semaines en entreprise. Après le stage en prestation multi-clients chez SBI, je passe côté hébergeur : moins de parcs à gérer, plus de serveurs et de production web.",
+      internDate: "Mai à Août 2026 · Terminé · Prolongé par avenant",
       internTitle: "Stage Adminsys & Réseau chez SBI Informatique",
       internSub: "Avignon Agroparc · prestataire IT & sécurité multi-clients",
       internStory: "Recruté au départ pour des projets, puis ",
       internStoryHighlight: "prolongé parce que l'équipe avait besoin de renfort",
-      internStoryEnd: " : depuis, je travaille sur le terrain au même rythme que les techniciens.",
+      internStoryEnd: " : j'ai fini le stage sur le terrain, au même rythme que les techniciens.",
       phase1: "Phase 1",
       phase1Label: "Projets",
       phase1Items: [
         "Maquette réseau PME complète sous GNS3 : VLANs, DMZ, OPNsense, ACLs Cisco",
-        "Mur de supervision Grafana 6 écrans : scripts Bash sur les API Atera, KPAX et Veeam"
+        "Mur de supervision Grafana 6 écrans : scripts Bash sur les API Atera, KPAX, Veeam et Bitdefender"
       ],
       phase2: "Phase 2",
       phase2Label: "Le quotidien avec l'équipe",
@@ -71,15 +77,15 @@ export const translations = {
       degreeDate: "2023 à 2026",
       degreeTitle: "Licence Informatique au CERI Avignon",
       degreeSub: "CCNA1 · projets réseau & dev (Mbox, CeriCar, monitoring…)",
-      masterDate: "Sept 2026 · Accepté ✓",
+      masterDate: "Sept 2026 à 2028 · En cours",
       masterTitle: "Master SYRIUS · Réseaux & Cybersécurité",
-      masterSub: "Admission validée, il ne me manque que l'entreprise d'alternance"
+      masterSub: "CERI Avignon · deux ans en alternance, dans la continuité de la licence"
     },
     skills: {
       label: "02 // Stack",
       title1: "Compétences",
       title2: "_Techniques",
-      legendHot: "Pratiqué en stage / production",
+      legendHot: "Pratiqué en entreprise · stage & alternance",
       legendBase: "Acquis en cours & projets perso",
       categories: [
         {
@@ -134,13 +140,14 @@ export const translations = {
       viewOnGithub: "Voir sur GitHub",
       readReport: "Lire le rapport",
       readNetworkReport: "Lire le rapport réseau",
-      diagramCaption: "Trajet d'une requête web dans la maquette",
+      diagramCaption: "Trois flux : requête web, sortie LAN, pivot refusé",
       diagram: {
-        aria: "Topologie de la maquette : Internet, pare-feu OPNsense, LAN avec switch L3 et VLANs, DMZ avec serveur Ubuntu nginx",
+        aria: "Topologie animée de la maquette : une requête web entre par le WAN, traverse le pare-feu OPNsense et atteint le serveur nginx en DMZ ; un poste du LAN sort vers Internet via le switch L3 puis le pare-feu ; une tentative de rebond depuis la DMZ vers le LAN est arrêtée par la règle anti-pivot.",
         internet: "Le monde extérieur : la requête du visiteur arrive par le WAN",
         opnsense: "OPNsense : NAT, filtrage, isolation de la DMZ",
         switchL3: "Switch L3 Cisco : routage inter-VLAN et ACLs",
-        dmz: "Serveur Ubuntu en DMZ : nginx sert le portfolio"
+        dmz: "Serveur Ubuntu en DMZ : nginx sert le portfolio",
+        deny: "Règle anti-pivot : depuis la DMZ, aucun paquet ne peut atteindre le LAN"
       },
       mboxCaption: "Interface réelle du projet",
       nextProject: "Prochain projet\nen cours de build…",
@@ -159,7 +166,7 @@ export const translations = {
       grafana: {
         category: "Supervision · réalisé chez SBI",
         title: "Mur Grafana 6 écrans",
-        desc: "Six écrans qui affichent l'état du parc en temps réel : mes scripts Bash interrogent les API Atera (tickets, alertes), KPAX (imprimantes) et Veeam (sauvegardes), et alimentent Grafana en JSON.",
+        desc: "Six écrans qui affichent l'état du parc en temps réel, un écran par source : trois pour Atera (tickets, alertes, parc), un pour Veeam (sauvegardes), un pour KPAX (imprimantes), un pour Bitdefender (protection des postes). Mes scripts Bash interrogent les API et alimentent Grafana en JSON.",
         tech: ["Grafana", "Bash", "API", "Veeam"]
       },
       cericar: {
@@ -189,14 +196,13 @@ export const translations = {
     },
     contact: {
       title: "Contactez-moi",
-      subtitle: "Alternance Sept 2026 // Réseau • Cybersécurité • Infra",
-      employerNote: "Côté employeur : aide à l'embauche 5 000 € (entreprise de moins de 250 salariés) · formation financée par l'OPCO",
+      subtitle: "Alternance en cours // Réseau • Cybersécurité • Infra",
       cta: "Envoyer un email",
       downloadCV: "Télécharger CV"
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
-      uptime: "$ uptime · v4.0 · nginx · vps"
+      uptime: "$ uptime · v4.1 · nginx · vps"
     },
     notFound: {
       msg: "$ bash: page: commande introuvable",
@@ -219,18 +225,18 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      status: "Intern @ SBI Informatique · Work-study Sept 2026",
+      status: "Apprentice @ COMAITE · SYRIUS Master's",
       title1: "Networks",
       title2: "& Systems.",
-      description: "Computer science student (year 3) at CERI, Avignon University, currently interning in ",
-      descriptionHighlight: "systems administration, networking and cybersecurity",
-      descriptionEnd: " at SBI Informatique. What I enjoy: taking an infrastructure apart end to end and locking it down, with proper docs to show for it.",
+      description: "Master's student in the SYRIUS program at CERI, Avignon University, working as an apprentice in ",
+      descriptionHighlight: "systems and networking",
+      descriptionEnd: " at COMAITE, a web and e-commerce hosting provider in Vedène. What I enjoy: taking an infrastructure apart end to end and locking it down, with proper docs to show for it.",
       cta: "See my projects",
       facts: [
-        { label: "start", value: "Sept 2026" },
+        { label: "employer", value: "COMAITE" },
+        { label: "program", value: "SYRIUS Master's" },
         { label: "pace", value: "2 wks / 2 wks" },
-        { label: "area", value: "Avignon area" },
-        { label: "license", value: "B + car" }
+        { label: "area", value: "Avignon area" }
       ]
     },
     terminal: {
@@ -238,37 +244,43 @@ export const translations = {
       hint: "// type `help` or click a button ↓",
       tryLabel: "Try:",
       initialCmd: "whoami",
-      initialOut: "alexi · CS student · sysadmin intern @ SBI",
+      initialOut: "alexi · SYRIUS master's · sys & network apprentice @ COMAITE",
       inputAria: "Portfolio terminal: type a command, for example help",
       notFound: (cmd: string) => "bash: " + cmd + ": command not found, try `help`",
       responses: {
         "help": "commands: whoami · stage · alternance · projects · cv · contact · systemctl status alexi · clear",
-        "whoami": "alexi · CS student at CERI Avignon · sysadmin intern @ SBI Informatique",
-        "stage": "SBI Informatique (May to August 2026, internship extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam)\nphase 2 · operations:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
+        "whoami": "alexi · SYRIUS master's at CERI Avignon · sys & network apprentice @ COMAITE",
+        "stage": "SBI Informatique (May to August 2026, completed · contract extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam, Bitdefender)\nphase 2 · day to day with the team:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
         "projects": "→ heading to the Projects section…",
         "projets": "→ heading to the Projects section…",
         "cv": "→ opening the resume…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
-        "alternance": "SYRIUS Master's · from Sept 2026 · 2 wks school / 2 wks company\narea: Avignon & surroundings · driving license + car\nfor employers (France): €5,000 hiring aid (SMBs), training funded by OPCO\n→ alexim13550@gmail.com",
-        "systemctl status alexi": "● alexi.service - networks & systems student\n   Loaded: loaded (CERI Avignon, BSc)\n   Active: active (running) since May 2026 · SBI internship\n   Next: SYRIUS Master Sept 2026, looking for a work-study\n→ alexim13550@gmail.com",
-        "ls": "internship/  projects/  resume.pdf  contact.txt"
+        "alternance": "COMAITE SARL · Vedène, Vaucluse · web & e-commerce hosting\nrole: systems & network apprentice\ncontract: 1 Sept 2026 to 31 Aug 2028, the full length of the master's\npace: 2 wks at CERI / 2 wks at the company\n→ alexim13550@gmail.com",
+        "systemctl status alexi": "● alexi.service - networks & systems apprentice\n   Loaded: loaded (CERI Avignon, SYRIUS master's)\n   Active: active (running) since Sept 2026 · COMAITE\n  Process: SBI internship 2026 (code=exited, status=0/SUCCESS)\n     Next: SYRIUS master's degree · Aug 2028\n→ alexim13550@gmail.com",
+        "ls": "apprenticeship/  internship/  projects/  resume.pdf"
       } as Record<string, string>
     },
     journey: {
       label: "01 // Journey",
       title1: "From class",
       title2: "to the field.",
-      internDate: "May to August 2026 · Ongoing · Internship extended",
+      apprenticeDate: "Sept 2026 to Aug 2028 · Ongoing",
+      apprenticeTitle: "Systems & Network apprentice at COMAITE",
+      apprenticeSub: "Vedène, Vaucluse · web & e-commerce hosting",
+      apprenticeStory: "Signed for ",
+      apprenticeStoryHighlight: "the full two years of the master's",
+      apprenticeStoryEnd: ", alternating 2 weeks at CERI and 2 weeks at the company. After the internship on the multi-client provider side at SBI, I am moving to the hosting side: fewer client fleets to look after, more servers and live web production.",
+      internDate: "May to August 2026 · Completed · Contract extended",
       internTitle: "Sysadmin & Network intern at SBI Informatique",
       internSub: "Avignon Agroparc · multi-client IT & security provider",
       internStory: "Initially hired for projects, then ",
       internStoryHighlight: "extended because the team needed backup",
-      internStoryEnd: ": since then I have been working in the field at the same pace as the technicians.",
+      internStoryEnd: ": I finished the internship out in the field, at the same pace as the technicians.",
       phase1: "Phase 1",
       phase1Label: "Projects",
       phase1Items: [
         "Full SMB network lab in GNS3: VLANs, DMZ, OPNsense, Cisco ACLs",
-        "6-screen Grafana supervision wall: Bash scripts querying the Atera, KPAX and Veeam APIs"
+        "6-screen Grafana supervision wall: Bash scripts querying the Atera, KPAX, Veeam and Bitdefender APIs"
       ],
       phase2: "Phase 2",
       phase2Label: "Day to day with the team",
@@ -282,15 +294,15 @@ export const translations = {
       degreeDate: "2023 to 2026",
       degreeTitle: "BSc Computer Science at CERI Avignon",
       degreeSub: "CCNA1 · network & dev projects (Mbox, CeriCar, monitoring…)",
-      masterDate: "Sept 2026 · Accepted ✓",
+      masterDate: "Sept 2026 to 2028 · In progress",
       masterTitle: "SYRIUS Master's · Networks & Cybersecurity",
-      masterSub: "Admission confirmed, all I need now is the work-study company"
+      masterSub: "CERI Avignon · two years as an apprentice, straight on from the BSc"
     },
     skills: {
       label: "02 // Stack",
       title1: "Technical",
       title2: "_Skills",
-      legendHot: "Practiced during internship / production",
+      legendHot: "Practiced on the job · internship & apprenticeship",
       legendBase: "Learned in class & personal projects",
       categories: [
         {
@@ -345,13 +357,14 @@ export const translations = {
       viewOnGithub: "View on GitHub",
       readReport: "Read the report",
       readNetworkReport: "Read the network report",
-      diagramCaption: "Path of a web request through the lab",
+      diagramCaption: "Three flows: web request, LAN egress, pivot denied",
       diagram: {
-        aria: "Lab topology: Internet, OPNsense firewall, LAN with L3 switch and VLANs, DMZ with Ubuntu nginx server",
+        aria: "Animated lab topology: a web request comes in through the WAN, crosses the OPNsense firewall and reaches the nginx server in the DMZ; a LAN workstation goes out to the Internet through the L3 switch and the firewall; an attempt to bounce from the DMZ to the LAN is stopped by the anti-pivot rule.",
         internet: "The outside world: the visitor's request comes in through the WAN",
         opnsense: "OPNsense: NAT, filtering, DMZ isolation",
         switchL3: "Cisco L3 switch: inter-VLAN routing and ACLs",
-        dmz: "Ubuntu server in the DMZ: nginx serves the portfolio"
+        dmz: "Ubuntu server in the DMZ: nginx serves the portfolio",
+        deny: "Anti-pivot rule: from the DMZ, no packet can reach the LAN"
       },
       mboxCaption: "Actual project interface",
       nextProject: "Next project\ncurrently building…",
@@ -370,7 +383,7 @@ export const translations = {
       grafana: {
         category: "Monitoring · built at SBI",
         title: "6-screen Grafana wall",
-        desc: "Six screens showing the fleet status in real time: my Bash scripts query the Atera (tickets, alerts), KPAX (printers) and Veeam (backups) APIs and feed Grafana with JSON.",
+        desc: "Six screens showing the fleet status in real time, one screen per source: three for Atera (tickets, alerts, fleet), one for Veeam (backups), one for KPAX (printers), one for Bitdefender (endpoint protection). My Bash scripts query the APIs and feed Grafana with JSON.",
         tech: ["Grafana", "Bash", "API", "Veeam"]
       },
       cericar: {
@@ -400,14 +413,13 @@ export const translations = {
     },
     contact: {
       title: "Contact me",
-      subtitle: "Work-study Sept 2026 // Network • Cybersecurity • Infra",
-      employerNote: "For employers (France): €5,000 hiring aid (companies under 250 employees) · training funded by OPCO",
+      subtitle: "Apprenticeship under way // Network • Cybersecurity • Infra",
       cta: "Send an email",
       downloadCV: "Download resume"
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
-      uptime: "$ uptime · v4.0 · nginx · vps"
+      uptime: "$ uptime · v4.1 · nginx · vps"
     },
     notFound: {
       msg: "$ bash: page: command not found",
