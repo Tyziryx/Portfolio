@@ -31,34 +31,39 @@ export const translations = {
       inputAria: "Terminal du portfolio : tapez une commande, par exemple help",
       notFound: (cmd: string) => "bash: " + cmd + " : commande introuvable, essayez `help`",
       responses: {
-        "help": "commandes : whoami · stage · alternance · projets · cv · contact · systemctl status alexi · clear",
+        "help": "commandes : whoami · stage · alternance · projets · cv · contact · ls · uptime · ping tyzi.fr · history · systemctl status alexi · clear\nastuces : ↑ pour l'historique, Tab pour compléter",
         "whoami": "alexi · master SYRIUS CERI Avignon · alternant sys & réseaux @ COMAITE",
         "stage": "SBI Informatique (mai à août 2026, terminé · prolongé par avenant)\nphase 1 · projets :\n> maquette réseau PME GNS3 (VLANs, DMZ, OPNsense)\n> mur Grafana 6 écrans (Atera, KPAX, Veeam, Bitdefender)\nphase 2 · le quotidien avec l'équipe :\n> tickets & support client via Atera, parc impression KPAX\n> pare-feux OPNsense / pfSense / Stormshield\n> Windows Server 2022, interventions sur site",
         "projets": "→ direction la section Projets…",
         "projects": "→ direction la section Projets…",
         "cv": "→ ouverture du CV…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "cat contact.txt": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "ping tyzi.fr": "PING tyzi.fr : 56 octets de données\n64 octets de tyzi.fr : icmp_seq=1 ttl=54 temps=11.8 ms\n64 octets de tyzi.fr : icmp_seq=2 ttl=54 temps=11.2 ms\n--- nginx sur un VPS, derrière la même logique que la maquette DMZ ---",
         "alternance": "COMAITE SARL · Vedène (84) · hébergeur web & e-commerce\nposte : alternant systèmes & réseaux\ncontrat : du 1er sept 2026 au 31 août 2028, toute la durée du master\nrythme : 2 sem au CERI / 2 sem en entreprise\n→ alexim13550@gmail.com",
         "systemctl status alexi": "● alexi.service - alternant réseaux & systèmes\n   Loaded: loaded (CERI Avignon, master SYRIUS)\n   Active: active (running) depuis sept 2026 · COMAITE\n  Process: stage SBI 2026 (code=exited, status=0/SUCCESS)\n     Next: diplôme master SYRIUS · août 2028\n→ alexim13550@gmail.com",
         "ls": "alternance/  stage/  projets/  cv.pdf  contact.txt"
-      } as Record<string, string>
+      } as Record<string, string>,
+      sudo: "alexi n'est pas dans le fichier sudoers. Cet incident sera signalé.",
+      uptime: (d: number) => "up " + d + " jours · alternance COMAITE depuis le 1er sept 2026 · load average : 2 sem / 2 sem",
+      historyEmpty: "historique vide"
     },
     journey: {
       label: "01 // Parcours",
       title1: "Du cours",
       title2: "au terrain.",
-      apprenticeDate: "Sept 2026 à Août 2028 · En cours",
+      apprenticeDate: "Sept 2026 à août 2028 · En cours",
       apprenticeTitle: "Alternance Systèmes & Réseaux chez COMAITE",
       apprenticeSub: "Vedène (84) · hébergeur web & e-commerce",
       apprenticeStory: "Contrat signé sur ",
       apprenticeStoryHighlight: "les deux années du master",
-      apprenticeStoryEnd: ", en rythme 2 semaines au CERI puis 2 semaines en entreprise. Après le stage en prestation multi-clients chez SBI, je passe côté hébergeur : moins de parcs à gérer, plus de serveurs et de production web.",
-      internDate: "Mai à Août 2026 · Terminé · Prolongé par avenant",
+      apprenticeStoryEnd: ", en rythme 2 semaines au CERI puis 2 semaines en entreprise. Après le stage en prestation multi-clients chez SBI, je suis passé côté hébergeur : moins de parcs à gérer, plus de serveurs et de production web.",
+      internDate: "Mai à août 2026 · Terminé · Prolongé par avenant",
       internTitle: "Stage Adminsys & Réseau chez SBI Informatique",
       internSub: "Avignon Agroparc · prestataire IT & sécurité multi-clients",
-      internStory: "Recruté au départ pour des projets, puis ",
-      internStoryHighlight: "prolongé parce que l'équipe avait besoin de renfort",
-      internStoryEnd: " : j'ai fini le stage sur le terrain, au même rythme que les techniciens.",
+      internStory: "Prévu jusqu'au 12 juin pour des projets, puis ",
+      internStoryHighlight: "prolongé jusqu'au 14 août par avenant",
+      internStoryEnd: " : l'équipe m'a confié le quotidien, et j'ai fini le stage sur le terrain au même rythme que les techniciens.",
       phase1: "Phase 1",
       phase1Label: "Projets",
       phase1Items: [
@@ -77,7 +82,7 @@ export const translations = {
       degreeDate: "2023 à 2026",
       degreeTitle: "Licence Informatique au CERI Avignon",
       degreeSub: "CCNA1 · projets réseau & dev (Mbox, CeriCar, monitoring…)",
-      masterDate: "Sept 2026 à 2028 · En cours",
+      masterDate: "Sept 2026 à août 2028 · En cours",
       masterTitle: "Master SYRIUS · Réseaux & Cybersécurité",
       masterSub: "CERI Avignon · deux ans en alternance, dans la continuité de la licence"
     },
@@ -140,16 +145,9 @@ export const translations = {
       viewOnGithub: "Voir sur GitHub",
       readReport: "Lire le rapport",
       readNetworkReport: "Lire le rapport réseau",
-      diagramCaption: "Trois flux : requête web, sortie LAN, pivot refusé",
-      diagram: {
-        aria: "Topologie animée de la maquette : une requête web entre par le WAN, traverse le pare-feu OPNsense et atteint le serveur nginx en DMZ ; un poste du LAN sort vers Internet via le switch L3 puis le pare-feu ; une tentative de rebond depuis la DMZ vers le LAN est arrêtée par la règle anti-pivot.",
-        internet: "Le monde extérieur : la requête du visiteur arrive par le WAN",
-        opnsense: "OPNsense : NAT, filtrage, isolation de la DMZ",
-        switchL3: "Switch L3 Cisco : routage inter-VLAN et ACLs",
-        dmz: "Serveur Ubuntu en DMZ : nginx sert le portfolio",
-        deny: "Règle anti-pivot : depuis la DMZ, aucun paquet ne peut atteindre le LAN"
-      },
       mboxCaption: "Interface réelle du projet",
+      mboxAlt: "Interface d'administration Mbox",
+      wallCaption: "Reconstitution du mur · mock CSS/SVG, données fictives",
       nextProject: "Prochain projet\nen cours de build…",
       gns3: {
         category: "Infrastructure & Sécurité",
@@ -170,7 +168,7 @@ export const translations = {
         tech: ["Grafana", "Bash", "API", "Veeam"]
       },
       cericar: {
-        category: "Web Application",
+        category: "Application web",
         title: "CeriCar, covoiturage",
         desc: "Un BlaBlaCar étudiant monté en binôme avec Yii2 et PostgreSQL : recherche AJAX, réservations, profils conducteurs et passagers, gestion des rôles.",
         tech: ["Yii2", "PHP", "PostgreSQL", "Bootstrap"]
@@ -182,7 +180,7 @@ export const translations = {
         tech: ["Python", "Flask", "Linux"]
       },
       geodex: {
-        category: "Web Development",
+        category: "Développement web",
         title: "GéoDex, collection",
         desc: "Un site de collection de pierres en PHP natif, sans framework : authentification, profils utilisateurs, back-office admin et tout le CRUD écrit à la main sur PostgreSQL. En binôme.",
         tech: ["PHP", "PostgreSQL", "HTML/CSS"]
@@ -196,7 +194,7 @@ export const translations = {
     },
     contact: {
       title: "Contactez-moi",
-      subtitle: "Alternance en cours // Réseau • Cybersécurité • Infra",
+      subtitle: "Alternance en cours // Réseau • Systèmes • Infra",
       cta: "Envoyer un email",
       downloadCV: "Télécharger CV"
     },
@@ -225,7 +223,7 @@ export const translations = {
       contact: "Contact"
     },
     hero: {
-      status: "Apprentice @ COMAITE · SYRIUS Master's",
+      status: "Apprentice @ COMAITE · SYRIUS master's",
       title1: "Networks",
       title2: "& Systems.",
       description: "Master's student in the SYRIUS program at CERI, Avignon University, working as an apprentice in ",
@@ -234,7 +232,7 @@ export const translations = {
       cta: "See my projects",
       facts: [
         { label: "employer", value: "COMAITE" },
-        { label: "program", value: "SYRIUS Master's" },
+        { label: "program", value: "SYRIUS master's" },
         { label: "pace", value: "2 wks / 2 wks" },
         { label: "area", value: "Avignon area" }
       ]
@@ -248,17 +246,22 @@ export const translations = {
       inputAria: "Portfolio terminal: type a command, for example help",
       notFound: (cmd: string) => "bash: " + cmd + ": command not found, try `help`",
       responses: {
-        "help": "commands: whoami · stage · alternance · projects · cv · contact · systemctl status alexi · clear",
+        "help": "commands: whoami · internship · apprenticeship · projects · cv · contact · ls · uptime · ping tyzi.fr · history · systemctl status alexi · clear\ntips: ↑ for history, Tab to complete",
         "whoami": "alexi · SYRIUS master's at CERI Avignon · sys & network apprentice @ COMAITE",
-        "stage": "SBI Informatique (May to August 2026, completed · contract extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam, Bitdefender)\nphase 2 · day to day with the team:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
+        "stage": "SBI Informatique (May to August 2026, completed · internship extended)\nphase 1 · projects:\n> full SMB network lab in GNS3 (VLANs, DMZ, OPNsense)\n> 6-screen Grafana wall (Atera, KPAX, Veeam, Bitdefender)\nphase 2 · day to day with the team:\n> daily client tickets & support via Atera, KPAX printer fleet\n> firewalls: OPNsense / pfSense / Stormshield\n> Windows Server 2022, on-site interventions",
         "projects": "→ heading to the Projects section…",
         "projets": "→ heading to the Projects section…",
         "cv": "→ opening the resume…",
         "contact": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "cat contact.txt": "alexim13550@gmail.com · linkedin.com/in/alexi-miaille-baba88333",
+        "ping tyzi.fr": "PING tyzi.fr: 56 data bytes\n64 bytes from tyzi.fr: icmp_seq=1 ttl=54 time=11.8 ms\n64 bytes from tyzi.fr: icmp_seq=2 ttl=54 time=11.2 ms\n--- nginx on a VPS, built on the same logic as the DMZ lab ---",
         "alternance": "COMAITE SARL · Vedène, Vaucluse · web & e-commerce hosting\nrole: systems & network apprentice\ncontract: 1 Sept 2026 to 31 Aug 2028, the full length of the master's\npace: 2 wks at CERI / 2 wks at the company\n→ alexim13550@gmail.com",
         "systemctl status alexi": "● alexi.service - networks & systems apprentice\n   Loaded: loaded (CERI Avignon, SYRIUS master's)\n   Active: active (running) since Sept 2026 · COMAITE\n  Process: SBI internship 2026 (code=exited, status=0/SUCCESS)\n     Next: SYRIUS master's degree · Aug 2028\n→ alexim13550@gmail.com",
-        "ls": "apprenticeship/  internship/  projects/  resume.pdf"
-      } as Record<string, string>
+        "ls": "apprenticeship/  internship/  projects/  cv.pdf  contact.txt"
+      } as Record<string, string>,
+      sudo: "alexi is not in the sudoers file. This incident will be reported.",
+      uptime: (d: number) => "up " + d + " days · apprentice at COMAITE since 1 Sept 2026 · load average: 2 wks / 2 wks",
+      historyEmpty: "history is empty"
     },
     journey: {
       label: "01 // Journey",
@@ -269,13 +272,13 @@ export const translations = {
       apprenticeSub: "Vedène, Vaucluse · web & e-commerce hosting",
       apprenticeStory: "Signed for ",
       apprenticeStoryHighlight: "the full two years of the master's",
-      apprenticeStoryEnd: ", alternating 2 weeks at CERI and 2 weeks at the company. After the internship on the multi-client provider side at SBI, I am moving to the hosting side: fewer client fleets to look after, more servers and live web production.",
-      internDate: "May to August 2026 · Completed · Contract extended",
+      apprenticeStoryEnd: ", alternating 2 weeks at CERI and 2 weeks at the company. After the internship on the multi-client provider side at SBI, I am now on the hosting side: fewer client fleets to look after, more servers and live web production.",
+      internDate: "May to August 2026 · Completed · Internship extended",
       internTitle: "Sysadmin & Network intern at SBI Informatique",
       internSub: "Avignon Agroparc · multi-client IT & security provider",
-      internStory: "Initially hired for projects, then ",
-      internStoryHighlight: "extended because the team needed backup",
-      internStoryEnd: ": I finished the internship out in the field, at the same pace as the technicians.",
+      internStory: "Planned until mid-June for projects, then ",
+      internStoryHighlight: "extended to mid-August",
+      internStoryEnd: ": the team trusted me with day-to-day work, and I finished the internship out in the field at the same pace as the technicians.",
       phase1: "Phase 1",
       phase1Label: "Projects",
       phase1Items: [
@@ -294,7 +297,7 @@ export const translations = {
       degreeDate: "2023 to 2026",
       degreeTitle: "BSc Computer Science at CERI Avignon",
       degreeSub: "CCNA1 · network & dev projects (Mbox, CeriCar, monitoring…)",
-      masterDate: "Sept 2026 to 2028 · In progress",
+      masterDate: "Sept 2026 to Aug 2028 · Ongoing",
       masterTitle: "SYRIUS Master's · Networks & Cybersecurity",
       masterSub: "CERI Avignon · two years as an apprentice, straight on from the BSc"
     },
@@ -357,16 +360,9 @@ export const translations = {
       viewOnGithub: "View on GitHub",
       readReport: "Read the report",
       readNetworkReport: "Read the network report",
-      diagramCaption: "Three flows: web request, LAN egress, pivot denied",
-      diagram: {
-        aria: "Animated lab topology: a web request comes in through the WAN, crosses the OPNsense firewall and reaches the nginx server in the DMZ; a LAN workstation goes out to the Internet through the L3 switch and the firewall; an attempt to bounce from the DMZ to the LAN is stopped by the anti-pivot rule.",
-        internet: "The outside world: the visitor's request comes in through the WAN",
-        opnsense: "OPNsense: NAT, filtering, DMZ isolation",
-        switchL3: "Cisco L3 switch: inter-VLAN routing and ACLs",
-        dmz: "Ubuntu server in the DMZ: nginx serves the portfolio",
-        deny: "Anti-pivot rule: from the DMZ, no packet can reach the LAN"
-      },
       mboxCaption: "Actual project interface",
+      mboxAlt: "Mbox admin interface",
+      wallCaption: "Wall reconstruction · CSS/SVG mock, sample data",
       nextProject: "Next project\ncurrently building…",
       gns3: {
         category: "Infrastructure & Security",
@@ -413,7 +409,7 @@ export const translations = {
     },
     contact: {
       title: "Contact me",
-      subtitle: "Apprenticeship under way // Network • Cybersecurity • Infra",
+      subtitle: "Apprenticeship under way // Network • Systems • Infra",
       cta: "Send an email",
       downloadCV: "Download resume"
     },
