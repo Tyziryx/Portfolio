@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
 
+// injectée par vite.config.ts depuis package.json
+declare const __APP_VERSION__: string;
+
 declare module '*.jpg' {
   const src: string;
   export default src;

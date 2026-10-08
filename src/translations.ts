@@ -200,7 +200,7 @@ export const translations = {
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
-      uptime: "$ uptime · v4.1 · nginx · vps"
+      uptime: `$ uptime · v${__APP_VERSION__} · nginx · vps`
     },
     notFound: {
       msg: "$ bash: page: commande introuvable",
@@ -415,7 +415,7 @@ export const translations = {
     },
     footer: {
       copyright: "© 2026 // ALEXI_MIAILLE",
-      uptime: "$ uptime · v4.1 · nginx · vps"
+      uptime: `$ uptime · v${__APP_VERSION__} · nginx · vps`
     },
     notFound: {
       msg: "$ bash: page: command not found",
