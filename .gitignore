@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Documents sources (rapports, PDF de travail) : local uniquement, jamais publiés
+sources/
+
+# Claude Code / outils locaux
+.claude/settings.local.json
+.lean-ctx/

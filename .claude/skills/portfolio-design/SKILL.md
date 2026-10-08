@@ -57,6 +57,16 @@ Le **terminal interactif** du hero est LA pièce signature. Tout nouvel élémen
 - DevInspo et Muzli pour les tendances portfolio dev
 - Heuristiques Nielsen Norman (https://www.nngroup.com/articles/ten-usability-heuristics/) : statut visible, cohérence, minimalisme, messages d'erreur clairs (notre 404 terminal), reconnaissance plutôt que mémorisation
 
+## Sources de contenu (local, hors git)
+
+Le dossier `sources/` (ignoré par git, jamais déployé) contient les documents de référence. Les lire avant d'écrire du contenu factuel :
+- `sources/PROJET RÉSEAU PME  DMZ ET APPLICATION WEB.pdf` : rapport de la maquette GNS3 (adressage, règles OPNsense, ACL, 33 tests). Même fichier que `public/Rapport Reseau PME DMZ.pdf`.
+- `sources/rapport-stage-SBI.pdf` : rapport de stage SBI. Contient des infos internes : s'en servir pour les faits, ne jamais le publier ni citer le tuteur.
+
+## Versioning
+
+Version unique dans `package.json`, affichée dans le pied de page. Chaque publication : section dans `CHANGELOG.md`, puis `npm version patch|minor|major` et `git push --follow-tags`.
+
 ## Process
 
 Avant modification visuelle : relire ces tokens, vérifier sur mobile (≤ 700px), builder (`npm run build`), puis déployer selon la mémoire `reference-vps-deploy`.
